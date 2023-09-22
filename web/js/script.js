@@ -1,51 +1,67 @@
+const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Record';
+async function get(url) {                                              
+  try {                                              
+    const response = await fetch(url);                                               
+    if (!response.ok) {                                              
+      throw new Error(`Ошибка HTTP: ${response.status}`);                                              
+    }                                              
+    const data = await response.json();                                              
+    return data;                                               
+  } catch (error) {                                              
+    console.error('Произошла ошибка:', error);                                               
+    throw error;                                               
+  }                                              
+ } 
 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  let renderExecuted = false;
-  let g = false
-      
-setInterval(() => {
-if (document.getElementById("edi1") && document.getElementById("edi2")) {
-const f = document.getElementById("edi1");
-const f2 = document.getElementById("edi2");
-getips().then((ips) => {
-getip().then((ip) => {
-
-  let b = JSON.parse(ips)
-  const containsAInB = b.includes(ip);
-
-  if (containsAInB) {
-  g = true
-  f.style.display = "none";
-  f2.style.display = "none"; 
-  console.log('hide choice')
-  } 
-
-})
- .catch((error) => {
-   console.error('Произошла ошибка при получении IP:', error);
- });
-    
-})
-.catch((error) => {
-  console.error('Произошла ошибка при получении IP:', error);
-});     
-     
-async function get(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
-    const data = await response.json();
-    return data; 
-  } catch (error) {
-    console.error('Произошла ошибка:', error);
-    throw error; 
+document.addEventListener('DOMContentLoaded', () => {                                              
+render()
+get(apiUrl)
+.then((data)=>{
+const n = data.find(f=>f.class===localStorage.class)
+if (n) {
+  document.getElementById("p").style.display = "block";
+  if (n.za>n.nine) {
+    document.getElementById("p1").style.display = "block";
+    document.getElementById("p2").style.display = "none";
   }
- }
+  else if (n.nine>n.za) {
+    document.getElementById("p1").style.display = "block";
+    document.getElementById("p2").style.display = "none";
+  }
+}
+})
 
+let renderExecuted = false;                                              
+let g = false                                              
+      
+setInterval(() => {                                              
+if (document.getElementById("edi1") && document.getElementById("edi2")) {                                              
+const f = document.getElementById("edi1");                                               
+const f2 = document.getElementById("edi2");                                              
+getips().then((ips) => {                                               
+getip().then((ip) => {                                               
+
+  let b = JSON.parse(ips)                                              
+  const containsAInB = b.includes(ip);                                               
+
+  if (containsAInB) {                                              
+  g = true                                               
+  f.style.display = "none";                                              
+  f2.style.display = "none";                                               
+  console.log('hide choice')                                               
+  }                                                
+
+})                                               
+ .catch((error) => {                                               
+   console.error('Произошла ошибка при получении IP:', error);                                               
+ });                                               
+    
+})                                               
+.catch((error) => {                                              
+  console.error('Произошла ошибка при получении IP:', error);                                              
+});                                                    
+    
+                                              
 
 get("/state").then((data)=>{
 
@@ -171,7 +187,7 @@ const urlWithEncodedData = `${currentUrl}?encodedData=${encodedData}`;
 console.log(urlWithEncodedData);
 
 
-const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Record';
+
 
 
 async function fetchData() {
@@ -242,6 +258,13 @@ async function addnine() {
                 <p>За перше ${item.za}</p>
                 <p>За друге ${item.nine}</p>
                 <p>${item.class}</p>
+
+                <div id="p">
+
+                <div id="p1">${item.eat1}</div>
+                <div id="p2">${item.eat2}</div>
+
+                </div>
             </div>
 
         `;
@@ -251,4 +274,3 @@ async function addnine() {
         });
     }
     
-render()
