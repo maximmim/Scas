@@ -12,8 +12,9 @@ app.set("port", PORT);
 let private = [];
 const API_KEY_BOT = '2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI';
 const bot = new TelegramBot(API_KEY_BOT, {
-  polling: true
+  polling: true 
 });
+
 
 let votedIPs = [];
 
@@ -114,29 +115,14 @@ bot.on('callback_query', async (callbackQuery) => {
   if (data === 'Подтвердить') {
     if (gig) {
       bot.sendMessage(chatId, `Ви обрали клас: ${gig}`);
-    } else {
-      bot.sendMessage(chatId, 'Спочтку оберіть клас');
-    }
-  } else {
-    gig = data;
-    const confirmKeyboard = createConfirmInlineKeyboard();
-    await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
-    await bot.sendMessage(chatId, "Наступні 2 повідомлення будуть стравами");
-  }
-});
-
-
-let savedMessages = [];
-
-bot.on('text', async msg => {
-  try {
-    var chatId = msg.from.id;
-    global.msgd = msg
-    if (msg.text.startsWith('/start')) {
-      
-      if (!savedMessages) {
-        savedMessages = [];
-      }
+      createData({
+        "class": gig,
+        "eat1": "",
+        "eat2": "",
+        "za": 0,
+        "nine": 0,
+        "tg":global.msgd.chat.id
+      });
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
           keyboard: [
@@ -144,51 +130,83 @@ bot.on('text', async msg => {
           ]
         }
       });
-    } else if (msg.text == "Створити Вибір їжі") {
-       
+    } else {
+      bot.sendMessage(chatId, 'Спочтку оберіть клас');
+    }
+  } else {
+    gig = data;
+    const confirmKeyboard = createConfirmInlineKeyboard();
+    await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
+    
+  }
+});
+
+async function get(url) {                                              
+  try {                                              
+    const response = await fetch(url);                                               
+    if (!response.ok) {                                              
+      throw new Error(`Ошибка HTTP: ${response.status}`);                                              
+    }                                              
+    const data = await response.json();                                              
+    return data;                                               
+  } catch (error) {                                              
+    console.error('Произошла ошибка:', error);                                               
+    throw error;                                               
+  }                                              
+ } 
+
+let savedMessages = [];
+bot.on('text', async (nextMsg) => {
+  try {
+    var chatId = nextMsg.from.id;
+    global.msgd = nextMsg;
+    let isReadingText = true; 
+
+    if (nextMsg.text.startsWith('/start')) {
       const classKeyboard = createClassInlineKeyboard();
-      bot.sendMessage(chatId, 'Выберите класс:', classKeyboard)
-
-      let isReadingText = true; 
-
-      bot.on('text', async (nextMsg) => {
-
+      await bot.sendMessage(chatId, 'Виберіть клас яким ви керуєте:', classKeyboard)
+      
+    } else if (nextMsg.text == "Створити Вибір їжі") {
+      await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
+      bot.on('text', async (thirdMsg) => {
         if (isReadingText) {
-          if (!savedMessages) {
-            savedMessages = [];
-          }
-          savedMessages.push(nextMsg.text);
-      
+
+          savedMessages.push(thirdMsg.text);
+
           if (savedMessages.length >= 2) {
-            isReadingText = false; 
+            isReadingText = false;
             await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
-      
-            let data = {
-              "class": gig,
-              "eat1": savedMessages[0],
-              "eat2": savedMessages[1],
-              "za": 0,
-              "nine": 0,
-              "tg":msg.chat.id
-            };
-      
-            checkAndUpdateData(data.class, data)
-              .then(() => {
-                sned(data);
-              })
-              .catch(async error => {
-                await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
-                console.log("Помилка ~_~ :", error);
-              });
-      
+  let fd = {
+                  "class": "",
+                  "eat1": savedMessages[0],
+                  "eat2": savedMessages[1],
+                  "za": 0,
+                  "nine": 0,
+                  "tg": nextMsg.chat.id
+                };
+            let g = ""
+            get(url).then((dat) => {
+              let h = dat.find(o => o.tg === nextMsg.chat.id)
+              if (h) {
+                g = h.class;
+                
+                fd.class = g
+                console.log(fd)
+                checkAndUpdateData(fd.class, fd)
+                  .then(() => {
+                    sned(fd);
+                  })
+                  .catch(async error => {
+                    await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
+                    console.log(error);
+                  });
+              }
+            });
 
             savedMessages = [];
           }
         }
       });
-      
-    } else {
-      
     }
   } catch (error) {
     console.log(error);
@@ -196,19 +214,7 @@ bot.on('text', async msg => {
 });
 
 
-async function get(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
-    const data = await response.json();
-    return data; 
-  } catch (error) {
-    console.error('Произошла ошибка:', error);
-    throw error; 
-  }
- }
+
 
 async function checkAndUpdateData(targetClass, dataToUpdate) {
   try {
@@ -295,6 +301,7 @@ get(url).then(async (dd) => {
   console.log(d);
   console.log(dd);
 
+
   if (dіd.za > dіd.nine) {
     v = 1;
     console.log("Вийграла перша страва");
@@ -311,7 +318,7 @@ get(url).then(async (dd) => {
 
   
  
-  }, 0.3 * 60 * 1000);
+  }, 1 * 60 * 1000);
 }
 
 server.listen(PORT, function () {

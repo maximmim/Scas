@@ -1,3 +1,5 @@
+let dg = true
+let da = false
 const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Record';
 async function get(url) {                                              
   try {                                              
@@ -13,31 +15,82 @@ async function get(url) {
   }                                              
  } 
 
-document.addEventListener('DOMContentLoaded', () => {                                              
+ function getRandomGrayRGBA() {
+  const baseValue = 100; 
+  const range = 100; 
+  const r = Math.floor(baseValue + Math.random() * range); 
+  const g = Math.floor(baseValue + Math.random() * range); 
+  const b = Math.floor(baseValue + Math.random() * range); 
+  const a = Math.random();
+
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+       
+  
+
+
+
 render()
-get(apiUrl)
-.then((data)=>{
-const n = data.find(f=>f.class===localStorage.class)
+.then(()=>{
+  get(apiUrl).then((data)=>{
+
+  
+  const n = data.find(f=>f.class===localStorage.class)
 if (n) {
   document.getElementById("p").style.display = "block";
+  document.getElementById("dw").style.display = "none";
+
   if (n.za>n.nine) {
     document.getElementById("p1").style.display = "block";
     document.getElementById("p2").style.display = "none";
+    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
   else if (n.nine>n.za) {
-    document.getElementById("p1").style.display = "block";
+    document.getElementById("p1").style.display = "none";
+    document.getElementById("p2").style.display = "block";
+    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+  }
+  else {
+    document.getElementById("p1").style.display = "none";
     document.getElementById("p2").style.display = "none";
+    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
 }
 })
+});
+
 
 let renderExecuted = false;                                              
 let g = false                                              
-      
+let g1 = getRandomGrayRGBA()
+let g2 = getRandomGrayRGBA()
+
+
+
+
 setInterval(() => {                                              
 if (document.getElementById("edi1") && document.getElementById("edi2")) {                                              
 const f = document.getElementById("edi1");                                               
-const f2 = document.getElementById("edi2");                                              
+const f2 = document.getElementById("edi2");      
+
+
+
+ get("/state").then((data) => {
+
+
+    const gd = data.find(obj => obj.class === localStorage.class);
+
+    if (gd && gd.state == true) {
+      f.style.backgroundColor = g1
+      f2.style.backgroundColor = g2
+    }
+    else {
+      console.log("error");
+    }
+  }); 
+
 getips().then((ips) => {                                               
 getip().then((ip) => {                                               
 
@@ -69,11 +122,20 @@ let state = false
 const gd = data.find(obj => obj.class === localStorage.class);
 
 if(gd) {
+
+
   if (gd.state== true) {
     state = true
+
+
   }
   else if (gd.state==false) {
-    state = false
+    state = false;
+    document.getElementById("dw").style.display = "none";
+    
+    document.getElementById("p1").style.display = "none";
+    document.getElementById("p2").style.display = "block";
+    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
 }
 else {
@@ -83,6 +145,7 @@ else {
         if (!renderExecuted && state === true && g !== true) {
 
     render().then(() => {
+
     f2.style.display = "block";
     f.style.display = "block"; 
     })
@@ -119,10 +182,10 @@ fetch('/addValue', {
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
-    return response.text(); // Вернет текст, который можете использовать для подтверждения
+    return response.text();
   })
   .then((message) => {
-    console.log(message); // Это сообщение будет "Значение успешно добавлено в массив."
+    console.log(message);
   })
   .catch((error) => {
     console.error('Произошла ошибка:', error);
@@ -252,17 +315,15 @@ async function addnine() {
             return `
 
             <div id="d">
-                <p>Виберіть їжу</p>
-                <p id='edi1' onclick="addza()">-${item.eat1}</p>
-                <p id='edi2' onclick="addnine()">-${item.eat2}</p>
-                <p>За перше ${item.za}</p>
-                <p>За друге ${item.nine}</p>
-                <p>${item.class}</p>
+            <div  id='edi1' onclick="addza()"><p>${item.eat1}</p></div>
+            <div  id='edi2' onclick="addnine()"><p>${item.eat2}</p></div>
+            <p id="dw">Виберіть, що хочете їсти</p>
 
-                <div id="p">
 
-                <div id="p1">${item.eat1}</div>
-                <div id="p2">${item.eat2}</div>
+                <div class="p" id="p">
+
+                <p id="p1">${item.eat1}</p>
+                <p  id="p2">${item.eat2}</p>
 
                 </div>
             </div>
