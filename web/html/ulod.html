@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+
+const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Record';
+
+async function render() {
+      return await fetch(apiUrl)
+        .then((response) => response.json())
+        .then((res) => {
+   
+          const htmlMarkup = res.map((item) => {
+            return `
+
+            <div id="db">
+                <h1 id="b">${item.class}</h1>
+                <p id="b1">${item.za} порцій ${item.eat1}</p>
+                <p id="b2">${item.nine} порцій ${item.eat2}</p>
+                <p id="b3">Всьго порцій: ${item.za + item.nine}</p>
+            </div>
+
+        `;
+          }).join('');
+    
+          document.getElementById('content').innerHTML = htmlMarkup;
+        });
+    }
+    
+
+render()
+
+    </script>
+    
+</head>
+<body>
+    <div id="content"></div>
+</body>
+</html>

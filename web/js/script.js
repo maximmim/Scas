@@ -21,7 +21,7 @@ async function get(url) {
   const r = Math.floor(baseValue + Math.random() * range); 
   const g = Math.floor(baseValue + Math.random() * range); 
   const b = Math.floor(baseValue + Math.random() * range); 
-  const a = Math.random();
+  const a = Math.random(0.5);
 
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
@@ -43,18 +43,13 @@ if (n) {
   document.getElementById("dw").style.display = "none";
 
   if (n.za>n.nine) {
-    document.getElementById("p1").style.display = "block";
-    document.getElementById("p2").style.display = "none";
     document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
   else if (n.nine>n.za) {
-    document.getElementById("p1").style.display = "none";
-    document.getElementById("p2").style.display = "block";
+  
     document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
   else {
-    document.getElementById("p1").style.display = "none";
-    document.getElementById("p2").style.display = "none";
     document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
   }
 }
@@ -86,8 +81,9 @@ const f2 = document.getElementById("edi2");
       f.style.backgroundColor = g1
       f2.style.backgroundColor = g2
     }
+    
     else {
-      console.log("error");
+
     }
   }); 
 
@@ -99,8 +95,10 @@ getip().then((ip) => {
 
   if (containsAInB) {                                              
   g = true                                               
-  f.style.display = "none";                                              
-  f2.style.display = "none";                                               
+  document.getElementById("dw").style.display = "none";
+  f.style.display = "none";
+  f2.style.display = "none"; 
+   document.getElementById("p").style.backgroundColor = g1                                        
   console.log('hide choice')                                               
   }                                                
 
@@ -130,12 +128,13 @@ if(gd) {
 
   }
   else if (gd.state==false) {
-    state = false;
     document.getElementById("dw").style.display = "none";
+    state = false;
     
-    document.getElementById("p1").style.display = "none";
-    document.getElementById("p2").style.display = "block";
-    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+    
+    f.style.display = "none";
+    f2.style.display = "none"; 
+    document.getElementById("p").style.backgroundColor = g1
   }
 }
 else {
@@ -158,6 +157,8 @@ else {
         if (state === false) {
           f.style.display = "none";
           f2.style.display = "none"; 
+          document.getElementById("p").display = "block"; 
+          
         } 
 })
     }
@@ -284,24 +285,36 @@ async function updateData(updatedItem) {
 
 }
 
+function awdf() {
+    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+    document.getElementById("dw").style.display = "none";
+    document.getElementById("p").style.display = "block";
+    document.getElementById("edi1").style.display = "none";
+    document.getElementById("edi2").style.display = "none";
+}
+
 async function addza() {
+  awdf();
+  addip(1);
   const data = await fetchData();
-  addip(1)
   const itemToUpdate = data.find(item => item.class === localStorage.class);
   
     itemToUpdate.za += 1;
     await updateData(itemToUpdate);
-    await render()
+    
+    
 }
 
 async function addnine() {
-    const data = await fetchData();
-    addip(2)
-    const itemToUpdate = data.find(item => item.class === localStorage.class);
-  
-      itemToUpdate.nine += 1;
-      await updateData(itemToUpdate);
-      await render() 
+  awdf();
+  addip(2);
+  const data = await fetchData();
+  const itemToUpdate = data.find(item => item.class === localStorage.class);
+
+    itemToUpdate.nine += 1;
+    await updateData(itemToUpdate);
+      
+
     }
     async function render() {
       return await fetch(apiUrl)
@@ -315,15 +328,14 @@ async function addnine() {
             return `
 
             <div id="d">
-            <div  id='edi1' onclick="addza()"><p>${item.eat1}</p></div>
-            <div  id='edi2' onclick="addnine()"><p>${item.eat2}</p></div>
+            <div id='edi1' onclick="addza()"><p>${item.eat1}</p></div>
+            <div id='edi2' onclick="addnine()"><p>${item.eat2}</p></div>
             <p id="dw">Виберіть, що хочете їсти</p>
 
 
                 <div class="p" id="p">
 
-                <p id="p1">${item.eat1}</p>
-                <p  id="p2">${item.eat2}</p>
+
 
                 </div>
             </div>

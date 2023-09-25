@@ -131,7 +131,7 @@ bot.on('callback_query', async (callbackQuery) => {
         }
       });
     } else {
-      bot.sendMessage(chatId, 'Спочтку оберіть клас');
+      await bot.sendMessage(chatId, 'Спочтку оберіть клас');
     }
   } else {
     gig = data;
@@ -155,6 +155,17 @@ async function get(url) {
   }                                              
  } 
 
+ 
+const commands = [
+
+  {
+
+      command: "menu",
+      description: "Показти меню"
+
+  }
+]
+
 let savedMessages = [];
 bot.on('text', async (nextMsg) => {
   try {
@@ -165,8 +176,19 @@ bot.on('text', async (nextMsg) => {
     if (nextMsg.text.startsWith('/start')) {
       const classKeyboard = createClassInlineKeyboard();
       await bot.sendMessage(chatId, 'Виберіть клас яким ви керуєте:', classKeyboard)
-      
-    } else if (nextMsg.text == "Створити Вибір їжі") {
+      await bot.setMyCommands(commands);
+    }     else if (nextMsg.text == "/menu") {        
+      await bot.setMyCommands(commands);
+      await bot.sendMessage(chatId, `Меню бота`, {
+        reply_markup: {
+          keyboard: [
+            ['Створити Вибір їжі']
+          ]
+        }
+      });
+      }
+       else if (nextMsg.text == "Створити Вибір їжі") {
+ 
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
       bot.on('text', async (thirdMsg) => {
         if (isReadingText) {
@@ -271,7 +293,7 @@ async function createData(newData) {
   if (response.ok) {
     console.log("Новий обєкт створено");
   } else {
-    console.error("Помилка при надсиланні даних :", response.status);
+    console.error("Помилка при надсиланні даних:  ", response.status);
   }
 }
 
@@ -295,30 +317,21 @@ else {
 }
 
 get(url).then(async (dd) => {
-  let dіd = dd.find(obj => obj.class === d.class);
-  console.log(dіd);
-  let v;
-  console.log(d);
-  console.log(dd);
+  let did = dd.find(obj => obj.class === d.class);
 
 
-  if (dіd.za > dіd.nine) {
-    v = 1;
-    console.log("Вийграла перша страва");
-    await bot.sendMessage(dіd.tg, `Вийграла ${v} страва ${dіd.za}`);
-  } else if (dіd.za < dіd.nine) { 
-    v = 2;
-    console.log("Вийграла перша страва");
-    await bot.sendMessage(dіd.tg, `Вийграла ${v} страва ${dіd.nine}`);
-  } else {
-    console.log(123123123);
-  }
+  await bot.sendMessage(did.tg, `
+  За ${did.eat1} прогулусували ${did.za}
+  \nза ${did.eat2} прогулусували ${did.nine}
+  \nусьго порцій: ${did.za+did.nine}`
+  );
+ 
 });
 
 
   
  
-  }, 1 * 60 * 1000);
+  }, 0.5 * 60 * 1000);
 }
 
 server.listen(PORT, function () {
