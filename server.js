@@ -9,14 +9,14 @@ const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 app.set("port", PORT);
 
-let private = [];
+let private = [{class: '7-Д', state: true}];
 const API_KEY_BOT = '2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI';
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });
 
 
-let votedIPs = [];
+let ips = [];
 
 app.use(express.json());
 
@@ -25,41 +25,26 @@ const url = "https://644ab0e4a8370fb32155be44.mockapi.io/Record";
 app.use("/web", express.static(__dirname + "/web"));
 app.use(expressIP().getIpInfoMiddleware);
 app.get("/", (req, res) => {
-  res.redirect("/web/html/index.html");
+  res.redirect("/web/html/menu.html");
 });
-
-async function fetchData() {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Помилка ${response.status}`);
-    }
-    const data = await response.json();
-    
-    return data;
-  } catch (error) {
-    console.error('Помилка ', error);
-  }
-}
 
 app.get("/p", (req, res) => {
   const userIP = req.ipInfo.ip;
-  let data = {
+
+  res.json({
     "ip": userIP
-  };
-  res.json(data);
+  });
 });
 
 app.get("/state", (req, res) => {
   res.json(private)
 });
 app.get("/getips", (req, res) => {
-  res.json(JSON.stringify(votedIPs));
+  res.json(JSON.stringify(ips));
 });
 app.post('/addValue', async (req, res) => {
-  const receivedValue = req.body.value;
   const usercli = req.body.user;
-  votedIPs.push(receivedValue);
+  ips.push(req.body.value);
   await bot.sendMessage(global.msgd.from.id, `Одна людина проголосувала за: ${usercli}`);
 });
 
@@ -98,7 +83,7 @@ function createClassInlineKeyboard() {
   };
 }
 
-function createConfirmInlineKeyboard() {
+function c() {
   return {
     reply_markup: {
       inline_keyboard: [
@@ -135,7 +120,7 @@ bot.on('callback_query', async (callbackQuery) => {
     }
   } else {
     gig = data;
-    const confirmKeyboard = createConfirmInlineKeyboard();
+    const confirmKeyboard = c();
     await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
     
   }
@@ -174,8 +159,17 @@ bot.on('text', async (nextMsg) => {
     let isReadingText = true; 
 
     if (nextMsg.text.startsWith('/start')) {
+      get(url).then(async (data)=>{
+        var h = data.find(da=>da.tg===nextMsg.chat.id)
+        if (h) {
       const classKeyboard = createClassInlineKeyboard();
       await bot.sendMessage(chatId, 'Виберіть клас яким ви керуєте:', classKeyboard)
+        }
+        else {
+          await bot.sendMessage(chatId, 'Ви вже зарегестровані на сайті')
+        }
+      })
+
       await bot.setMyCommands(commands);
     }     else if (nextMsg.text == "/menu") {        
       await bot.setMyCommands(commands);
@@ -214,7 +208,7 @@ bot.on('text', async (nextMsg) => {
                 
                 fd.class = g
                 console.log(fd)
-                checkAndUpdateData(fd.class, fd)
+                check(fd.class, fd)
                   .then(() => {
                     sned(fd);
                   })
@@ -238,7 +232,7 @@ bot.on('text', async (nextMsg) => {
 
 
 
-async function checkAndUpdateData(targetClass, dataToUpdate) {
+async function check(targetClass, dataToUpdate) {
   try {
     const response = await fetch(url);
 
@@ -308,7 +302,7 @@ function sned(d) {
 
     
 const foundObject = private.find(obj => obj.class === d.class);
-
+ips = []
 if (foundObject) {
   foundObject.state = false
 }
@@ -321,8 +315,8 @@ get(url).then(async (dd) => {
 
 
   await bot.sendMessage(did.tg, `
-  За ${did.eat1} прогулусували ${did.za}
-  \nза ${did.eat2} прогулусували ${did.nine}
+  За "${did.eat1}" прогулусували ${did.za}
+  \nза "${did.eat2}" прогулусували ${did.nine}
   \nусьго порцій: ${did.za+did.nine}`
   );
  
@@ -331,7 +325,7 @@ get(url).then(async (dd) => {
 
   
  
-  }, 0.5 * 60 * 1000);
+  }, 2 * 60 * 1000);
 }
 
 server.listen(PORT, function () {

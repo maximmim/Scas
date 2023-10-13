@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menud</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+
+<script>
+function darkenColor(color, percentage) {
+
+  const match = color.match(/rgba?\((\d+), (\d+), (\d+)(, ([\d.]+))?\)/);
+
+  if (match) {
+
+    const r = parseInt(match[1]);
+    const g = parseInt(match[2]);
+    const b = parseInt(match[3]);
+    const a = parseFloat(match[5] || 1);
+
+
+    const newR = Math.max(0, r - r * (percentage / 100));
+    const newG = Math.max(0, g - g * (percentage / 100));
+    const newB = Math.max(0, b - b * (percentage / 100));
+
+ 
+    return `rgba(${newR}, ${newG}, ${newB}, ${a})`;
+  } else {
+    return color;
+  }
+}
+ function randomcol() {
+  const baseValue = 100; 
+  const range = 100; 
+  const r = Math.floor(baseValue + Math.random() * range); 
+  const g = Math.floor(baseValue + Math.random() * range); 
+  const b = Math.floor(baseValue + Math.random() * range); 
+  const a = Math.random();
+
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+  localStorage.d = randomcol()
+
+const darkenedColor = darkenColor(localStorage.d, 50);
+document.getElementById("buttgol").style.backgroundColor = localStorage.d 
+  document.getElementById("butt1").style.backgroundColor = localStorage.d 
+  document.getElementById("butt2").style.backgroundColor = localStorage.d 
+   document.getElementById("Head").style.backgroundColor = darkenedColor
+   document.getElementById("Down").style.backgroundColor = darkenedColor
+  
+  
+
+})
+
+</script>    
+</head>
+
+<body>
+
+<div id="Head">Dansh</div>
+<div id="Down"></div>
+
+<div id="buttgol"><p>Голосування</p></div>
+<div class="half-width" id="butt1"><p>Буфет</p></div>
+<div class="half-width" id="butt2"><p>Корисна їжа</p></div>
+
+<iframe id="if1" src="./index.html"></iframe>
+    
+
+
+
+</body>
+</html>

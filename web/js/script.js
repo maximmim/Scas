@@ -5,62 +5,79 @@ async function get(url) {
   try {                                              
     const response = await fetch(url);                                               
     if (!response.ok) {                                              
-      throw new Error(`Ошибка HTTP: ${response.status}`);                                              
+    console.log(response.status)       
+    throw new Error(response.status)                                       
     }                                              
     const data = await response.json();                                              
     return data;                                               
   } catch (error) {                                              
-    console.error('Произошла ошибка:', error);                                               
-    throw error;                                               
+    console.error(error);                                               
+    throw new Error(error);                                               
   }                                              
  } 
 
- function getRandomGrayRGBA() {
-  const baseValue = 100; 
-  const range = 100; 
-  const r = Math.floor(baseValue + Math.random() * range); 
-  const g = Math.floor(baseValue + Math.random() * range); 
-  const b = Math.floor(baseValue + Math.random() * range); 
-  const a = Math.random(0.5);
-
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
+ 
 
 document.addEventListener('DOMContentLoaded', () => {
-       
+let renderExecuted = false;                                              
+let g = false                                              
+window.gw = localStorage.d 
   
-
-
-
 render()
-.then(()=>{
+  
+get("/state").then((data)=>{
+  let o = data.find(h=>h.class===localStorage.class)
+  if (o) {
+    if (o.state === true) {
+
+    }
+    else {
+      
   get(apiUrl).then((data)=>{
 
   
-  const n = data.find(f=>f.class===localStorage.class)
-if (n) {
-  document.getElementById("p").style.display = "block";
-  document.getElementById("dw").style.display = "none";
-
-  if (n.za>n.nine) {
-    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+    const n = data.find(f=>f.class===localStorage.class)
+  if (n) {  
+    if (n.za>n.nine) {
+      document.getElementById("p1").style.display = "block";
+      document.getElementById("p1").style.backgroundColor = window.gw
+    }
+    else if (n.nine>n.za) {
+      document.getElementById("p2").style.display = "block";
+      document.getElementById("p2").style.backgroundColor = window.gw
+    }
+    else {
+      console.log(12312312312312)
+    }
   }
-  else if (n.nine>n.za) {
-  
-    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+  })
+    }
   }
   else {
-    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
+    get(apiUrl).then((data)=>{
+
+  
+      const n = data.find(f=>f.class===localStorage.class)
+    if (n) {
+      
+    
+      if (n.za>n.nine) {
+        document.getElementById("p1").style.display = "block";
+        document.getElementById("p1").style.backgroundColor = window.gw
+      }
+      else if (n.nine>n.za) {
+        document.getElementById("p2").style.display = "block";
+        document.getElementById("p2").style.backgroundColor = window.gw
+      }
+      else {
+
+      }
+    }
+    })
   }
-}
 })
-});
 
 
-let renderExecuted = false;                                              
-let g = false                                              
-let g1 = getRandomGrayRGBA()
-let g2 = getRandomGrayRGBA()
 
 
 
@@ -78,8 +95,8 @@ const f2 = document.getElementById("edi2");
     const gd = data.find(obj => obj.class === localStorage.class);
 
     if (gd && gd.state == true) {
-      f.style.backgroundColor = g1
-      f2.style.backgroundColor = g2
+      f.style.backgroundColor = window.gw
+      f2.style.backgroundColor = window.gw
     }
     
     else {
@@ -95,10 +112,8 @@ getip().then((ip) => {
 
   if (containsAInB) {                                              
   g = true                                               
-  document.getElementById("dw").style.display = "none";
   f.style.display = "none";
-  f2.style.display = "none"; 
-   document.getElementById("p").style.backgroundColor = g1                                        
+  f2.style.display = "none";                                      
   console.log('hide choice')                                               
   }                                                
 
@@ -128,13 +143,11 @@ if(gd) {
 
   }
   else if (gd.state==false) {
-    document.getElementById("dw").style.display = "none";
     state = false;
     
     
     f.style.display = "none";
     f2.style.display = "none"; 
-    document.getElementById("p").style.backgroundColor = g1
   }
 }
 else {
@@ -157,7 +170,7 @@ else {
         if (state === false) {
           f.style.display = "none";
           f2.style.display = "none"; 
-          document.getElementById("p").display = "block"; 
+          
           
         } 
 })
@@ -232,16 +245,15 @@ async function getips() {
 
 
 
-const queryParams = new URLSearchParams(window.location.search);
+const fe = new URLSearchParams(window.location.search);
 
-if (queryParams.get("encodedData") == null) {
+if (fe.get("encodedData") == null) {
 
 } else {
-  const decodedData = JSON.parse(decodeURIComponent(queryParams.get("encodedData")));
+  const decodedData = JSON.parse(decodeURIComponent(fe.get("encodedData")));
   localStorage.class = decodedData.class;
 
 }
-
 const dataToEncode = { "class": '7-М' };
 const encodedData = encodeURIComponent(JSON.stringify(dataToEncode));
 
@@ -253,19 +265,12 @@ console.log(urlWithEncodedData);
 
 
 
-
-async function fetchData() {
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error(`Помилка ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Помилка ', error);
-  }
+const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
+if (isMobile) {
+} else {
+window.location.href = "https://www.google.com"
 }
+
 
 
 async function updateData(updatedItem) {
@@ -279,16 +284,13 @@ async function updateData(updatedItem) {
     });
 
     if (!response.ok) {
-      throw new Error(`Помилка запроса ${response.status}`);
+      throw new Error(response.status);
     }
 
 
 }
 
 function awdf() {
-    document.getElementById("p").style.backgroundColor = getRandomGrayRGBA()
-    document.getElementById("dw").style.display = "none";
-    document.getElementById("p").style.display = "block";
     document.getElementById("edi1").style.display = "none";
     document.getElementById("edi2").style.display = "none";
 }
@@ -296,23 +298,26 @@ function awdf() {
 async function addza() {
   awdf();
   addip(1);
-  const data = await fetchData();
-  const itemToUpdate = data.find(item => item.class === localStorage.class);
-  
+  get(apiUrl).then(async (data)=>{
+    const itemToUpdate = data.find(item => item.class === localStorage.class);    
     itemToUpdate.za += 1;
-    await updateData(itemToUpdate);
-    
+    await updateData(itemToUpdate);}
+      
+      )
+  
     
 }
 
 async function addnine() {
   awdf();
   addip(2);
-  const data = await fetchData();
-  const itemToUpdate = data.find(item => item.class === localStorage.class);
+get(apiUrl).then(async (data)=>{
+  const itemToUpdate = data.find(item => item.class === localStorage.class);    
+  itemToUpdate.nine += 1;
+  await updateData(itemToUpdate);}
+    
+    )
 
-    itemToUpdate.nine += 1;
-    await updateData(itemToUpdate);
       
 
     }
@@ -326,18 +331,17 @@ async function addnine() {
     
           const htmlMarkup = filteredData.map((item) => {
             return `
-
+            
             <div id="d">
             <div id='edi1' onclick="addza()"><p>${item.eat1}</p></div>
             <div id='edi2' onclick="addnine()"><p>${item.eat2}</p></div>
-            <p id="dw">Виберіть, що хочете їсти</p>
-
-
-                <div class="p" id="p">
 
 
 
-                </div>
+
+                <div id='p1'><p>${item.eat1}</p></div>
+                <div id='p2'<p>${item.eat2}</p></div>
+
             </div>
 
         `;

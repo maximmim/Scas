@@ -1,4 +1,72 @@
 
+
+#if1 {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    height: 40%;
+    bottom: 35%;
+    border:none;
+}
+
+#Head {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    font-size: 40px;
+    font-family: "PixelifySans";
+}
+#Down {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 30px;
+
+}
+#buttgol {
+    position: fixed;
+    height: 100px;
+    width: 95%;
+    border: 3px;
+    border-style: solid;
+    border-color: black;
+    transform: translate(-50%);
+    left: 50%;
+    bottom: 5%;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 35px;
+}
+
+
+.half-width {
+    height: auto;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: black;
+    text-align: center;
+    font-size: 30px;
+    width: 45%;
+    bottom: 20%;
+    position: fixed; 
+}
+
+#butt1  {
+
+    left: 10px;
+}
+
+#butt2 {
+    right: 10px;
+
+}
+
+
 #db {
     width: 95%;
     height: 150px;
@@ -52,30 +120,33 @@ top: 0px;
 }
 #edi1 
 {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    position: fixed;
-height: 50%;
-width: 100%;
-left: 0px;
-top: 0px;
+position: absolute;
+width: 95%;
+left: 50%;
+transform: translate(-50%);
+top: 20px;
+height: 120px;
+text-align: center;
+border-radius: 15px;
+font-size: 37px;
+border: 3px;
+border-style: solid;
+border-color: black;
 }
 
 #edi2 {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    position: fixed;
-    height: 50%;
-    width: 100%;
-    left: 0px;
-    top: 50%;
-
+position: absolute;
+width: 95%;
+left: 50%;
+transform: translate(-50%);
+top: 160px;
+height: 120px;
+text-align: center;
+border-radius: 15px;
+font-size: 37px;
+border: 3px;
+border-style: solid;
+border-color: black;
     }
 
 #dw {
@@ -103,6 +174,40 @@ top: 0px;
     transform: translate(-50%,-65%);
     font-size: 30px;
     white-space: nowrap;
+}
+#p1 {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-65%);
+    font-size: 30px;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 37px;
+    border: 3px;
+    border-style: solid;
+    border-color: black;
+    display: none;
+    width: 95%;
+    height: 120px;
+}
+#p2 {
+    position: fixed;
+    top: 45%;
+    left: 50%
+    ;width: 95%;
+    height: 120px;
+    transform: translate(-50%,-65%);
+    font-size: 30px;
+    white-space: nowrap;
+    display: none;
+    text-align: center;
+border-radius: 15px;
+font-size: 37px;
+border: 3px;
+border-style: solid;
+border-color: black;
 }
 
 #p {
