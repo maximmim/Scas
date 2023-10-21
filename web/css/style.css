@@ -438,6 +438,23 @@ border-color: black;
     white-space: nowrap;
 }
 
+#w {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-65%);
+    font-size: 37px;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 37px;
+    border: 6px;
+    border-style: solid;
+    border-color: black;
+    display: none;
+    width: 95%;
+    height: 120px;
+}
 #p1 {
     position: fixed;
     top: 45%;

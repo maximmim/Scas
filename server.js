@@ -17,10 +17,12 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 
+// ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
+// БОТ ДЛЯ ТЕСТУВАННЯ 5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4
 
 
 let private = [];
-const API_KEY_BOT = '2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI';
+const API_KEY_BOT = '5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4';
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });
@@ -170,12 +172,15 @@ bot.on('text', async (nextMsg) => {
 
     if (nextMsg.text.startsWith('/start')) {
       get(url).then(async (data)=>{
-        var h = data.find(da=>da.tg===nextMsg.chat.id)
-        if (h) {
+        var h = data.find(da=>da.tg===nextMsg.from.id)
+
+        if (!h) {
+          console.log("dawdawdawd")
       const classKeyboard = createClassInlineKeyboard();
       await bot.sendMessage(chatId, 'Виберіть клас яким ви керуєте:', classKeyboard)
         }
         else {
+          console.log(123123)
           await bot.sendMessage(chatId, 'Ви вже зарегестровані на сайті')
         }
       })

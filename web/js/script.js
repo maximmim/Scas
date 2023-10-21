@@ -19,7 +19,7 @@ async function get(url) {
  
  
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
 let renderExecuted = false;                                              
 let g = false;
 
@@ -111,7 +111,8 @@ getip().then((ip) => {
   if (containsAInB) {                                              
   g = true                                               
   f.style.display = "none";
-  f2.style.display = "none";                                      
+  f2.style.display = "none";    
+  document.getElementById('w').style.display = "block"                        
   console.log('hide choice')                                               
   }                                                
 
@@ -316,7 +317,7 @@ get(apiUrl).then(async (data)=>{
 
 
 
-
+                <div id="w"><p>Ви вже проголусували</p></div>
                 <div id='p1'><p>${item.eat1}</p></div>
                 <div id='p2'<p>${item.eat2}</p></div>
 
