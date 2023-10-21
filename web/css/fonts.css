@@ -1,8 +1,9 @@
 @font-face {
-    font-family: 'PixelifySans';
-    src:   url('../css/fonts/PixelifySans-Bold.ttf') format('ttf'),
-           url('../css/fonts/PixelifySans-Medium.ttf') format('ttf'),
-           url('../css/fonts/PixelifySans-Regular.ttf') format('ttf'),
-           url('../css/fonts/PixelifySans-SemiBold.ttf') format('ttf'),
-           url('../css/fonts/PixelifySans-VariableFont_wght.ttf') format('ttf'),
+    font-family: 'Arsenal';
+    src: local('Arsenal Regular'), local('Arsenal-Regular'),
+        url('../css/fonts/Arsenal-Regular.ttf') format('woff2'),
+        url('../css/fonts/Arsenal-Regular.woff') format('woff'),
+        url('../css/fonts/Arsenal-Regular.woff2') format('truetype');
+    font-weight: 400;
+    font-style: normal;
   }

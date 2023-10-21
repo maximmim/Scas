@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+    <div id="k"></div> 
+    
+    <script>
+var vqr = [
+    {
+        "text":"Крошка"
+    },
+
+    {
+        "text":"Сахар"
+    },
+    {
+        "text":"Сирна палка"
+    },    
+    {
+        "text":"Сольона палка"
+    },    
+    {
+        "text":"Якась палка"
+    }
+]
+
+
+
+
+          const htmlMarkup = vqr.map((item) => {
+            return `
+
+        <div style="background-color:rgb(255, 106, 20);"id="dwb">
+                <h1 id="b">${item.text}</h1>
+            </div>
+
+        `;
+          }).join('');
+          
+        document.getElementById("k").innerHTML = htmlMarkup
+
+
+    
+
+    </script>
+    
+</body>
+</html>

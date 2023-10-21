@@ -17,13 +17,14 @@ async function get(url) {
  } 
 
  
+ 
 
 document.addEventListener('DOMContentLoaded', () => {
 let renderExecuted = false;                                              
-let g = false                                              
-window.gw = localStorage.d 
-  
+let g = false;
+
 render()
+
   
 get("/state").then((data)=>{
   let o = data.find(h=>h.class===localStorage.class)
@@ -43,7 +44,7 @@ get("/state").then((data)=>{
       document.getElementById("p1").style.backgroundColor = window.gw
     }
     else if (n.nine>n.za) {
-      document.getElementById("p2").style.display = "block";
+      document.getElementById("p1").style.display = "block";
       document.getElementById("p2").style.backgroundColor = window.gw
     }
     else {
@@ -63,11 +64,9 @@ get("/state").then((data)=>{
     
       if (n.za>n.nine) {
         document.getElementById("p1").style.display = "block";
-        document.getElementById("p1").style.backgroundColor = window.gw
       }
       else if (n.nine>n.za) {
         document.getElementById("p2").style.display = "block";
-        document.getElementById("p2").style.backgroundColor = window.gw
       }
       else {
 
@@ -95,8 +94,7 @@ const f2 = document.getElementById("edi2");
     const gd = data.find(obj => obj.class === localStorage.class);
 
     if (gd && gd.state == true) {
-      f.style.backgroundColor = window.gw
-      f2.style.backgroundColor = window.gw
+
     }
     
     else {
@@ -243,35 +241,14 @@ async function getips() {
 
 
 
-
-
-const fe = new URLSearchParams(window.location.search);
-
-if (fe.get("encodedData") == null) {
-
-} else {
-  const decodedData = JSON.parse(decodeURIComponent(fe.get("encodedData")));
-  localStorage.class = decodedData.class;
-
-}
-const dataToEncode = { "class": '7-М' };
-const encodedData = encodeURIComponent(JSON.stringify(dataToEncode));
-
-const currentUrl = window.location.href;
-const urlWithEncodedData = `${currentUrl}?encodedData=${encodedData}`;
-
-console.log(urlWithEncodedData);
-
-
-
-
+/*
 const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
 if (isMobile) {
 } else {
 window.location.href = "https://www.google.com"
 }
 
-
+*/
 
 async function updateData(updatedItem) {
   
@@ -321,14 +298,15 @@ get(apiUrl).then(async (data)=>{
       
 
     }
+    
     async function render() {
       return await fetch(apiUrl)
         .then((response) => response.json())
         .then((res) => {
 
-    
+       
           const filteredData = res.filter((item) => item.class === localStorage.class);
-    
+
           const htmlMarkup = filteredData.map((item) => {
             return `
             

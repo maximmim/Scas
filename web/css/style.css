@@ -1,33 +1,267 @@
+@import url("./fonts.css");
+body {
+ font-family:'Arsenal';
+}
+
+@keyframes move {
+    0% {
+        opacity: 1.0;
+    }
+    100%{
+opacity: 0.1;
+    }
+}
+.l {animation:  move 0.1s linear;} 
+.ms  {
+
+    width:50%;
+    height: 100px;
+    border: 3px;
+    border-radius: 25px;
+    border-color: black;
+    border-style: solid;
 
 
+}
+#m1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    
+
+    
+}
+#m2 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+#m3 {
+    position: absolute;
+    right: 25%;
+
+}
+
+
+
+#msw {
+transition: transform 0.3s ease;
+    top: 25%;
+    position:relative;
+}
+
+#msw2 {
+    display: none;
+        transition: transform 0.3s ease;
+        position:relative;
+        top: 25%;
+}
+#msw3 {
+    display: none;
+        transition: transform 0.3s ease;
+        position:relative;
+        top: 25%;
+}
+#msw4 {
+    display: none;
+        transition: transform 0.3s ease;
+        position:relative;
+        top: 25%;
+}
+#frame1 {
+    transition: transform 0.3s ease;
+position: absolute;
+top: 30%;
+left: 50%;
+width: 70%;
+height: 50%;
+transform: translate(-50%,10%);
+border-radius: 30px;
+border:5px;
+border-color: black;
+border-style: solid;
+display: none;
+}
+#frame2 {
+    transition: transform 0.3s ease;
+position: absolute;
+top: 30%;
+left: 50%;
+width: 70%;
+height: 55%;
+transform: translate(-50%,10%);
+border-radius: 30px;
+/*
+border:5px;
+border-color: black;
+border-style: solid;
+*/
+display: none;
+}
+#frame3 {
+    transition: transform 0.3s ease;
+position: absolute;
+top: 30%;
+left: 50%;
+width: 70%;
+height: 50%;
+transform: translate(-50%,10%);
+border-radius: 30px;
+border:5px;
+border-color: black;
+border-style: solid;
+display: none;
+}
 #if1 {
-    position: fixed;
+    position: absolute;
     left: 50%;
     transform: translate(-50%);
     width: 100%;
     height: 40%;
-    bottom: 35%;
-    border:none;
+    bottom: 20%;
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+#if2 {
+
+    width: 100%;
+    height:100%;
+    bottom: 20%;
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
 }
 
-#Head {
+
+
+#q1 {
     position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 50px;
-    text-align: center;
+    left: -60px;
+    width: 30px;
+    height: 30px;
+}
+#q2 {
+    position: fixed;
+left: -30px;
+    width: 30px;
+    height: 30px;
+}
+#q3 {
+    position: fixed;
+left: 0px;
+    width: 30px;
+    height: 30px;
+}
+#q4 {
+    position: fixed;
+left: 30px;
+    width: 30px;
+    height: 30px;
+}
+#q {
+    position: fixed;
+    left: -60px;
+    width: 30px;
+    height: 30px;
+    transition: transform 0.5s ease;
+}
+
+#dwa {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 80%;
+}
+
+#Homes {
+    transition: transform 0.5s ease;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 1%;
+    width: 50%;
+    height: 5%;
     font-size: 40px;
-    font-family: "PixelifySans";
+    text-align: center;
+    border-radius: 15px;
+    border-color: black;
+    border: 3px;
+    border-style: solid;
+    background: rgb(255,238,38);
+background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
+}
+#Homestg {
+    transition: transform 0.5s ease;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: -100px;
+    width: 170px;
+    height:50px;
+    font-size: 40px;
+    display: none;
+    text-align: center;
+    border-radius: 25px;
+    background: rgb(255,238,38);
+background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
+}
+#wa {
+    text-decoration:none;
+
+    color: black;
+}
+#Head {
+        width: 180%; 
+        height: 30%; background: rgb(255,132,16);
+        background: linear-gradient(180deg, rgba(255,132,16,0.6839110644257703) 0%, rgba(255,238,38,1) 100%);
+        border-radius: 0 0 50% 50%;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%)
+    
 }
 #Down {
+    width: 180%; 
+    height: 30%; 
+background: linear-gradient(180deg, rgba(131,58,180,1) 0%, rgba(38,134,255,1) 100%);
+    border-radius: 0 0 50% 50%;
     position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    height: 30px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%)
 
 }
+ #version {
+    
+    position: fixed;
+bottom: 1%;
+    left:50%;
+    transform: translate(-50%);
+    width: 70%;
+    height: auto;
+    font-size: 35px;
+    text-align: center;
+    border-radius: 15px;
+    border-color: black;
+    border: 3px;
+    border-style: solid
+ }
+ #daw {
+    position: fixed;
+bottom: 15%;
+    left:50%;
+    transform: translate(-50%);
+    width: 95%;
+    height: auto;
+    font-size: 35px;
+    text-align: center;
+    border-radius: 15px;
+    border-color: black;
+    border: 3px;
+    border-style: solid
+ }
 #buttgol {
     position: fixed;
     height: 100px;
@@ -65,7 +299,15 @@
     right: 10px;
 
 }
-
+#dwb {
+    width: 95%;
+    height: 100px;
+    border: 3px;
+    border-radius: 15px;
+    border-style: solid;
+    margin: 5px;
+    position: relative; 
+}
 
 #db {
     width: 95%;
@@ -127,14 +369,18 @@ transform: translate(-50%);
 top: 20px;
 height: 120px;
 text-align: center;
-border-radius: 15px;
+border-radius: 30px;
 font-size: 37px;
-border: 3px;
+border: 6px;
 border-style: solid;
 border-color: black;
+background: rgb(255,132,16);
+background: linear-gradient(180deg, rgba(255,132,16,0.6839110644257703) 0%, rgba(255,238,38,1) 100%);
 }
 
 #edi2 {
+    background: rgb(255,238,38);
+    background: linear-gradient(180deg, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
 position: absolute;
 width: 95%;
 left: 50%;
@@ -142,9 +388,9 @@ transform: translate(-50%);
 top: 160px;
 height: 120px;
 text-align: center;
-border-radius: 15px;
+border-radius: 30px;
 font-size: 37px;
-border: 3px;
+border: 6px;
 border-style: solid;
 border-color: black;
     }
@@ -175,37 +421,43 @@ border-color: black;
     font-size: 30px;
     white-space: nowrap;
 }
+
 #p1 {
     position: fixed;
     top: 45%;
     left: 50%;
     transform: translate(-50%,-65%);
-    font-size: 30px;
+    font-size: 37px;
     white-space: nowrap;
     text-align: center;
     border-radius: 15px;
     font-size: 37px;
-    border: 3px;
+    border: 6px;
     border-style: solid;
     border-color: black;
     display: none;
     width: 95%;
     height: 120px;
+    background: rgb(255,238,38);
+    background: radial-gradient(circle, rgb(240, 222, 122) 0%, rgb(255, 100, 33) 100%);
 }
 #p2 {
+    background: rgb(255,238,38);
+    background: radial-gradient(circle,   rgb(240, 222, 122) 0%, rgb(255, 100, 33) 100%);
     position: fixed;
     top: 45%;
-    left: 50%
-    ;width: 95%;
+    left: 50%;
+    width: 95%;
     height: 120px;
     transform: translate(-50%,-65%);
-    font-size: 30px;
+    font-size: 37px;
+    border: 6px;
     white-space: nowrap;
     display: none;
     text-align: center;
 border-radius: 15px;
 font-size: 37px;
-border: 3px;
+
 border-style: solid;
 border-color: black;
 }
@@ -214,3 +466,5 @@ border-color: black;
 
     display: none;
 }
+
+

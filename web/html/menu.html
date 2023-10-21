@@ -1,76 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+  <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>menud</title>
     <link rel="stylesheet" href="../css/style.css">
-
-
-<script>
-function darkenColor(color, percentage) {
-
-  const match = color.match(/rgba?\((\d+), (\d+), (\d+)(, ([\d.]+))?\)/);
-
-  if (match) {
-
-    const r = parseInt(match[1]);
-    const g = parseInt(match[2]);
-    const b = parseInt(match[3]);
-    const a = parseFloat(match[5] || 1);
-
-
-    const newR = Math.max(0, r - r * (percentage / 100));
-    const newG = Math.max(0, g - g * (percentage / 100));
-    const newB = Math.max(0, b - b * (percentage / 100));
-
+   
  
-    return `rgba(${newR}, ${newG}, ${newB}, ${a})`;
-  } else {
-    return color;
-  }
-}
- function randomcol() {
-  const baseValue = 100; 
-  const range = 100; 
-  const r = Math.floor(baseValue + Math.random() * range); 
-  const g = Math.floor(baseValue + Math.random() * range); 
-  const b = Math.floor(baseValue + Math.random() * range); 
-  const a = Math.random();
-
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-  localStorage.d = randomcol()
-
-const darkenedColor = darkenColor(localStorage.d, 50);
-document.getElementById("buttgol").style.backgroundColor = localStorage.d 
-  document.getElementById("butt1").style.backgroundColor = localStorage.d 
-  document.getElementById("butt2").style.backgroundColor = localStorage.d 
-   document.getElementById("Head").style.backgroundColor = darkenedColor
-   document.getElementById("Down").style.backgroundColor = darkenedColor
-  
-  
-
-})
-
-</script>    
 </head>
 
 <body>
+     
+<script>
+/*
+if (navigator.onLine) {
+window.location.replace("./ofline.html")
+}
+*/
+</script>
+   
+<script src="/web/js/menu.js"></script>
 
-<div id="Head">Dansh</div>
-<div id="Down"></div>
+<div id="Head">
 
-<div id="buttgol"><p>Голосування</p></div>
-<div class="half-width" id="butt1"><p>Буфет</p></div>
-<div class="half-width" id="butt2"><p>Корисна їжа</p></div>
+  <div id="dwa">
+<img id="q" src="/web/img/pain.png">
+<img id="q1" src="/web/img/painw.png">
+<img id="q2" src="/web/img/painw.png">
+<img id="q3" src="/web/img/painw.png">
+<img id="q4" src="/web/img/painw.png">
+</div>
 
-<iframe id="if1" src="./index.html"></iframe>
-    
 
+<div id="msw" class="Menu">
+<div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);" src="/web/img/bufeft.png"></div>
+</div>
+<div id="msw2" class="Menu2">
+  <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/settings.png"></div>
+  </div>
+<div id="msw3" class="Menu3">
+    <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/bread.png"></div>
+  </div>
+<div id="msw4" class="Menu4">
+    <div class="ms" id="m1"><img style="position:absolute;width: 120px;height: 120px;left: 50%;transform: translate(-50%);"  src="/web/img/salad.png"></div>
+  
+  </div> 
+</div>
+
+  
+
+<div id="Donw">
+<div id="Homes">
+  <div>dush</div>
+  <div id="Homestg">
+    <a id="wa" href="https://t.me/MAX_MIXXX"><div>Telegram</div></a>
+  </div>
+</div>
+
+
+
+</div>
+
+<div id="bady">
+<iframe src="./index.html" id="if1"></iframe>
+<div id="frame1">
+<div id="version">1.0v</div>
+<div id="daw">Розробка №3 Наукового ліцею</div>
+</div>
+<div id="frame2">
+  <iframe src="./bufet.html" id="if2"></iframe>
+</div>
+<div id="frame3">
+  <h1>y7y7y7y7y7y</h1>
+  </div>
+</div>
 
 
 </body>

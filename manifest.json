@@ -1,0 +1,26 @@
+{
+    "name": "Dashd",
+    "short_name": "Dash",
+    "start_url": "web/html/menu.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "web/img/skin.png",
+        "sizes": "100x100",
+        "type": "image/png"
+      }
+    ],
+    "permissions": [
+    "notifications"
+  ],
+    "scope": "/",
+    "offline_enabled": true,
+    "prefer_related_applications": false,
+    "lang": "ua",
+    "orientation": "portrait",
+    "related_applications": []
+  
+  }
+  

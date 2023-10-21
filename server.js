@@ -1,15 +1,25 @@
 const TelegramBot = require('node-telegram-bot-api');
 const express = require('express');
 const http = require('http');
-const requestIp = require('request-ip');
 const fs = require('fs');
 const expressIP = require('express-ip');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 app.set("port", PORT);
+const path = require('path');
 
-let private = [{class: '7-Д', state: true}];
+app.use('/service-worker.js', express.static(path.join(__dirname, 'service-worker.js')));
+
+app.get('/service-worker.js', (req, res) => {
+  res.set('Service-Worker-Allowed', '/');
+  res.sendFile(path.join(__dirname, 'service-worker.js'));
+});
+
+
+
+
+let private = [];
 const API_KEY_BOT = '2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI';
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
@@ -321,9 +331,7 @@ get(url).then(async (dd) => {
   );
  
 });
-
-
-  
+ 
  
   }, 2 * 60 * 1000);
 }
