@@ -1,22 +1,11 @@
 let url = "./bufet.html"; 
-const fe = new URLSearchParams(window.location.search);
-
-if (fe.get("encodedData") == null) {
-
-} else {
-  const decodedData = JSON.parse(decodeURIComponent(fe.get("encodedData")));
-  localStorage.class = decodedData.class;
-
-}
 const dataToEncode = { "class": '7-М' };
 const encodedData = encodeURIComponent(JSON.stringify(dataToEncode));
 
 const currentUrl = window.location.href;
-const urlWithEncodedData = `${currentUrl}?encodedData=${encodedData}`;
+const urlWithEncodedData = `f=${encodedData}`;
 
 console.log(urlWithEncodedData);
-
-
 
 
 function randomcol() {
@@ -42,8 +31,35 @@ function jdw(c1,c2, tn) {
 
   return diffR <= tn && diffG <= tn && diffB <= tn;
 }
-
+function g() {
+  const dw = new URLSearchParams(document.getElementById("idclass").value);
+if (dw.get('f')) {
+    const wa = JSON.parse(decodeURIComponent(dw.get("f")));
+  console.log(wa)
+  localStorage.class = wa.class
+  alert("Ви зарегестровані у клас :)")
+  window.location.reload()
+}
+else {
+  alert("Помилка")
+}
+}
 document.addEventListener("DOMContentLoaded",()=>{
+ 
+if (!localStorage.class) {
+  document.getElementById("idclass").style.display = "block";
+  document.getElementById("buttid").style.display = "block"
+}
+else {
+   document.getElementById("buttid").style.display = "none"
+  document.getElementById("idclass").style.display = "none"
+} 
+
+
+
+
+
+
 if (!localStorage.class) {
   alert("Ви не запегестровані у класі... ")
 }

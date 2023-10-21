@@ -350,7 +350,27 @@ bottom: 15%;
 
 
 
+#buttid {
+    position: fixed;
+    height: 100px;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
+    top: 170px;
+    font-size: 40px;
+    border-radius: 25px;
+}
 
+#idclass {
+    position: fixed;
+    height: 100px;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
+    top: 40px;
+    font-size: 40px;
+    border-radius: 25px;
+}
 
 .p {
 position: absolute;
@@ -374,13 +394,9 @@ font-size: 37px;
 border: 6px;
 border-style: solid;
 border-color: black;
-background: rgb(255,132,16);
-background: linear-gradient(180deg, rgba(255,132,16,0.6839110644257703) 0%, rgba(255,238,38,1) 100%);
 }
 
 #edi2 {
-    background: rgb(255,238,38);
-    background: linear-gradient(180deg, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
 position: absolute;
 width: 95%;
 left: 50%;
@@ -438,12 +454,8 @@ border-color: black;
     display: none;
     width: 95%;
     height: 120px;
-    background: rgb(255,238,38);
-    background: radial-gradient(circle, rgb(240, 222, 122) 0%, rgb(255, 100, 33) 100%);
 }
 #p2 {
-    background: rgb(255,238,38);
-    background: radial-gradient(circle,   rgb(240, 222, 122) 0%, rgb(255, 100, 33) 100%);
     position: fixed;
     top: 45%;
     left: 50%;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+  <link rel="shortcut icon" href="/web/img/skin.png" type="image/png">
   <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,19 @@ window.location.replace("./ofline.html")
 }
 */
 </script>
-   
+        
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+    <script type="module" src="/service-worker.js"></script> 
 <script src="/web/js/menu.js"></script>
 
 <div id="Head">
@@ -68,6 +80,8 @@ window.location.replace("./ofline.html")
 <div id="frame1">
 <div id="version">1.0v</div>
 <div id="daw">Розробка №3 Наукового ліцею</div>
+<input id="idclass" placeholder="Ведіть id:">
+<button onclick="g()" id="buttid">Увійти</button>
 </div>
 <div id="frame2">
   <iframe src="./bufet.html" id="if2"></iframe>

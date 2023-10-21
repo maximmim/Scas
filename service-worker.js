@@ -8,7 +8,10 @@ const STATIC_RESOURCES = [
   "/web/css/fonts/Arsenal-Regular.ttf",
   "/web/css/fonts/Arsenal-Regular.woff",
   "/web/css/fonts/Arsenal-Regular.woff2",
-  "/web/css/fonts.css"
+  "/web/css/fonts.css",
+  "/web/css/style.css",
+  "/web/js/menu.js",
+  "/web/js/script.js"
   ];
 
 self.addEventListener('install', (event) => {

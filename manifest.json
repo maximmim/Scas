@@ -1,6 +1,6 @@
 {
-    "name": "Dashd",
-    "short_name": "Dash",
+    "name": "Dushd",
+    "short_name": "Dush",
     "start_url": "web/html/menu.html",
     "display": "standalone",
     "background_color": "#ffffff",
