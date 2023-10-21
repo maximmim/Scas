@@ -17,12 +17,19 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 
+
 // ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
 // БОТ ДЛЯ ТЕСТУВАННЯ 5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4
 
 
 let private = [];
-const API_KEY_BOT = '5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4';
+var API_KEY_BOT = '5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4';
+
+if (process.env.PORT) {
+  API_KEY_BOT = "2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI"
+} else {
+  API_KEY_BOT = "5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4"
+}
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });

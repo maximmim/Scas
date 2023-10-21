@@ -71,7 +71,7 @@ transition: transform 0.3s ease;
 #frame1 {
     transition: transform 0.3s ease;
 position: absolute;
-top: 30%;
+top: 35%;
 left: 50%;
 width: 70%;
 height: 50%;
@@ -85,7 +85,7 @@ display: none;
 #frame2 {
     transition: transform 0.3s ease;
 position: absolute;
-top: 30%;
+top: 35%;
 left: 50%;
 width: 70%;
 height: 55%;
@@ -101,7 +101,7 @@ display: none;
 #frame3 {
     transition: transform 0.3s ease;
 position: absolute;
-top: 30%;
+top: 35%;
 left: 50%;
 width: 70%;
 height: 50%;
@@ -180,8 +180,8 @@ left: 30px;
     left: 50%;
     transform: translate(-50%);
     bottom: 1%;
-    width: 50%;
-    height: 5%;
+    width: auto;
+    height: auto;
     font-size: 40px;
     text-align: center;
     border-radius: 15px;
@@ -197,12 +197,12 @@ background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100
     left: 50%;
     transform: translate(-50%);
     bottom: -100px;
-    width: 170px;
-    height:50px;
+    width: auto;
+    height:auto;
     font-size: 40px;
     display: none;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 15px;
     background: rgb(255,238,38);
 background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
 }
@@ -250,7 +250,7 @@ bottom: 1%;
  }
  #daw {
     position: fixed;
-bottom: 15%;
+bottom: 20%;
     left:50%;
     transform: translate(-50%);
     width: 95%;
@@ -352,22 +352,23 @@ bottom: 15%;
 
 #buttid {
     position: fixed;
-    height: 100px;
-    width: 90%;
+    height: 50px;
+    width: 70%;
     left: 50%;
     transform: translate(-50%);
-    top: 170px;
-    font-size: 40px;
+    top: 20%;
+    font-size: 30px;
     border-radius: 25px;
 }
 
 #idclass {
+    color: black;
     position: fixed;
-    height: 100px;
-    width: 90%;
+    height: auto;
+    width: 75%;
     left: 50%;
     transform: translate(-50%);
-    top: 40px;
+    top: 1%;
     font-size: 40px;
     border-radius: 25px;
 }
