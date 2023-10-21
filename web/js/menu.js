@@ -251,12 +251,12 @@ let startY = 0;
 
 
 gl.addEventListener('touchstart', (e) => {
-  startY = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
 });
 
 gl.addEventListener('touchend', (e) => {
   const s =document.getElementById("msw");
-  const endY = e.changedTouches[0].clientX;
+  const endY = e.changedTouches[0].clientY;
   const deltaY = endY - startY;
 if (deltaY < 0) {
 document.getElementById("Homestg").style.display = "block"
