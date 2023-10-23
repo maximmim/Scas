@@ -242,14 +242,13 @@ async function getips() {
 
 
 
-/*
+
 const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
 if (isMobile) {
 } else {
 window.location.href = "https://www.google.com"
 }
 
-*/
 
 async function updateData(updatedItem) {
   

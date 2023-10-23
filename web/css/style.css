@@ -16,7 +16,7 @@ opacity: 0.1;
 
     width:50%;
     height: 100px;
-    border: 3px;
+    border: 6px;
     border-radius: 25px;
     border-color: black;
     border-style: solid;
@@ -188,8 +188,8 @@ left: 30px;
     border-color: black;
     border: 3px;
     border-style: solid;
-    background: rgb(255,238,38);
-background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
+    background: rgb(42,132,214);
+    background: radial-gradient(circle, rgba(42,132,214,1) 0%, rgba(157,29,254,1) 100%);
 }
 #Homestg {
     transition: transform 0.5s ease;
@@ -203,8 +203,8 @@ background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100
     display: none;
     text-align: center;
     border-radius: 15px;
-    background: rgb(255,238,38);
-background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100%);
+    background: rgb(42,132,214);
+    background: radial-gradient(circle, rgba(42,132,214,1) 0%, rgba(157,29,254,1) 100%);
 }
 #wa {
     text-decoration:none;
@@ -213,8 +213,8 @@ background: radial-gradient(circle, rgba(255,238,38,1) 0%, rgba(215,82,29,1) 100
 }
 #Head {
         width: 180%; 
-        height: 30%; background: rgb(255,132,16);
-        background: linear-gradient(180deg, rgba(255,132,16,0.6839110644257703) 0%, rgba(255,238,38,1) 100%);
+        height: 30%; background: rgb(42,132,214);
+        background: linear-gradient(180deg, rgba(42,132,214,1) 0%, rgba(157,29,254,1) 100%);
         border-radius: 0 0 50% 50%;
         position: fixed;
         top: 0;
