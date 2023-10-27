@@ -25,7 +25,8 @@ let g = false;
 
 render()
 
-  
+function ji() {
+
 get("/state").then((data)=>{
   let o = data.find(h=>h.class===localStorage.class)
   if (o) {
@@ -76,11 +77,13 @@ get("/state").then((data)=>{
   }
 })
 
-
-
-
-
-
+}
+try {
+  ji()
+}
+catch {
+  ji()
+}
 setInterval(() => {                                              
 if (document.getElementById("edi1") && document.getElementById("edi2")) {                                              
 const f = document.getElementById("edi1");                                               
@@ -242,12 +245,6 @@ async function getips() {
 
 
 
-
-const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
-if (isMobile) {
-} else {
-window.location.href = "https://www.google.com"
-}
 
 
 async function updateData(updatedItem) {

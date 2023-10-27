@@ -15,21 +15,7 @@ function randomcol() {
   const g = Math.floor(baseValue + Math.random() * range);
   const b = Math.floor(baseValue + Math.random() * range);
 
-  return `rgba(${r}, ${g}, ${b})`;
-}
-function jdw(c1,c2, tn) {
-  function getRGBComponents(color) {
-    return color.match(/\d+/g).map(Number);
-  }
-
-  const rgb1 = getRGBComponents(c1);
-  const rgb2 = getRGBComponents(c2);
-
-  const diffR = Math.abs(rgb1[0] - rgb2[0]);
-  const diffG = Math.abs(rgb1[1] - rgb2[1]);
-  const diffB = Math.abs(rgb1[2] - rgb2[2]);
-
-  return diffR <= tn && diffG <= tn && diffB <= tn;
+  return `rgba(${r}, ${g}, ${b},1)`;
 }
 function g() {
   const dw = new URLSearchParams(document.getElementById("idclass").value);
@@ -44,8 +30,7 @@ else {
   alert("Помилка")
 }
 }
-document.addEventListener("DOMContentLoaded",()=>{
- 
+window.addEventListener("load",()=>{
 if (!localStorage.class) {
   document.getElementById("idclass").style.display = "block";
   document.getElementById("buttid").style.display = "block"
@@ -54,16 +39,8 @@ else {
    document.getElementById("buttid").style.display = "none"
   document.getElementById("idclass").style.display = "none"
 } 
-
-
-
-
-
-
-if (!localStorage.class) {
-  alert("Ви не запегестровані у класі... ")
-}
 const gl = document.getElementById("Homes")
+const gltg = document.getElementById("Homestg")
 const d = document.getElementById("msw")
 const d2 = document.getElementById("msw2")
 const g = document.getElementById("frame1")
@@ -72,6 +49,25 @@ const g3 = document.getElementById("frame3")
 const d3 = document.getElementById("msw3")
 const d4 = document.getElementById("msw4")
 let startX = 0;
+const jse = document.getElementById("Head")
+let f1 = randomcol()
+let f2 = randomcol()
+jse.style.background =  `linear-gradient(180deg, ${f1} 0%, ${f2} 100%)`
+
+gl.style.background =  `linear-gradient(180deg, ${f2} 0%, ${f1} 100%)`
+gltg.style.background =  `linear-gradient(180deg, ${f1} 0%, ${f2} 100%)`
+
+
+const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
+if (isMobile) {
+} else {
+window.location.href = "https://www.google.com"
+}
+
+if (!localStorage.class) {
+  alert("Ви не запегестровані у класі... ")
+}
+
 
 d.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
