@@ -16,7 +16,7 @@ async function get(url) {
   }                                              
  } 
 
- 
+     
  
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +35,7 @@ get("/state").then((data)=>{
     get(apiUrl).then((data)=>{
 
   
-      const n = data.find(f=>f.class===localStorage.class)
+      const n = data.find(f=>f.class==localStorage.class)
     if (n) {
       
     
