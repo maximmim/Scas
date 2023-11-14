@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор</title>
+</head>
+<body>
+
+        <textarea id="editor"></textarea>
+        <button id="saveButton" >Сохранить</button>
+
+<style>
+
+</style>
+    <script>
+        
+        const editor = document.getElementById('editor');
+     
+        const saveButton = document.getElementById('saveButton');
+        // Функция для получения данных с сервера и отображения их в textarea
+        function fetchData() {
+            fetch('https://yelth.herokuapp.com/Recordsget') // Замените на правильный маршрут
+                .then(response => response.json())
+                .then(data => {
+                    const records = data; // Предположим, что сервер возвращает массив записей
+                    const text = JSON.stringify(data); // Объедините записи в одну строку
+                    console.log(data)
+
+
+                    editor.value = text; // Отобразите данные в textarea
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Обработчик отправки формы
+ saveButton.addEventListener('click', () => {
+            const editedData = editor.value;
+            // Отправьте данные на сервер
+            fetch('https://yelth.herokuapp.com/Recordspost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ data: editedData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        });
+        // Вызов функции для получения данных с сервера и отображения их в textarea
+        fetchData();
+    </script>
+</body>
+</html>

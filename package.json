@@ -1,24 +1,27 @@
 {
-  "name": "dash",
-  "version": "1.0.0",
+  "name": "test",
+  "version": "3.9.8",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "server": "node server.js"
+    "start": "nodemon server",
+    "setv":"node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "Maxim",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "express-ip": "^1.0.4",
-    "node-apn": "^3.0.0",
-    "node-fetch": "^3.3.2",
-    "node-telegram-bot-api": "^0.63.0",
-    "nodemon": "^3.0.1",
-    "request-ip": "^3.3.0",
-    "web-push": "^3.6.6"
+    "firebase-admin": "^11.10.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "nodemailer": "^6.9.3",
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.7.1",
+    "workbox-webpack-plugin": "^7.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4"
   }
 }

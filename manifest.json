@@ -1,26 +1,33 @@
 {
-    "name": "Dushd",
-    "short_name": "Dush",
-    "start_url": "web/html/menu.html",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
-    "icons": [
-      {
-        "src": "web/img/skin.png",
-        "sizes": "100x100",
-        "type": "image/png"
-      }
-    ],
-    "permissions": [
-    "notifications"
+  "name": "Yelt",
+  "short_name": "Yelt",
+  "start_url": "html/menu.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/img/logo.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    }
   ],
-    "scope": "/",
-    "offline_enabled": true,
-    "prefer_related_applications": false,
-    "lang": "ua",
-    "orientation": "portrait",
-    "related_applications": []
-  
-  }
-  
+  "permissions": [
+  "notifications"
+],
+  "scope": "/",
+  "offline_enabled": true,
+  "prefer_related_applications": false,
+  "description": "Yelt is the best puzzle game from Ukrainian developers",
+  "lang": "ua",
+  "orientation": "portrait",
+  "categories": ["Games"],
+  "related_applications": [],
+  "screenshots": [
+    {
+      "src": "/img/screenshot1.png",
+      "type": "image/png",
+      "sizes": "1280x720"
+    }
+  ]
+}
