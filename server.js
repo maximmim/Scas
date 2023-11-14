@@ -23,13 +23,9 @@ app.get('/service-worker.js', (req, res) => {
 
 
 let private = [];
-var API_KEY_BOT = '5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4';
+const API_KEY_BOT = '6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0';
 
-if (process.env.PORT) {
-  API_KEY_BOT = "2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI"
-} else {
-  API_KEY_BOT = "5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4"
-}
+
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });

@@ -53,11 +53,7 @@ let f2 = randomcol()
 jse.style.background =  `linear-gradient(180deg, ${f1} 0%, ${f2} 100%)`
 
 
-const isMobile = /Android|webOS|iPhone|iPad|Opera Mini/i.test(navigator.userAgent);
-if (isMobile) {
-} else {
-window.location.href = "https://www.google.com"
-}
+
 
 if (!localStorage.class) {
   alert("Ви не запегестровані у класі... ")

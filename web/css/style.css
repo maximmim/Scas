@@ -109,7 +109,7 @@ position: absolute;
 top: 35%;
 left: 50%;
 width: 80%;
-height: auto;
+height: 50%;
 transform: translate(-50%,10%);
 border-radius: 30px;
 border:5px;
@@ -138,7 +138,18 @@ display: none;
     transition: transform 0.5s ease;
 }
 
-
+#r{
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    top: 35%;
+    border-radius: 20px;
+    font-size: 30px;
+    width: 200px;
+    height: auto;
+    background: rgb(42,132,214);
+    background: radial-gradient(circle, rgba(42,132,214,1) 0%, rgba(12,11,32,1) 100%);
+}
 
 #q1 {
     position: fixed;

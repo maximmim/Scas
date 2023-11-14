@@ -16,7 +16,7 @@ async function get(url) {
   }                                              
  } 
 
-     
+ 
  
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -35,7 +35,7 @@ get("/state").then((data)=>{
     get(apiUrl).then((data)=>{
 
   
-      const n = data.find(f=>f.class==localStorage.class)
+      const n = data.find(f=>f.class===localStorage.class)
     if (n) {
       
     
@@ -92,7 +92,9 @@ getip().then((ip) => {
   g = true                                               
   f.style.display = "none"; 
   f2.style.display = "none";   
-  document.getElementById('w').style.display = "block"                        
+  document.getElementById('w').style.display = "block"        
+  document.getElementById("p1").style.display = "none";
+  document.getElementById("p2").style.display = "none";   
   console.log('hide choice')                                               
   }                                                
 
