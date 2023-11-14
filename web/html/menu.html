@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="shortcut icon" href="/web/img/skin.png" type="image/png">
+  <link rel="manifest" href="/manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>menud</title>
+    <link rel="stylesheet" href="../css/style.css">
+   
+ 
+</head>
+
+<body>
+     
+<script>
+/*
+if (navigator.onLine) {
+window.location.replace("./ofline.html")
+}
+*/
+</script>
+        
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered:', registration);
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+    <script type="module" src="/service-worker.js"></script> 
+<script src="/web/js/menu.js"></script>
+
+<div id="Head">
+
+  <div id="dwa">
+<img alt="sea" id="q" src="/web/img/pain.png">
+<img alt="sea0" id="q1" src="/web/img/painw.png">
+<img alt="sea1" id="q2" src="/web/img/painw.png">
+<img alt="sea2" id="q3" src="/web/img/painw.png">
+<img alt="sea3" id="q4" src="/web/img/painw.png">
+</div>
+
+
+<div id="msw" class="Menu">
+<div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);" src="/web/img/bufeft.png"></div>
+</div>
+<div id="msw2" class="Menu2">
+  <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/settings.png"></div>
+  </div>
+<div id="msw3" class="Menu3">
+    <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/bread.png"></div>
+  </div>
+<div id="msw4" class="Menu4">
+    <div class="ms" id="m1"><img style="position:absolute;width: 120px;height: 120px;left: 50%;transform: translate(-50%);"  src="/web/img/salad.png"></div>
+  
+  </div> 
+</div>
+
+  
+
+
+
+
+</div>
+
+<div id="bady">
+<iframe src="./index.html" id="if1"></iframe>
+<div id="frame1">
+<div id="version">1.0.4v</div>
+<div id="daw">Розробка №3 Наукового ліцею</div>
+<input id="idclass" placeholder="Ведіть id:">
+<button onclick="g()" id="buttid">Увійти</button>
+</div>
+<div id="frame2">
+  <iframe src="./bufet.html" id="if2"></iframe>
+</div>
+<div id="frame3">
+  <h1>Здорове харчування у шкільній їдальні: Ключ до успішного навчання
+
+    Шкільна їдальня відіграє важливу роль у формуванні здорового способу життя учнів. Забезпечення дітей ситними та корисними стравами не лише впливає на їх фізичне здоров'я, але й має великий вплив на їхню здатність концентруватися та успішно навчатися.
+    
+    Однією з ключових складових здорового харчування є різноманітність. Шкільна їдальня повинна пропонувати різноманіття продуктів, щоб забезпечити дітям необхідний комплекс вітамінів та мінералів. Овочі, фрукти, білки та злаки повинні бути представлені на столі у різноманітних комбінаціях.
+    
+    Надто важливою є якість приготовлених страв. Заборонення шкідливих для здоров'я продуктів та використання методів готування, які зберігають корисні властивості продуктів, гарантує, що учні отримають найбільше користі від кожного прийому їжі.
+    
+    Ще однією важливою аспект є контроль розмірів порцій. Забезпечення відповідності порцій рекомендаціям здорового харчування допомагає уникнути переїдання та зберігає здоров'я дітей.
+    
+    Не менш важливою є освіта учнів щодо здорового харчування. Важливо вчити дітей обирати здорові продукти, розуміти значення різноманітності та відмовлятися від шкідливих звичок.
+    
+    Загалом, шкільна їдальня – це не лише місце для перекусу. Вона є ключовим чинником у формуванні здорових звичок та забезпеченні енергії для успішного навчання. Відповідальний підхід до харчування в школі створить основу для здорового майбутнього покоління.</h1>
+  </div>
+</div>
+
+
+</body>
+</html>
