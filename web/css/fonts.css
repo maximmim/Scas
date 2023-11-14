@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'Arsenal';
-    src: local('Arsenal Regular'), local('Arsenal-Regular'),
-        url('../css/fonts/Arsenal-Regular.ttf') format('woff2'),
-        url('../css/fonts/Arsenal-Regular.woff') format('woff'),
-        url('../css/fonts/Arsenal-Regular.woff2') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  }
