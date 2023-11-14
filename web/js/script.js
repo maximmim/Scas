@@ -46,10 +46,7 @@ get("/state").then((data)=>{
         document.getElementById("p2").style.display = "block";
       }
       else {
-        document.getElementById("p1").style.display = "block";
-        document.getElementById("p1").style.top = "30%";
-        document.getElementById("p2").style.top = "70%";
-        document.getElementById("p2").style.display = "block";
+        
       }
     }
     })
