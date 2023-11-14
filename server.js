@@ -23,9 +23,13 @@ app.get('/service-worker.js', (req, res) => {
 
 
 let private = [];
-const API_KEY_BOT = '6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0';
+var API_KEY_BOT = '6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0';
 
-
+if (process.env.PORT) {
+  API_KEY_BOT = "6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0"
+} else {
+  API_KEY_BOT = "5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4"
+}
 const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });
@@ -332,7 +336,7 @@ if (foundObject) {
 else {
  console.log(1241111111)
 }
-
+private = []
 get(url).then(async (dd) => {
   let did = dd.find(obj => obj.class === d.class);
 
