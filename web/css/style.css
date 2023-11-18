@@ -222,6 +222,18 @@ bottom: 0%;
     font-size: 25px;
     text-align: center;
  }
+ #versions {
+    
+    position: absolute;
+bottom: 15%;
+    left:50%;
+    transform: translate(-50%);
+    width: 90%;
+    height: auto;
+    font-size: 25px;
+    text-align: center;
+ }
+
 
 #color-edit {
     position: absolute;
