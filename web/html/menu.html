@@ -8,19 +8,15 @@
     <title>menu</title>
     <link rel="stylesheet" href="../css/style.css">
    
- 
+<style>
+  body {
+    
+    overflow: hidden;
+  }
+</style> 
 </head>
 
 <body>
-     
-<script>
-/*
-if (navigator.onLine) {
-window.location.replace("./ofline.html")
-}
-*/
-</script>
-        
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
@@ -33,56 +29,59 @@ window.location.replace("./ofline.html")
         }
     </script>
     <script type="module" src="/service-worker.js"></script> 
-<script src="/web/js/menu.js"></script>
+
+
+
+
+
+
+
+
 
 <div id="Head">
-
-  <div id="dwa">
-<img alt="sea" id="q" src="/web/img/pain.png">
-<img alt="sea0" id="q1" src="/web/img/painw.png">
-<img alt="sea1" id="q2" src="/web/img/painw.png">
-<img alt="sea2" id="q3" src="/web/img/painw.png">
-<img alt="sea3" id="q4" src="/web/img/painw.png">
-</div>
-
-
-<div id="msw" class="Menu">
-<div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);" src="/web/img/bufeft.png"></div>
-</div>
-<div id="msw2" class="Menu2">
-  <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/settings.png"></div>
-  </div>
-<div id="msw3" class="Menu3">
-    <div class="ms" id="m1"><img style="position:absolute;width: 100px;height: 100px;left: 50%;transform: translate(-50%);"  src="/web/img/bread.png"></div>
-  </div>
-<div id="msw4" class="Menu4">
-    <div class="ms" id="m1"><img style="position:absolute;width: 120px;height: 120px;left: 50%;transform: translate(-50%);"  src="/web/img/salad.png"></div>
+  <img onclick="gf()" src="../img/select.png" id="select">
+  <div id="avatar">-</div>
+  <h1 id="Head-zagolovok">Scas</h1>
   
-  </div> 
 </div>
 
+
+<div id="Head-full"> 
+    
+
+  <h1 id="H-1" onclick="h1()" class="Head-red">Голусування📢</h1>
+  <h1 id="H-2" onclick="h2()" class="Head-red">Здорове харчування🥗</h1>
+  <h1 id="H-3" onclick="h3()" class="Head-red">Буфет🥖</h1>
+  <h1 id="H-4" onclick="h4()" class="Head-red">Налаштування⚙️</h1>
+
+  </div>
   
-
-
-
+<div id="settings">
 
 </div>
+
+
+
 
 <div id="bady">
-<iframe src="./index.html" id="if1"></iframe>
-<div id="frame1">
-<div id="version">1.0.4v</div>
-<div id="daw">Розробка №3 Наукового ліцею</div>
-<input id="idclass" placeholder="Ведіть id:">
-<button onclick="g()" id="buttid">Увійти</button>
-</div>
-<div id="frame2">
-  <iframe src="./bufet.html" id="if2"></iframe>
-</div>
-<div id="frame3">
-<iframe src="./stat.html" id="if3"></iframe>
+<div id="v">123</div>
+<div id="gd"></div>
+
+<div id="if1s"> <iframe src="./index.html" id="if1"></iframe> <h1 id="id1">Голусування за їжу</h1></div>
+
+
+
+<div id="if2"><h1 id="id2">Стаття здорове харчування</h1><iframe src="./stat.html" id="if2s" ></iframe></div>
+
+<div id="if3s"><h1 id="id3">Онлайн меню буфету</h1>  <iframe src="./bufet.html" id="if3" ></iframe></div>
+
+<div id="if4s"><h1 id="id4">Налаштування</h1><iframe src="./settings.html" id="if4"></iframe><h2 id="version">1.1.0v</h2></div>
+
+
 </div>
 
 
+
+<script src="/web/js/menu.js"></script>
 </body>
 </html>

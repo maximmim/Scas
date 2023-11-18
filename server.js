@@ -39,7 +39,7 @@ let ips = [];
 
 app.use(express.json());
 
-const url = "https://644ab0e4a8370fb32155be44.mockapi.io/Record";
+const url = "https://644ab0e4a8370fb32155be44.mockapi.io/Class";
 
 app.use("/web", express.static(__dirname + "/web"));
 app.use(expressIP().getIpInfoMiddleware);
@@ -64,16 +64,18 @@ app.get("/getips", (req, res) => {
 app.post('/addValue', async (req, res) => {
   const usercli = req.body.user;
   ips.push(req.body.value);
+  
+  await bot.sendMessage(global.fwa, `Учень ${req.body.nick} проголусував за ${usercli} страву`);
 });
-
+app.post('/newuser', async (req, res) => {
+  await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
+});
 app.get("*", (req, res) => {
   const filePath = req.url.substr(1);
 
   fs.stat(filePath, (err, stats) => {
     if (err) {
-      if (err.code === 'ENOENT') {
-        res.status(404).send("Сторінка не знайдена!");
-      } 
+      res.status(404).send("Сторінка не знайдена!");
     } else {
       if (stats.isDirectory()) {
         res.status(404).send("Сторінка не знайдена!");
@@ -83,6 +85,12 @@ app.get("*", (req, res) => {
     }
   });
 });
+
+
+function gen() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
 
 
 let gig = '';
@@ -111,18 +119,20 @@ function c() {
   return {
     reply_markup: {
       inline_keyboard: [
-        [{ text: 'Підтвердити', callback_data: 'Подтвердить' }],
+        [{ text: 'Підтвердити', callback_data: 'Підтвердити' }],
       ],
     },
   };
 }
 
+
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
 
-  if (data === 'Подтвердить') {
+  if (data === 'Підтвердити') {
     if (gig) {
+      const f =gen()
       bot.sendMessage(chatId, `Ви обрали клас: ${gig}`);
       createData({
         "class": gig,
@@ -130,8 +140,13 @@ bot.on('callback_query', async (callbackQuery) => {
         "eat2": "",
         "za": 0,
         "nine": 0,
-        "tg":global.msgd.chat.id
+        "tg":global.msgd.chat.id,
+        "classid":f
       });
+      await bot.sendMessage(chatId, `Ващ клас id:`);
+      await bot.sendMessage(chatId, f);
+
+
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
           keyboard: [
@@ -175,25 +190,23 @@ const commands = [
   }
 ]
 
-let savedMessages = [];
+let sm = [];
 bot.on('text', async (nextMsg) => {
   try {
     var chatId = nextMsg.from.id;
     global.msgd = nextMsg;
-    let isReadingText = true; 
+    let e = true; 
 
     if (nextMsg.text.startsWith('/start')) {
       get(url).then(async (data)=>{
         var h = data.find(da=>da.tg===nextMsg.from.id)
 
         if (!h) {
-          console.log("dawdawdawd")
       const classKeyboard = createClassInlineKeyboard();
-      await bot.sendMessage(chatId, 'Виберіть клас яким ви керуєте:', classKeyboard)
+      await bot.sendMessage(chatId, 'Виберіть клас, яким ви керуєте:', classKeyboard)
         }
         else {
-          console.log(123123)
-          await bot.sendMessage(chatId, 'Ви вже зарегестровані на сайті')
+          await bot.sendMessage(chatId, 'Ви вже зарегестровані')
         }
       })
 
@@ -209,20 +222,20 @@ bot.on('text', async (nextMsg) => {
       });
       }
        else if (nextMsg.text == "Створити Вибір їжі") {
- 
+ global.fwa = nextMsg.from.id
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
-      bot.on('text', async (thirdMsg) => {
-        if (isReadingText) {
+      bot.on('text', async (w) => {
+        if (e) {
 
-          savedMessages.push(thirdMsg.text);
+          sm.push(w.text);
 
-          if (savedMessages.length >= 2) {
-            isReadingText = false;
+          if (sm.length >= 2) {
+            e = false;
             await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
   let fd = {
                   "class": "",
-                  "eat1": savedMessages[0],
-                  "eat2": savedMessages[1],
+                  "eat1": sm[0],
+                  "eat2": sm[1],
                   "za": 0,
                   "nine": 0,
                   "tg": nextMsg.chat.id
@@ -246,7 +259,7 @@ bot.on('text', async (nextMsg) => {
               }
             });
 
-            savedMessages = [];
+            sm = [];
           }
         }
       });
@@ -317,6 +330,7 @@ async function createData(newData) {
     console.error("Помилка при надсиланні даних:  ", response.status);
   }
 }
+
 
 function sned(d) {
 

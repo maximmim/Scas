@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    
+</head>
+<body>
+    <h2 id="color-edit">Вибрати колір аватару:</h2>
+    <input id="colors" type="color" onchange="w()">
+    <script >
+        function w() {
+          localStorage.color = document.getElementById("colors").value;  
+        }
+
+        document.getElementById("colors").value = localStorage.color
+        </script>
+</body>
+</html>

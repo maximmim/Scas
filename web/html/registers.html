@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <link rel="shortcut icon" href="/web/img/skin.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрація акаунта</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>
+
+    </script>
+    
+</head>
+<body>
+    
+<div id="registration">
+    <input id="reg-inp" placeholder="Ведіть код класу:"> 
+  <img src="../img/fon.avif" id="fone">
+    <input id="reg-inp-name" placeholder="Ведіть ваше ім'я:"> 
+    <button id="reg-butt" onclick="endreg()">Увійти у клас</button>
+  </div>
+  
+
+    <script>
+
+
+async function get(url) {                                              
+  try {                                              
+    const response = await fetch(url);                                               
+    if (!response.ok) {                                              
+      throw new Error(response.status);                                              
+    }                                              
+    const data = await response.json();                                              
+    return data;                                               
+  } catch (error) {                                              
+    console.error(error);                                               
+    throw error;                                               
+  }                                              
+ } 
+
+ 
+
+
+
+
+function endreg() {
+  
+  const datas = document.getElementById("reg-inp").value;
+if (datas == "") {
+  alert("Ви не вели class id")
+}
+else if (document.getElementById("reg-inp-name").value == '') {
+  alert("Ви не вели ваше ім'я")
+}
+
+
+else {
+get("https://644ab0e4a8370fb32155be44.mockapi.io/Class").then(data =>{
+
+  let n =  data.find(da=>da.classid==datas)
+
+
+  if (n) {
+    localStorage.class = n.class;
+    localStorage.nick = document.getElementById("reg-inp-name").value ;
+
+
+
+    fetch('/newuser', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body:  JSON.stringify({nick:localStorage.nick , idtg:n.tg})
+})
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.text();
+  });
+
+    alert("Ви зарегестровані :)")
+    document.location.replace("./menu.html")
+
+
+  }
+else {
+  alert("Помилка, будь ласка напишіть адміністратору у телеграм: https://t.me/MAX_MIXXX")
+}
+
+})
+}
+
+}
+
+    </script>
+</body>
+</html>
