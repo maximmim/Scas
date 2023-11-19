@@ -377,7 +377,7 @@ get(url).then(async (dd) => {
 });
  
  
-  }, 0.5 * 60 * 1000);
+  }, 5 * 60 * 1000);
 }
 
 server.listen(PORT, function () {
