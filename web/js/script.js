@@ -125,6 +125,10 @@ async function get(url) {
 
 async function addip(user) {
   getip().then((data)=>{
+get(apiUrl).then(clas => {
+  const n = clas.find(g=>localStorage.class==g.class)
+
+  if (n) {
 
 
 fetch('/addValue', {
@@ -132,7 +136,7 @@ fetch('/addValue', {
   headers: {
     'Content-Type': 'application/json',
   },
-  body:  JSON.stringify({ value: data,user: user, nick: localStorage.nick })
+  body:  JSON.stringify({ value: data,user: user, nick: localStorage.nick, tgid: n.tg })
 })
   .then((response) => {
     if (!response.ok) {
@@ -145,7 +149,12 @@ fetch('/addValue', {
   })
   .catch((error) => {
     console.error(error);
-  }); 
+  });   }
+  else {
+    alert("Помилка 404")
+  }
+})
+
 
 }).catch((error)=>{
 console.log(error)

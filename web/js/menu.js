@@ -27,7 +27,6 @@ document.location.replace("./registers.html")
 
 
 
-
 let isopen = false;
 let isopens = false;
 

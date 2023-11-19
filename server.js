@@ -64,8 +64,7 @@ app.get("/getips", (req, res) => {
 app.post('/addValue', async (req, res) => {
   const usercli = req.body.user;
   ips.push(req.body.value);
-  
-  await bot.sendMessage(global.fwa, `Учень ${req.body.nick} проголусував за ${usercli} страву`);
+  await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголусував за ${usercli} страву`);
 });
 app.post('/newuser', async (req, res) => {
   await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
@@ -143,17 +142,20 @@ bot.on('callback_query', async (callbackQuery) => {
         "tg":global.msgd.chat.id,
         "classid":f
       });
-      await bot.sendMessage(chatId, `Ващ клас id:`);
+      await bot.sendMessage(chatId, `Ващ class id:`);
       await bot.sendMessage(chatId, f);
+
 
 
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
           keyboard: [
-            ['Створити Вибір їжі']
+            ['Створити Вибір їжі🥗',
+            'Дізнатись мій class id🆔']
           ]
         }
       });
+      
     } else {
       await bot.sendMessage(chatId, 'Спочтку оберіть клас');
     }
@@ -216,13 +218,26 @@ bot.on('text', async (nextMsg) => {
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
           keyboard: [
-            ['Створити Вибір їжі']
+            ['Створити Вибір їжі🥗',
+            'Дізнатись мій class id🆔']
           ]
         }
       });
       }
-       else if (nextMsg.text == "Створити Вибір їжі") {
- global.fwa = nextMsg.from.id
+      else if (nextMsg.text == "Дізнатись мій class id🆔") {
+        get(url).then(async clas => {
+          const n = clas.find(g=>nextMsg.chat.id==g.tg)
+        
+          if (n) {
+            await bot.sendMessage(nextMsg.chat.id, n.classid);
+          }
+          else {
+            console.log("Помилка 404")
+          }
+        })
+      }
+       else if (nextMsg.text == "Створити Вибір їжі🥗") {
+
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
       bot.on('text', async (w) => {
         if (e) {
@@ -246,8 +261,8 @@ bot.on('text', async (nextMsg) => {
               if (h) {
                 g = h.class;
                 
-                fd.class = g
-                console.log(fd)
+                fd.class = g;
+
                 check(fd.class, fd)
                   .then(() => {
                     sned(fd);
@@ -272,26 +287,24 @@ bot.on('text', async (nextMsg) => {
 
 
 
-async function check(targetClass, dataToUpdate) {
+async function check(tc, dt) {
   try {
-    const response = await fetch(url);
+    const res = await fetch(url);
 
-    if (response.ok) {
-      const existingData = await response.json();
-      const targetObject = existingData.find(item => item.class === targetClass);
+    if (res.ok) {
+      const ex = await res.json();
+      const to = ex.find(item => item.class === tc);
 
-      if (targetObject) {
-        console.log("Обєкт знайлено оновлення...");
-        await updateData(targetObject.id, dataToUpdate);
+      if (to) {
+        await updateData(to.id, dt);
       } else {
-        console.log("Обєкт не знайдено");
-        await createData(dataToUpdate);
+        await createData(dt);
       }
     } else {
-      console.error("Помилка запиттання на api помилка :( : ", response.status);
+      console.error(res.status);
     }
   } catch (error) {
-    console.error("Помилка :( :", error);
+    console.error(error);
   }
 }
 
@@ -364,7 +377,7 @@ get(url).then(async (dd) => {
 });
  
  
-  }, 2 * 60 * 1000);
+  }, 0.5 * 60 * 1000);
 }
 
 server.listen(PORT, function () {
