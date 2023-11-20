@@ -123,7 +123,23 @@ function c() {
     },
   };
 }
+const butthons =             
 
+[
+  'Створити Вибір їжі🥗',
+  'Дізнатись мій class id🆔',
+  'Показати учнів у моєму класі👨🏼‍🏫'
+
+]
+
+
+const butthonss = [
+  [butthons[0]],
+  [butthons[1]],
+  [butthons[2]]
+
+  
+];
 
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
@@ -140,7 +156,8 @@ bot.on('callback_query', async (callbackQuery) => {
         "za": 0,
         "nine": 0,
         "tg":global.msgd.chat.id,
-        "classid":f
+        "classid":f,
+        "usets":[]
       });
       await bot.sendMessage(chatId, `Ващ class id:`);
       await bot.sendMessage(chatId, f);
@@ -149,10 +166,8 @@ bot.on('callback_query', async (callbackQuery) => {
 
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
-          keyboard: [
-            ['Створити Вибір їжі🥗',
-            'Дізнатись мій class id🆔']
-          ]
+          keyboard: butthonss,
+          resize_keyboard: true, 
         }
       });
       
@@ -217,10 +232,8 @@ bot.on('text', async (nextMsg) => {
       await bot.setMyCommands(commands);
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
-          keyboard: [
-            ['Створити Вибір їжі🥗',
-            'Дізнатись мій class id🆔']
-          ]
+          keyboard: butthonss,
+          resize_keyboard: true, 
         }
       });
       }
@@ -235,6 +248,26 @@ bot.on('text', async (nextMsg) => {
             console.log("Помилка 404")
           }
         })
+      }
+      
+      else if (nextMsg.text == "Показати учнів у моєму класі👨🏼‍🏫") {
+      
+        
+        get(url).then(async clas => {
+          const n = clas.find(g=>nextMsg.chat.id==g.tg)
+        
+          if (n) {
+
+            n.users.map(async d=>{
+              await bot.sendMessage(nextMsg.chat.id, d.name);
+            })
+
+          }
+          else {
+            console.log("Помилка 404")
+          }
+        })
+      
       }
        else if (nextMsg.text == "Створити Вибір їжі🥗") {
 

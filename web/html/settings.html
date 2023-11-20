@@ -10,13 +10,22 @@
 </head>
 <body>
     <h2 id="color-edit">Вибрати колір аватару:</h2>
-    <input id="colors" type="color" onchange="w()">
+    <input id="colors" type="color" >
     <script >
+    
+if (!localStorage.color) {
+  document.getElementById("colors").value = '#C2C2C2'
+}
+else {
+    document.getElementById("colors").value = localStorage.color
+}    
+      setInterval(() => {
+        w()
+      }, 1);
         function w() {
           localStorage.color = document.getElementById("colors").value;  
         }
 
-        document.getElementById("colors").value = localStorage.color
         </script>
 </body>
 </html>

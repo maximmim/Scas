@@ -1,11 +1,12 @@
-
 let j = false;
 const currentUrl = window.location.href;
 
+
 window.addEventListener('load',()=>{
 
+window.gg = document.getElementById("ws");
 
-  document.getElementById("gd").scrollIntoView({ behavior: 'instant'});
+h1()
 if (localStorage.nick) {
   
 document.getElementById("avatar").textContent = localStorage.nick[0]
@@ -53,6 +54,7 @@ function hide() {
 
 function h1() {
   hide();
+  gg.style.transform = 'translate(0%,0px)'
   let g = document.getElementById("if1")
   g.scrollIntoView({ behavior: 'smooth', block: 'center', behavior: 'smooth'});
 }
@@ -60,21 +62,24 @@ function h1() {
 
 function h2() {
   hide();
+  gg.style.transform = 'translate(0%,30px)'
   let g = document.getElementById("if2") 
   g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
 }
 
 function h3() {
   hide();
+  gg.style.transform = 'translate(0%,60px)'
   let g = document.getElementById("if3") 
   g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
 }
 function h4() {
   hide();
+  gg.style.transform = 'translate(0%,90px)'
+
   let g = document.getElementById("if4") 
   g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
 }
-
 
 
 

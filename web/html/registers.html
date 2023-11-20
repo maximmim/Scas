@@ -20,7 +20,7 @@
     <input id="reg-inp-name" placeholder="Ведіть ваше ім'я:"> 
     <button id="reg-butt" onclick="endreg()">Увійти у клас</button>
   </div>
-  
+  <img id="fonse" src="../img/fon.jpg">
 
     <script>
 
@@ -39,9 +39,28 @@ async function get(url) {
   }                                              
  } 
 
+ const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
  
 
 
+
+
+ async function updateData(updatedItem) {
+  
+  const response = await fetch(`${apiUrl}/${updatedItem.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedItem),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+
+
+}
 
 
 function endreg() {
@@ -56,16 +75,22 @@ else if (document.getElementById("reg-inp-name").value == '') {
 
 
 else {
-get("https://644ab0e4a8370fb32155be44.mockapi.io/Class").then(data =>{
+get(apiUrl).then(async data=>{
 
   let n =  data.find(da=>da.classid==datas)
 
 
   if (n) {
+    document.getElementById("reg-butt").style.display = "none"
     localStorage.class = n.class;
     localStorage.nick = document.getElementById("reg-inp-name").value ;
 
 
+  let g = n
+  
+  g.users.push({"name":localStorage.nick})
+  await updateData(g);
+  
 
     fetch('/newuser', {
   method: 'POST',
@@ -81,13 +106,12 @@ get("https://644ab0e4a8370fb32155be44.mockapi.io/Class").then(data =>{
     return response.text();
   });
 
-    alert("Ви зарегестровані :)")
-    document.location.replace("./menu.html")
-
+  alert("Ви зарегестровані :)")
+  document.location.replace("./menu.html")
 
   }
 else {
-  alert("Помилка, будь ласка напишіть адміністратору у телеграм: https://t.me/MAX_MIXXX")
+  alert("Помилка код ведений невірно")
 }
 
 })
