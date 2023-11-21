@@ -75,10 +75,11 @@ color: rgba(255, 255, 255, 0.5);
 
 #exti_butt {
     position: absolute;
-    bottom: 20px;
-    right: 10px;
+    bottom: 1%;
+    left: 50%;
+    transform: translate(-50%);
     font-size: 20px;
-    width: 115px;
+    width: 85%;
     height: 50px;
     border-radius: 15px;
 }
@@ -241,7 +242,7 @@ top: 799%;
  #version {
     
     position: absolute;
-bottom: 0%;
+bottom: 15%;
     left:50%;
     transform: translate(-50%);
     width: 70%;
@@ -252,7 +253,7 @@ bottom: 0%;
  #versions {
     
     position: absolute;
-bottom: 15%;
+bottom: 25%;
     left:50%;
     transform: translate(-50%);
     width: 90%;
@@ -684,6 +685,7 @@ top: 0px;
 }
 #edi1 
 {
+
     background-color: rgb(0, 153, 255);
 position: absolute;
 width: 95%;
@@ -700,6 +702,7 @@ border-color: black;
 }
 
 #edi2 {
+
     background-color: rgb(0, 153, 255);
 position: absolute;
 width: 95%;
@@ -761,6 +764,10 @@ border-color: black;
     width: 95%;
     height: 120px;
 
+}
+#p1,#p2 {
+
+display: none;
 }
 
 .j {

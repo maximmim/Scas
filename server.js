@@ -86,6 +86,35 @@ app.get("*", (req, res) => {
 });
 
 
+
+
+
+
+
+let d = false
+
+setInterval(() => {
+const tr = new Date();
+
+  if (!d && tr.getHours()==8 && tr.getMinutes()==0) {
+    d = true
+  console.log(123)
+  get(url).then(async users=>{
+    users.map(async s=>{
+    await bot.sendMessage(s.tg, `
+    👩‍🏫 Дорогі вчителі, нагадую вам про голосування за обід у шкільній столовій! 🍽️`);
+ setTimeout(()=>{
+  d = false
+ },60000)
+    })
+  })}
+}, 1);
+
+
+
+
+
+
 function gen() {
   return Math.floor(100000 + Math.random() * 900000);
 }
@@ -261,7 +290,9 @@ bot.on('text', async (nextMsg) => {
             n.users.map(async d=>{
               await bot.sendMessage(nextMsg.chat.id, d.name);
             })
-
+            if (n.users.length == 0) {
+              await bot.sendMessage(nextMsg.chat.id, `В даний момент у вас немає учнів😭`);
+            }
           }
           else {
             console.log("Помилка 404")
@@ -274,7 +305,6 @@ bot.on('text', async (nextMsg) => {
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
       bot.on('text', async (w) => {
         if (e) {
-
           sm.push(w.text);
 
           if (sm.length >= 2) {

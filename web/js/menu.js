@@ -73,13 +73,10 @@ function h3() {
   let g = document.getElementById("if3") 
   g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
 }
+
 function h4() {
   hide();
   gg.style.transform = 'translate(0%,90px)'
-
   let g = document.getElementById("if4") 
   g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
 }
-
-
-

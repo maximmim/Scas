@@ -2,65 +2,14 @@
 let dg = true
 let da = false
 const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
-async function get(url) {                                              
-  try {                                              
-    const response = await fetch(url);                                               
-    if (!response.ok) {                                              
-    console.log(response.status)       
-    throw new Error(response.status)                                       
-    }                                              
-    const data = await response.json();                                              
-    return data;                                               
-  } catch (error) {                                              
-    console.error(error);                                               
-    throw new Error(error);                                               
-  }                                              
- } 
-
- 
- window.addEventListener('load', (df) => {
-  let renderExecuted = false;
+let renderExecuted = false;
   let g = false;
-
-
-  render().then(()=>{
-
+function chek() {
+  
   
 
-  get("/state").then((data) => {
-    let o = data.find(h => h.class === localStorage.class);
-
-    if (!o) {
-      get(apiUrl).then((data) => {
-        const n = data.find(f => f.class === localStorage.class);
-
-        if (n) {
-          if (n.za > n.nine) {
-            const p1 = document.getElementById("p1");
-            if (p1) {
-              p1.style.display = "block";
-            }
-          } else if (n.nine > n.za) {
-            const p2 = document.getElementById("p2");
-            if (p2) {
-              p2.style.display = "block";
-            }
-          } else {
-            
-            document.getElementById("w").style.display = "block";
-            document.getElementById("w").innerHTML = "<p>Порцій однаково</p>";
-          }
-        }
-      });
-    } else {
-      if (o.state === true) {
-      }
-    }
-  });
-
-  setInterval(() => {
     if (document.getElementById("edi1") && document.getElementById("edi2")) {
-      const f = document.getElementById("edi1");
+      const f =  document.getElementById("edi1");
       const f2 = document.getElementById("edi2");
 
 
@@ -101,8 +50,9 @@ async function get(url) {
           state = false;
         }
 
-        if (!renderExecuted && state === true && g !== true) {
+        if (!renderExecuted && state == true && g !== true) {
           render().then(() => {
+            console.log(123)
             f2.style.display = "block";
             f.style.display = "block";
           }).catch((error) => {
@@ -117,7 +67,66 @@ async function get(url) {
         }
       });
     }
-  }, 500);
+
+
+}
+
+async function get(url) {                                              
+  try {                                              
+    const response = await fetch(url);                                               
+    if (!response.ok) {                                              
+    console.log(response.status)       
+    throw new Error(response.status)                                       
+    }                                              
+    const data = await response.json();                                              
+    return data;                                               
+  } catch (error) {                                              
+    console.error(error);                                               
+    throw new Error(error);                                               
+  }                                              
+ } 
+
+ 
+ window.addEventListener('load', (df) => {
+
+
+
+  render().then(()=>{
+chek()
+setInterval(chek,450)
+  
+
+  get("/state").then((data) => {
+    let o = data.find(h => h.class === localStorage.class);
+
+    if (!o) {
+      get(apiUrl).then((data) => {
+        const n = data.find(f => f.class === localStorage.class);
+
+        if (n) {
+          if (n.za > n.nine) {
+            const p1 = document.getElementById("p1");
+            if (p1) {
+              p1.style.display = "block";
+            }
+          } else if (n.nine > n.za) {
+            const p2 = document.getElementById("p2");
+            if (p2) {
+              p2.style.display = "block";
+            }
+          } else {
+            
+            document.getElementById("w").style.display = "block";
+            document.getElementById("w").innerHTML = "<p>Порцій однаково</p>";
+          }
+        }
+      });
+    } else {
+      if (o.state === true) {
+      }
+    }
+  });
+
 
 })
 });

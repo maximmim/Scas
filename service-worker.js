@@ -3,7 +3,6 @@ const CACHE_NAME = 'dash';
 const STATIC_RESOURCES = [
   '/',
   
-  "/web/html/ofline.html",
   "/web/html/menu.html",
   "/web/css/fonts/Arsenal-Regular.ttf",
   "/web/css/fonts/Arsenal-Regular.woff",
