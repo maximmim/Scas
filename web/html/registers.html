@@ -86,10 +86,10 @@ get(apiUrl).then(async data=>{
     localStorage.nick = document.getElementById("reg-inp-name").value ;
 
 
-  let g = n
+console.log(n)
   
-  g.users.push({"name":localStorage.nick})
-  await updateData(g);
+  n.users.push({"name":localStorage.nick})
+  await updateData(n);
   
 
     fetch('/newuser', {

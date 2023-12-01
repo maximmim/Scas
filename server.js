@@ -6,6 +6,9 @@ const expressIP = require('express-ip');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
+
+const DataTime = 5;
+
 app.set("port", PORT);
 const path = require('path');
 
@@ -87,10 +90,6 @@ app.get("*", (req, res) => {
 
 
 
-
-
-
-
 let d = false
 
 setInterval(() => {
@@ -98,7 +97,7 @@ const tr = new Date();
 
   if (!d && tr.getHours()==8 && tr.getMinutes()==0) {
     d = true
-  console.log(123)
+  console.log('Повідомлення вчителям відправлено ')
   get(url).then(async users=>{
     users.map(async s=>{
     await bot.sendMessage(s.tg, `
@@ -123,7 +122,7 @@ function gen() {
 
 let gig = '';
 
-function createClassInlineKeyboard() {
+function c() {
   return {
     reply_markup: {
       inline_keyboard: [
@@ -184,9 +183,9 @@ bot.on('callback_query', async (callbackQuery) => {
         "eat2": "",
         "za": 0,
         "nine": 0,
-        "tg":global.msgd.chat.id,
+        "tg":chatId,
         "classid":f,
-        "usets":[]
+        "users":[]
       });
       await bot.sendMessage(chatId, `Ващ class id:`);
       await bot.sendMessage(chatId, f);
@@ -248,7 +247,7 @@ bot.on('text', async (nextMsg) => {
         var h = data.find(da=>da.tg===nextMsg.from.id)
 
         if (!h) {
-      const classKeyboard = createClassInlineKeyboard();
+      const classKeyboard = c();
       await bot.sendMessage(chatId, 'Виберіть клас, яким ви керуєте:', classKeyboard)
         }
         else {
@@ -440,7 +439,7 @@ get(url).then(async (dd) => {
 });
  
  
-  }, 5 * 60 * 1000);
+  }, DataTime * 60 * 1000);
 }
 
 server.listen(PORT, function () {

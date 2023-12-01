@@ -40,6 +40,7 @@ function chek() {
 
         if (gd) {
           if (gd.state == true) {
+            
             state = true;
           } else if (gd.state == false) {
             state = false;
@@ -205,14 +206,14 @@ async function getips() {
 
 
 
-async function updateData(updatedItem) {
+async function updateData(upd) {
   
-    const response = await fetch(`${apiUrl}/${updatedItem.id}`, {
+    const response = await fetch(`${apiUrl}/${upd.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedItem),
+      body: JSON.stringify(upd),
     });
 
     if (!response.ok) {
@@ -229,9 +230,9 @@ async function addza() {
 
   addip(1);
   get(apiUrl).then(async (data)=>{
-    const itemToUpdate = data.find(item => item.class === localStorage.class);    
-    itemToUpdate.za += 1;
-    await updateData(itemToUpdate);}
+    const itu = data.find(item => item.class === localStorage.class);    
+    itu.za += 1;
+    await updateData(itu);}
       
       )
   
@@ -243,9 +244,9 @@ async function addnine() {
   document.getElementById("edi2").style.display = "none";
   addip(2);
 get(apiUrl).then(async (data)=>{
-  const itemToUpdate = data.find(item => item.class === localStorage.class);    
-  itemToUpdate.nine += 1;
-  await updateData(itemToUpdate);}
+  const itu = data.find(item => item.class === localStorage.class);    
+  itu.nine += 1;
+  await updateData(itu);}
     
     )
 
