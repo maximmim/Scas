@@ -7,9 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-const DataTime = 5;
 
-app.set("port", PORT);
 const path = require('path');
 
 app.use('/service-worker.js', express.static(path.join(__dirname, 'service-worker.js')));
@@ -19,17 +17,18 @@ app.get('/service-worker.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'service-worker.js'));
 });
 
-
+const DataTime = 5;
+app.set("port", PORT);
 
 // ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
 // БОТ ДЛЯ ТЕСТУВАННЯ 5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4
 
 
-let private = [];
 var API_KEY_BOT = '6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0';
 
+let private = [];
 if (process.env.PORT) {
-  API_KEY_BOT = "6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0"
+API_KEY_BOT = "6458492028:AAE53VvJfvLziVeP6O7ke1i4qJRSUKFqUd0"
 } else {
   API_KEY_BOT = "5312847705:AAE0ii_TUhEeuNPRV52iiFmB0bsEInhANt4"
 }
@@ -142,7 +141,7 @@ function c() {
   };
 }
 
-function c() {
+function sc() {
   return {
     reply_markup: {
       inline_keyboard: [
@@ -204,7 +203,7 @@ bot.on('callback_query', async (callbackQuery) => {
     }
   } else {
     gig = data;
-    const confirmKeyboard = c();
+    const confirmKeyboard = sc();
     await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
     
   }
