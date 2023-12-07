@@ -24,9 +24,9 @@ opacity: 0.1;
 
 }
 #b {
-    position: fixed;
-    right: 10%;
-    top: 1%;
+    position: absolute;
+    right: 5%;
+    bottom: -5%;
 }
 #m1 {
     position: absolute;
@@ -82,6 +82,8 @@ color: rgba(255, 255, 255, 0.5);
     width: 85%;
     height: 50px;
     border-radius: 15px;
+    background-color: white;
+    border: 2px solid rgb(0, 0, 0);
 }
 
 #fonse {
@@ -151,6 +153,8 @@ color: rgba(255, 255, 255, 0.5);
     justify-content: center;
     align-items: center;
     border: 2px solid rgb(0, 0, 0);
+
+
 }
 
 .Head-red {
@@ -619,7 +623,7 @@ bottom: 20%;
 
 #db {
     width: 95%;
-    height: 150px;
+    height: 200px;
     border: 3px;
     border-radius: 15px;
     border-color: black;
@@ -631,14 +635,14 @@ bottom: 20%;
 
 #b1 {
     left: 15px;
-    top: 0px;
+    top: 0%;
     font-size: 25px;
     position: absolute;
 }
 
 #b2 {
     left: 15px;
-    top: 35px;
+    top: 36%;
     font-size: 25px;
     position: absolute;
 }
@@ -699,6 +703,7 @@ font-size: 37px;
 border: 6px;
 border-style: solid;
 border-color: black;
+
 }
 
 #edi2 {
@@ -716,6 +721,8 @@ font-size: 37px;
 border: 6px;
 border-style: solid;
 border-color: black;
+
+
     }
 
 #dw {
@@ -747,7 +754,7 @@ border-color: black;
 
 
 #w {
-    background-color: rgb(0, 153, 255);
+    background-color: rgb(25, 221, 18);
     position: absolute;
     text-align: center;
     top: 45%;

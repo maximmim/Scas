@@ -17,6 +17,8 @@ app.get('/service-worker.js', (req, res) => {
   res.sendFile(path.join(__dirname, 'service-worker.js'));
 });
 
+
+
 const DataTime = 5;
 app.set("port", PORT);
 
@@ -44,6 +46,7 @@ app.use(express.json());
 const url = "https://644ab0e4a8370fb32155be44.mockapi.io/Class";
 
 app.use("/web", express.static(__dirname + "/web"));
+
 app.use(expressIP().getIpInfoMiddleware);
 app.get("/", (req, res) => {
   res.redirect("/web/html/menu.html");
@@ -66,7 +69,7 @@ app.get("/getips", (req, res) => {
 app.post('/addValue', async (req, res) => {
   const usercli = req.body.user;
   ips.push(req.body.value);
-  await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголусував за ${usercli} страву`);
+  await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
 });
 app.post('/newuser', async (req, res) => {
   await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
@@ -99,8 +102,7 @@ const tr = new Date();
   console.log('Повідомлення вчителям відправлено ')
   get(url).then(async users=>{
     users.map(async s=>{
-    await bot.sendMessage(s.tg, `
-    👩‍🏫 Дорогі вчителі, нагадую вам про голосування за обід у шкільній столовій! 🍽️`);
+    await bot.sendMessage(s.tg, `👩‍🏫 Дорогі вчителі, нагадую вам про голосування за обід у шкільній столовій! 🍽️`);
  setTimeout(()=>{
   d = false
  },60000)
@@ -160,6 +162,7 @@ const butthons =
 ]
 
 
+
 const butthonss = [
   [butthons[0]],
   [butthons[1]],
@@ -186,7 +189,7 @@ bot.on('callback_query', async (callbackQuery) => {
         "classid":f,
         "users":[]
       });
-      await bot.sendMessage(chatId, `Ващ class id:`);
+      await bot.sendMessage(chatId, `Ваш class id:`);
       await bot.sendMessage(chatId, f);
 
 
