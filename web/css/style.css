@@ -785,7 +785,6 @@ display: none;
     left: 50%;
     transform: translate(-50%,-65%);
     font-size: 37px;
-    white-space: nowrap;
     border-radius: 25px;
     font-size: 37px;
     border: 7px;
@@ -793,7 +792,7 @@ display: none;
     border-color: black;
     display: none;
     width: 95%;
-    height: 120px;
+    height: auto;
 
 }
 #p {
