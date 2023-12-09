@@ -1,6 +1,12 @@
 let j = false;
 const currentUrl = window.location.href;
 
+if (!localStorage.class)
+{
+  j= true
+document.location.replace("./registers.html")
+}
+
 localStorage.style = 2;
 
 if (!localStorage.style) {
@@ -41,7 +47,10 @@ window.gg = document.getElementById("ws");
 
 
 
-h1()
+//h1()
+
+
+
 if (localStorage.nick) {
   
 document.getElementById("avatar").textContent = localStorage.nick[0]
@@ -55,11 +64,7 @@ setInterval(() => {
 document.getElementById("avatar").style.backgroundColor = localStorage.color
 }, 1);
 
-if (!localStorage.class)
-{
-  j= true
-document.location.replace("./registers.html")
-}
+
 
 
 let isopen = false;
@@ -116,4 +121,10 @@ function h4() {
 }
 
 
+function h5() {
+  hide();
+  gg.style.transform = 'translate(0%,90px)'
+  let g = document.getElementById("if5") 
+  g.scrollIntoView({ behavior: 'smooth', block: 'center',behavior: 'smooth' });
+}
 

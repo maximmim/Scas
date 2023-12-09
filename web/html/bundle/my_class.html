@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>d</title>
+    <title>class</title>
     <link rel="stylesheet" href="/web/css/style.css">
     <script>
 
 async function render() {
+
+
       return await fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Class')
         .then((response) => response.json())
         .then((res) => {
-   
-          const htmlMarkup = res.map((item) => {
+            const ga = res.find(j => j.class== localStorage.class)
+
+            const y = ga.users;
+            const g = y.map(h=>{
             return `
+            
 
-            <div id="db">
-                <h1 id="b">${item.class}</h1>
-                <p id="b1">${item.za} порцій ${item.eat1}</p>
-                <p id="b2">${item.nine} порцій ${item.eat2}</p>
-                <p id="b3">Всього порцій: ${item.za + item.nine}</p>
+            <div id="user">
+                
+<div style="border-color:${h.color}" id="avatars">
+    <h2 id="name">${h.name}</h2> 
+
+    </div>
+
+
+
             </div>
+       
+          
+          
+          `;
+   
 
-        `;
-          }).join('');
-    
-          document.getElementById('content').innerHTML = htmlMarkup;
+
+}).join('');
+          document.getElementById('content').innerHTML = g;
+        
+        
+        
         });
     }
     

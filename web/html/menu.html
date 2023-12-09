@@ -8,6 +8,7 @@
     <title>Меню</title>
     <link rel="stylesheet" href="../css/style.css">
     <!-- Google tag (gtag.js) -->
+ <meta name="reader" content="noindex">
 
     
     <style>   
@@ -31,8 +32,7 @@
     </script>
     <script type="module" src="/service-worker.js"></script> 
 
-    <meta name="reader" content="noindex">
-
+   
     
 
 
@@ -42,7 +42,7 @@
 
 <div id="Head">
   <img onclick="gf()" src="../img/select.png" id="select">
-  <div id="avatar">-</div>
+  <div onclick="h4()" id="avatar">-</div>
   <h1 id="Head-zagolovok">Scas</h1>
   
 </div>
@@ -55,6 +55,7 @@
   <h1 id="H-2" onclick="h2()" class="Head-red">Здорове харчування🥗</h1>
   <h1 id="H-3" onclick="h3()" class="Head-red">Буфет🥖</h1>
   <h1 id="H-4" onclick="h4()" class="Head-red">Налаштування⚙️</h1>
+  <h1 id="H-5" onclick="h5()" class="Head-red">Мій клас🏫</h1>
   
   </div>
   
@@ -73,25 +74,32 @@
 <div id="v">___</div>
 <div id="gd"></div>
 
-<div id="if1s"> <iframe src="./index.html" id="if1"></iframe> <h1 id="id1">Голосування за їжу</h1></div>
+<div id="if1s"> <iframe src="./bundle/index.html" id="if1"></iframe> <h1 id="id1">Голосування за їжу</h1></div>
 
 
 
-<div id="if2"><h1 id="id2">Стаття здорове харчування</h1><iframe src="./stat.html" id="if2s" ></iframe></div>
+<div id="if2"><h1 id="id2">Стаття здорове харчування</h1><iframe src="./bundle/stat.html" id="if2s" ></iframe></div>
 
-<div id="if3s"><h1 id="id3">Онлайн меню буфету</h1>  <iframe src="./bufet.html" id="if3" ></iframe></div>
+<div id="if3s"><h1 id="id3">Онлайн меню буфету</h1>  <iframe src="./bundle/bufet.html" id="if3" ></iframe></div>
 
-<div id="if4s"><h1 id="id4">Налаштування</h1><iframe src="./settings.html" id="if4"></iframe>
-
-
+<div id="if4s"><h1 id="id4">Налаштування</h1><iframe src="./bundle/settings.html" id="if4"></iframe>
 
   <h2 id="versions">Розробка наукового ліцею №3</h2>
   <h2 id="version">1.1.5v</h2>
-  <button onclick="localStorage.clear();document.location.reload()" id="exti_butt">Вийти з класу</button>
 </div>
+
+<div id="if5s"><h1 id="id5">Мій клас</h1><iframe src="./bundle/my_class.html" id="if5"></iframe>
+
+  
+ <button onclick="localStorage.clear();document.location.reload()" id="exti_butt">Вийти з класу</button>
 
 
 </div>
+
+</div>
+
+
+
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G7V8928WS1"></script>
 <script>

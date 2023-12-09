@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d</title>
+    <link rel="stylesheet" href="/web/css/style.css">
+
+    
+</head>
+<body>
+    <h2 id="color-edit">Вибрати колір аватару:</h2>
+    <input onchange="updateprof()" id="colors" type="color" >
+
+    <script>
+
+
+window.addEventListener('load', ()=>{
+
+    updateprof()
+  
+
+})
+
+    async function get(url) {                                              
+  try {                                              
+    const response = await fetch(url);                                               
+    if (!response.ok) {                                              
+    console.log(response.status)       
+    throw new Error(response.status)                                       
+    }                                              
+    const data = await response.json();                                              
+    return data;                                               
+  } catch (error) {                                              
+    console.error(error);                                               
+    throw new Error(error);                                               
+  }                                              
+ }   
+ const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
+
+
+ async function updateData(upd) {
+  
+  const response = await fetch(`${apiUrl}/${upd.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(upd),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.status);
+  }
+
+
+}
+
+
+
+function updateprof() {
+get(apiUrl).then(clas => {
+
+
+  let f = clas.find(a=> a.class == localStorage.class)
+  if (f) {
+    let w = f.users
+    
+    let y = w.find(s => s.name == localStorage.nick)
+
+    y.color = localStorage.color
+
+    f.users = w;
+    updateData(f)
+      }
+else {
+  alert("Вас не знайдено у базі даних... як ти сюди потрапив ?...")
+}
+
+})
+}
+
+if (!localStorage.color) {
+  document.getElementById("colors").value = '#C2C2C2'
+}
+else {
+    document.getElementById("colors").value = localStorage.color
+}    
+      setInterval(() => {
+        w()
+      }, 1);
+        function w() {
+          localStorage.color = document.getElementById("colors").value;  
+        }
+
+        </script>
+</body>
+</html>

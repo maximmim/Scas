@@ -10,11 +10,50 @@
     <script>
 
     </script>
-    
+        <style>
+          #loader {
+              display: none;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 100vh;
+              background-color: #f1f1f1;
+              z-index: 5;
+          }
+  
+          .loader-icon {
+              width: 100px;
+              height: 100px;
+              border-radius: 50%;
+              border: 8px solid #3498db;
+              border-top: 8px solid #f1f1f1;
+              animation: spin 1.5s linear infinite;
+              z-index: 5;
+          }
+  
+          @keyframes spin {
+              0% {
+                  transform: rotate(0deg);
+              }
+              100% {
+                  transform: rotate(360deg);
+              }
+          }
+      </style>
+
+
 </head>
 <body>
     
+  <div id="loader">
+    <div class="loader-icon"></div>
+</div>
+
+
 <div id="registration">
+
+
+
     <input id="reg-inp" placeholder="Ведіть код класу:"> 
   <img src="../img/fon.avif" id="fone">
     <input id="reg-inp-name" placeholder="Ведіть ваше ім'я:"> 
@@ -81,14 +120,21 @@ get(apiUrl).then(async data=>{
 
 
   if (n) {
+    document.getElementById('loader').style.display = 'flex'
+
+
+
     document.getElementById("reg-butt").style.display = "none"
     localStorage.class = n.class;
     localStorage.nick = document.getElementById("reg-inp-name").value ;
 
 
+
 console.log(n)
   
   n.users.push({"name":localStorage.nick})
+
+  
   await updateData(n);
   
 
@@ -105,8 +151,9 @@ console.log(n)
     }
     return response.text();
   });
+  
 
-  alert("Ви зарегестровані :)")
+
   document.location.replace("./menu.html")
 
   }

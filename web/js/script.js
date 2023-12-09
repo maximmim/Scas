@@ -129,7 +129,7 @@ async function get(url) {
 
 
 
- window.addEventListener('load', (df) => {
+ window.addEventListener('load', () => {
 
 
 

@@ -79,7 +79,7 @@ color: rgba(255, 255, 255, 0.5);
     left: 50%;
     transform: translate(-50%);
     font-size: 20px;
-    width: 85%;
+    width: 90%;
     height: 50px;
     border-radius: 15px;
     background-color: white;
@@ -93,6 +93,7 @@ color: rgba(255, 255, 255, 0.5);
     width: 100%;
     height: 100%;
     object-fit: cover; 
+    z-index: 1;
 }
 
 #reg-inp {
@@ -135,7 +136,7 @@ color: rgba(255, 255, 255, 0.5);
     transform: translate(-50%,-45%);
     border: 2px solid rgb(0, 0, 0);
     border-radius: 20px;
-    z-index: 1;
+    z-index: 2;
 }
 
 #avatar {
@@ -148,11 +149,40 @@ color: rgba(255, 255, 255, 0.5);
     border-radius: 50px;
     text-align: center;
     font-size: 30px;
-    background-color: rgb(212, 212, 212);
+
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px solid rgb(0, 0, 0);
+
+
+}
+
+#user {
+    position: relative;
+    
+    margin: 15px;
+}
+
+#name {
+    position: relative;
+}
+
+
+#avatars {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 30px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 6px solid rgb(0, 0, 0);
 
 
 }
@@ -167,20 +197,24 @@ white-space: nowrap;
 }
 
 #H-1 {
-    top: 30%;
+    top: 20%;
 }
 #H-2 {
-    top: 40%;
+    top: 30%;
 }
 #H-3 {
-    top: 50%;
+    top: 40%;
 }
 #H-4 {
+    top: 50%;
+}
+#H-5 {
     top: 60%;
 }
 
 
 #strelka {
+
     position: fixed;
     left: -45%;
     bottom: 10px;
@@ -233,7 +267,7 @@ white-space: nowrap;
 #v{
     
     position: absolute;
-top: 799%;
+top: 1000%;
     left:50%;
     transform: translate(-50%);
     width: 70%;
@@ -246,7 +280,7 @@ top: 799%;
  #version {
     
     position: absolute;
-bottom: 15%;
+bottom: 0%;
     left:50%;
     transform: translate(-50%);
     width: 70%;
@@ -257,7 +291,7 @@ bottom: 15%;
  #versions {
     
     position: absolute;
-bottom: 25%;
+bottom: 15%;
     left:50%;
     transform: translate(-50%);
     width: 90%;
@@ -317,6 +351,18 @@ bottom: 25%;
     
     white-space: nowrap;
 }
+
+
+#id5 {
+    position:absolute;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%);
+    
+    white-space: nowrap;
+}
+
+
 #settings {
 
     position: fixed;
@@ -443,6 +489,39 @@ width: 100%;
 z-index: -1;
 
 }
+
+
+
+#if5 {
+    width: 100%;
+    height:70%;
+    border: none;
+    transition: transform 0.5s ease;
+
+    }    
+
+
+
+#if5s {
+
+    position: absolute;
+    top: 450%;
+    left: 50%;
+    transform: translate(-50%);
+
+    width: 90%;
+    height:70%;
+    bottom: 20%;
+    border: 4px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+
+z-index: -1;
+
+}
+
 
 
 #r{
