@@ -6,6 +6,26 @@ const expressIP = require('express-ip');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
+const bodyParser = require('body-parser');
+
+const { MongoClient, ObjectId } = require('mongodb');
+
+
+
+const uri = "mongodb+srv://fwa:lozamaxim123@ida.qgq6c9a.mongodb.net/?retryWrites=true&w=majority";
+
+
+
+const dbName = 'wd'; 
+const collectionName = 'ad';
+
+
+
+app.use(bodyParser.json());
+
+
+
+
 
 
 const path = require('path');
@@ -18,8 +38,7 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 
-
-const DataTime = 5;
+const DataTime = 1  ;
 app.set("port", PORT);
 
 // ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
@@ -43,7 +62,29 @@ let ips = [];
 
 app.use(express.json());
 
-const url = "https://644ab0e4a8370fb32155be44.mockapi.io/Class";
+
+async function getAllData() {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+
+
+    const result = await collection.find({}).toArray();
+
+
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error; 
+  } finally {
+    await client.close();
+  }
+}
+
 
 app.use("/web", express.static(__dirname + "/web"));
 
@@ -60,6 +101,77 @@ app.get("/p", (req, res) => {
   });
 });
 
+app.get('/get_db', async (req, res) => {
+  try {
+    const data = await getAllData();
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error });
+  }
+});
+
+app.post('/New', async (req, res) => {
+  console.log(123123)
+  await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
+});
+
+
+app.put('/put_db/:id', async (req, res) => {
+  const id = req.params.id;
+  let updatedData = req.body;
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+    if (updatedData._id) {
+          delete updatedData._id;
+    }
+
+
+    await collection.updateOne({ _id: new ObjectId(id) }, { $set: updatedData });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error});
+  } finally {
+    await client.close();
+  }
+});
+
+
+
+app.post('/push_db', async (req, res) => {
+  try {
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName); 
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+
+    const result = await collection.insertOne(req.body);
+    res.status(200).json({ message: 'Дані успішно збережено в MongoDB', insertedId: result.insertedId });
+    }
+    catch (error) {
+    console.error('Помилка при збереженні даних в MongoDB:', error);
+    res.status(500).json({ message: 'Виникла помилка при збереженні даних' });
+    }
+    finally {
+    client.close();
+  }
+});
+
+
+async function push_db(data) {
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName); 
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    await collection.insertOne(data);
+}
+
+
 app.get("/state", (req, res) => {
   res.json(private)
 });
@@ -71,9 +183,8 @@ app.post('/addValue', async (req, res) => {
   ips.push(req.body.value);
   await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
 });
-app.post('/newuser', async (req, res) => {
-  await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
-});
+
+
 app.get("*", (req, res) => {
   const filePath = req.url.substr(1);
 
@@ -97,10 +208,10 @@ let d = false
 setInterval(() => {
 const tr = new Date();
 
-  if (!d && tr.getHours()==8 && tr.getMinutes()==0) {
+  if (!d && tr.getHours()==6 && tr.getMinutes()==0) {
     d = true
   console.log('Повідомлення вчителям відправлено ')
-  get(url).then(async users=>{
+  getAllData().then(async users=>{
     users.map(async s=>{
     await bot.sendMessage(s.tg, `👩‍🏫 Дорогі вчителі, нагадую вам про голосування за обід у шкільній столовій! 🍽️`);
  setTimeout(()=>{
@@ -157,8 +268,8 @@ const butthons =
 [
   'Створити Вибір їжі🥗',
   'Дізнатись мій class id🆔',
-  'Показати учнів у моєму класі👨🏼‍🏫'
-
+  'Показати учнів у моєму класі👨🏼‍🏫',
+  'Ручне керування🔧'
 ]
 
 
@@ -166,51 +277,54 @@ const butthons =
 const butthonss = [
   [butthons[0]],
   [butthons[1]],
-  [butthons[2]]
+  [butthons[2]],
+  [butthons[3]]
 
   
 ];
-
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
 
   if (data === 'Підтвердити') {
     if (gig) {
-      const f =gen()
+      const f = gen();
       bot.sendMessage(chatId, `Ви обрали клас: ${gig}`);
-      createData({
-        "class": gig,
-        "eat1": "",
-        "eat2": "",
-        "za": 0,
-        "nine": 0,
-        "tg":chatId,
-        "classid":f,
-        "users":[]
-      });
+      
+
+
+              
+        await createData({
+          "class": gig,
+          "eat1": "",
+          "eat2": "",
+          "za": 0,
+          "nine": 0,
+          "tg": chatId,
+          "classid": f,
+          "users": []
+        });
+      
+
       await bot.sendMessage(chatId, `Ваш class id:`);
       await bot.sendMessage(chatId, f);
-
-
 
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
           keyboard: butthonss,
-          resize_keyboard: true, 
+          resize_keyboard: true,
         }
       });
-      
     } else {
-      await bot.sendMessage(chatId, 'Спочтку оберіть клас');
+      await bot.sendMessage(chatId, 'Спочатку оберіть клас');
     }
   } else {
     gig = data;
     const confirmKeyboard = sc();
     await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
-    
   }
 });
+
 
 async function get(url) {                                              
   try {                                              
@@ -237,6 +351,26 @@ const commands = [
   }
 ]
 
+async function getUserClass(tgId) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+
+    const result = await collection.findOne({ tg: tgId });
+
+    return result;
+  } catch (error) {
+    console.error('Помилка при отриманні класу з MongoDB:', error);
+    throw error;
+  } finally {
+    await client.close();
+  }
+}
+
 let sm = [];
 bot.on('text', async (nextMsg) => {
   try {
@@ -245,20 +379,19 @@ bot.on('text', async (nextMsg) => {
     let e = true; 
 
     if (nextMsg.text.startsWith('/start')) {
-      get(url).then(async (data)=>{
-        var h = data.find(da=>da.tg===nextMsg.from.id)
+      const data = await getAllData();
 
-        if (!h) {
-      const classKeyboard = c();
-      await bot.sendMessage(chatId, 'Виберіть клас, яким ви керуєте:', classKeyboard)
-        }
-        else {
-          await bot.sendMessage(chatId, 'Ви вже зарегестровані')
-        }
-      })
+      var existingUser = data.find(da => da.tg === nextMsg.from.id);
 
+      if (!existingUser) {
+        const classKeyboard = c();
+        await bot.sendMessage(chatId, 'Виберіть клас, яким ви керуєте:', classKeyboard);
+      } else {
+        await bot.sendMessage(chatId, 'Ви вже зареєстровані');
+      }
+      
       await bot.setMyCommands(commands);
-    }     else if (nextMsg.text == "/menu") {        
+    } else if (nextMsg.text == "/menu") {        
       await bot.setMyCommands(commands);
       await bot.sendMessage(chatId, `Меню бота`, {
         reply_markup: {
@@ -266,44 +399,50 @@ bot.on('text', async (nextMsg) => {
           resize_keyboard: true, 
         }
       });
-      }
-      else if (nextMsg.text == "Дізнатись мій class id🆔") {
-        get(url).then(async clas => {
-          const n = clas.find(g=>nextMsg.chat.id==g.tg)
-        
-          if (n) {
-            await bot.sendMessage(nextMsg.chat.id, n.classid);
-          }
-          else {
-            console.log("Помилка 404")
-          }
-        })
-      }
-      
-      else if (nextMsg.text == "Показати учнів у моєму класі👨🏼‍🏫") {
-      
-        
-        get(url).then(async clas => {
-          const n = clas.find(g=>nextMsg.chat.id==g.tg)
-        
-          if (n) {
+    } else if (nextMsg.text == "Дізнатись мій class id🆔") {
+      const userClass = await getUserClass(nextMsg.chat.id);
 
-            n.users.map(async d=>{
-              await bot.sendMessage(nextMsg.chat.id, d.name);
-            })
-            if (n.users.length == 0) {
-              await bot.sendMessage(nextMsg.chat.id, `В даний момент у вас немає учнів😭`);
-            }
-          }
-          else {
-            console.log("Помилка 404")
-          }
-        })
-      
+      if (userClass) {
+        await bot.sendMessage(nextMsg.chat.id, userClass.classid);
+      } else {
+        console.log("Помилка 404");
       }
-       else if (nextMsg.text == "Створити Вибір їжі🥗") {
+    } else if (nextMsg.text == "Показати учнів у моєму класі👨🏼‍🏫") {
+      const userClass = await getUserClass(nextMsg.chat.id);
 
+      if (userClass) {
+        userClass.users.forEach(async (d) => {
+          await bot.sendMessage(nextMsg.chat.id, d.name);
+        });
+
+        if (userClass.users.length == 0) {
+          await bot.sendMessage(nextMsg.chat.id, `В даний момент у вас немає учнів😭`);
+        }
+      } else {
+        console.log("Помилка 404");
+      }
+    }
+    else if (nextMsg.text == butthons[3]) {
+    
+getAllData().then(async (all)=>{
+let z = all.find(h=>h.tg==nextMsg.chat.id)
+
+
+
+})
+
+      let wa = reply_markup = {
+        inline_keyboard: [
+          { text: '5-О', callback_data: '5-О' }
+        ]}
+
+      await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`,wa);
+
+
+    }
+    else if (nextMsg.text == "Створити Вибір їжі🥗") {
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
+
       bot.on('text', async (w) => {
         if (e) {
           sm.push(w.text);
@@ -311,32 +450,36 @@ bot.on('text', async (nextMsg) => {
           if (sm.length >= 2) {
             e = false;
             await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
-  let fd = {
-                  "class": "",
-                  "eat1": sm[0],
-                  "eat2": sm[1],
-                  "za": 0,
-                  "nine": 0,
-                  "tg": nextMsg.chat.id
-                };
-            let g = ""
-            get(url).then((dat) => {
-              let h = dat.find(o => o.tg === nextMsg.chat.id)
-              if (h) {
-                g = h.class;
-                
-                fd.class = g;
 
-                check(fd.class, fd)
-                  .then(() => {
-                    sned(fd);
-                  })
-                  .catch(async error => {
-                    await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
-                    console.log(error);
-                  });
-              }
-            });
+            let fd = {
+              "class": "",
+              "eat1": sm[0],
+              "eat2": sm[1],
+              "za": 0,
+              "nine": 0,
+              "tg": nextMsg.chat.id
+            };
+
+            let g = "";
+            const dat = await getAllData();
+            const userClass = dat.find(o => o.tg === nextMsg.chat.id);
+
+            if (userClass) {
+              g = userClass.class;
+
+              fd.class = g;
+
+       
+              check(fd.class, fd)
+              .then(() => {
+                sned(fd);
+              })
+              .catch(async error => {
+                await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
+                console.log(error);
+              });
+          
+            }
 
             sm = [];
           }
@@ -351,98 +494,111 @@ bot.on('text', async (nextMsg) => {
 
 
 
+
 async function check(tc, dt) {
+
   try {
-    const res = await fetch(url);
+    getAllData().then(async data=>{
 
-    if (res.ok) {
-      const ex = await res.json();
-      const to = ex.find(item => item.class === tc);
+       const to = data.find(item => item.class == tc);
 
-      if (to) {
-        await updateData(to.id, dt);
-      } else {
-        await createData(dt);
-      }
-    } else {
-      console.error(res.status);
-    }
+    if (to) {
+      
+      await updateData(to._id, dt);
+    } 
+  
+  
+  })
   } catch (error) {
-    console.error(error);
-  }
+    console.error('Помилка при перевірці та оновленні/створенні запису в MongoDB:', error);
+  } 
 }
+
 
 bot.on('polling_error', (error) => {
   console.error(error);
 });
 
-async function updateData(itemId, newData) {
-  const response = await fetch(`${url}/${itemId}`, {
-    method: "PUT",
-    body: JSON.stringify(newData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
 
-  if (response.ok) {
-    console.log("Данні оновлені");
-  } else {
-    console.error("Посилка надсилання даних :", response.status);
+async function updateData(itemId, newData) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+  try {
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+
+    await collection.updateOne({ _id: itemId }, { $set: newData });
+
+  } catch (error) {
+    console.error('Помилка при надсиланні даних в MongoDB:', error);
+  } finally {
+    await client.close();
   }
 }
+
+
 
 async function createData(newData) {
-  const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(newData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  if (response.ok) {
-    console.log("Новий обєкт створено");
-  } else {
-    console.error("Помилка при надсиланні даних:  ", response.status);
+  try {
+    await client.connect();
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+
+    const result = await collection.insertOne(newData);
+
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    await client.close();
   }
 }
 
 
-function sned(d) {
+async function sned(d) {
 
-  let g = {
-    class:d.class,
-    state:true
-  }
-  private.push(g)
-  setTimeout(async () => {
+    let g = {
+      class:d.class,
+      state:true
+    }
 
+
+    private.push(g)
+
+
+
+    setTimeout(async () => {
+    ips = [];    
+    const fo = private.find(o => o.class == d.class);
     
-const foundObject = private.find(obj => obj.class === d.class);
-ips = []
-if (foundObject) {
-  foundObject.state = false
-}
-else {
- console.log(1241111111)
-}
-private = []
-get(url).then(async (dd) => {
-  let did = dd.find(obj => obj.class === d.class);
+    if (fo) {
+      fo.state = false
+    }
+    else {
+     console.log(1241111111)
+    }
+    private = []
+    getAllData().then(async (dd) => {
+      let did = dd.find(o => o.class === d.class);
+    
+    
+      await bot.sendMessage(did.tg, `
+      За "${did.eat1}" прогулусували ${did.za}
+      \nза "${did.eat2}" прогулусували ${did.nine}
+      \nусьго порцій: ${did.za+did.nine}`
+      );
+     
+    })
+   }, DataTime * 60 * 1000)
+ 
+ }    
+    
+    
 
 
-  await bot.sendMessage(did.tg, `
-  За "${did.eat1}" прогулусували ${did.za}
-  \nза "${did.eat2}" прогулусували ${did.nine}
-  \nусьго порцій: ${did.za+did.nine}`
-  );
- 
-});
- 
- 
-  }, DataTime * 60 * 1000);
-}
 
 server.listen(PORT, function () {
   console.log("start server on", PORT);

@@ -78,27 +78,52 @@ async function get(url) {
   }                                              
  } 
 
- const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
+
  
 
 
+ async function awd(daw,da) {
+console.log(1231243)
+  await fetch('/New', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body:  JSON.stringify({nick:localStorage.nick , idtg:da})
+})
+ }
 
 
- async function updateData(updatedItem) {
+
+  async function updateData(upd) {
+  console.log('dwahuirfhgafuh')
+  try {
+    const response = await fetch(`/put_db/${upd._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(upd),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+
+    const result =  await response.json();
+      console.log(result);
+
+
   
-  const response = await fetch(`${apiUrl}/${updatedItem.id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updatedItem),
-  });
 
-  if (!response.ok) {
-    throw new Error(response.status);
+
+
+
+
+
+  } catch (error) {
+    console.error(error);
   }
-
-
 }
 
 
@@ -114,48 +139,36 @@ else if (document.getElementById("reg-inp-name").value == '') {
 
 
 else {
-get(apiUrl).then(async data=>{
+get('/get_db').then(async data=>{
 
   let n =  data.find(da=>da.classid==datas)
 
 
-  if (n) {
+  if (n) { 
+    
+    
     document.getElementById('loader').style.display = 'flex'
-
-
+localStorage.nick = document.getElementById("reg-inp-name").value ;
+  n.users.push({"name":localStorage.nick});
 
     document.getElementById("reg-butt").style.display = "none"
     localStorage.class = n.class;
-    localStorage.nick = document.getElementById("reg-inp-name").value ;
+
+ awd(localStorage.nick,n.tg);
+ updateData(n);
+
+      document.location.replace("./menu.html")
 
 
 
-console.log(n)
+
+
+
+
+
   
-  n.users.push({"name":localStorage.nick})
-
   
-  await updateData(n);
   
-
-    fetch('/newuser', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body:  JSON.stringify({nick:localStorage.nick , idtg:n.tg})
-})
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.text();
-  });
-  
-
-
-  document.location.replace("./menu.html")
-
   }
 else {
   alert("Помилка код ведений невірно")

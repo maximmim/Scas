@@ -139,24 +139,52 @@ color: rgba(255, 255, 255, 0.5);
     z-index: 2;
 }
 
+#exep {
+    position: fixed;
+    left: 5%;  
+      top:  50%;
+    transform: translate(0%,-50%);
+    width: 95px;
+    height: 90px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 10px solid rgb(0, 0, 0);
+
+
+}
 #avatar {
     position: fixed;
     right: 5%;  
       top:  50%;
     transform: translate(0%,-50%);
-    width: 45px;
-    height: 45px;
-    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
     text-align: center;
     font-size: 30px;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgb(0, 0, 0);
+    border: 6px solid rgb(0, 0, 0);
 
 
 }
+#s1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 3%;
+    border: 8px solid rgb(0, 0, 0);
+    border-radius: 20px;
+    width: 90%;
+    height: 25%;
+}
+
 
 #user {
     position: relative;
@@ -307,15 +335,15 @@ bottom: 15%;
     left: 0%;
 }
  #colors {
-    width: 60px;
-    height: 35px;
-    right: 10px;
-    top: 5%;
+    width: 30%;
+    height: 65%;
+    right: 3%;
+    top: 50%;
+    transform: translate(-3%,-50%);
     position: absolute;
-    border-radius: 20px;
-    border: none;
+    border-radius: 15px;
 
-
+    border: 2px solid rgb(0, 0, 0);
  }
 
 #id1 {
@@ -345,7 +373,7 @@ bottom: 15%;
 }
 #id4 {
     position:absolute;
-    top: -20%;
+    top: -15%;
     left: 50%;
     transform: translate(-50%);
     
@@ -478,7 +506,7 @@ width: 100%;
     transform: translate(-50%);
 
     width: 90%;
-    height:50%;
+    height:65%;
     bottom: 20%;
     border: 4px;
     border-color: black;
@@ -772,10 +800,10 @@ top: 0px;
     background-color: rgb(0, 153, 255);
 position: absolute;
 width: 95%;
+height: auto;
 left: 50%;
 transform: translate(-50%);
 top: 20px;
-height: 120px;
 text-align: center;
 border-radius: 30px;
 font-size: 37px;
@@ -783,17 +811,25 @@ border: 6px;
 border-style: solid;
 border-color: black;
 
+
+word-wrap: break-word; 
+
+
+
 }
 
 #edi2 {
+height: auto;
+
+
+word-wrap: break-word; 
 
     background-color: rgb(0, 153, 255);
 position: absolute;
 width: 95%;
 left: 50%;
 transform: translate(-50%);
-top: 160px;
-height: 120px;
+top: 40%;
 text-align: center;
 border-radius: 30px;
 font-size: 37px;
@@ -840,7 +876,6 @@ border-color: black;
     left: 50%;
     transform: translate(-50%,-65%);
     font-size: 37px;
-    white-space: nowrap;
     border-radius: 25px;
     font-size: 37px;
     border: 7px;
@@ -848,8 +883,9 @@ border-color: black;
     border-color: black;
     display: none;
     width: 95%;
-    height: 120px;
+    height: auto;
 
+    word-wrap: break-word; 
 }
 #p1,#p2 {
 
@@ -857,7 +893,7 @@ display: none;
 }
 
 .j {
-    background-color: rgb(0, 153, 255);
+    background-color: rgb(25, 221, 18);
     position: absolute;
     text-align: center;
     top: 45%;
@@ -872,6 +908,8 @@ display: none;
     display: none;
     width: 95%;
     height: auto;
+    
+    word-wrap: break-word; 
 
 }
 #p {

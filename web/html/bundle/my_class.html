@@ -10,7 +10,7 @@
 async function render() {
 
 
-      return await fetch('https://644ab0e4a8370fb32155be44.mockapi.io/Class')
+      return await fetch('/get_db')
         .then((response) => response.json())
         .then((res) => {
             const ga = res.find(j => j.class== localStorage.class)

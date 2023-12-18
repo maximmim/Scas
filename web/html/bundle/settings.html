@@ -9,18 +9,17 @@
     
 </head>
 <body>
-    <h2 id="color-edit">Вибрати колір аватару:</h2>
+<div id="s1">
+    <div id="exep">-</div>
     <input onchange="updateprof()" id="colors" type="color" >
-
+</div>
     <script>
+setInterval(()=>{
+document.getElementById("exep").textContent = localStorage.nick[0];
+document.getElementById("exep").style.borderColor = localStorage.color ;
+document.getElementById("colors").style.backgroundColor = localStorage.color ;
 
-
-window.addEventListener('load', ()=>{
-
-    updateprof()
-  
-
-})
+},1)
 
     async function get(url) {                                              
   try {                                              
@@ -36,12 +35,12 @@ window.addEventListener('load', ()=>{
     throw new Error(error);                                               
   }                                              
  }   
- const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
+ const apiUrl = '/get_db';
 
 
  async function updateData(upd) {
   
-  const response = await fetch(`${apiUrl}/${upd.id}`, {
+  const response = await fetch(`/put_db/${upd._id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

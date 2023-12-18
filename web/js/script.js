@@ -1,12 +1,12 @@
 
-
-
-
 let dg = true
 let da = false
-const apiUrl = 'https://644ab0e4a8370fb32155be44.mockapi.io/Class';
+
 let renderExecuted = false;
   let g = false;
+
+
+
 
 function chek() {
 
@@ -39,16 +39,17 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
       const f2 = document.getElementById("edi2");
 
 
+ 
       getips().then((ips) => {
         getip().then((ip) => {
           let b = JSON.parse(ips);
-          const containsAInB = b.includes(ip);
+          const c = b.includes(ip);
 
-          if (containsAInB) {
+          if (c) {
             
-
-
-
+    
+    
+    
             g = true;
             f.style.display = "none";
             f2.style.display = "none";
@@ -56,10 +57,7 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
             document.getElementById('w').style.display = "block";
             document.getElementById("w").style.backgroundColor = "rgb(194, 34, 34)";
             
-            
-
-
-
+          
             document.getElementById("p1").style.display = "none";
             document.getElementById("p2").style.display = "none";
             console.log('hide choice');
@@ -71,9 +69,10 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
         console.error('Произошла ошибка при получении IP:', error);
       });
 
+
       get("/state").then((data) => {
         let state = false;
-        const gd = data.find(obj => obj.class === localStorage.class);
+        const gd = data.find(o => o.class === localStorage.class);
 
         if (gd) {
           if (gd.state == true) {
@@ -142,7 +141,7 @@ setInterval(chek,450)
     let o = data.find(h => h.class === localStorage.class);
 
     if (!o) {
-      get(apiUrl).then((data) => {
+      get('/get_db').then((data) => {
         const n = data.find(f => f.class === localStorage.class);
 
         if (n) {
@@ -181,9 +180,10 @@ setInterval(chek,450)
 });
 
 
+
 async function addip(user) {
   getip().then((data)=>{
-get(apiUrl).then(clas => {
+get('/get_db').then(clas => {
   const n = clas.find(g=>localStorage.class==g.class)
 
   if (n) {
@@ -251,12 +251,9 @@ async function getips() {
 
 
 
-
-
-
 async function updateData(upd) {
-  
-    const response = await fetch(`${apiUrl}/${upd.id}`, {
+  try {
+    const response = await fetch(`/put_db/${upd._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -268,8 +265,15 @@ async function updateData(upd) {
       throw new Error(response.status);
     }
 
-
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
 }
+
+
+
 
 
 async function addza() {
@@ -277,9 +281,10 @@ async function addza() {
   document.getElementById("edi2").style.display = "none";
 
   addip(1);
-  get(apiUrl).then(async (data)=>{
-    const itu = data.find(item => item.class === localStorage.class);    
+  get('/get_db').then(async (data)=>{
+    const itu = data.find(item => item.class == localStorage.class);    
     itu.za += 1;
+
     await updateData(itu);}
       
       )
@@ -291,7 +296,7 @@ async function addnine() {
   document.getElementById("edi1").style.display = "none";
   document.getElementById("edi2").style.display = "none";
   addip(2);
-get(apiUrl).then(async (data)=>{
+get('/get_db').then(async (data)=>{
   const itu = data.find(item => item.class === localStorage.class);    
   itu.nine += 1;
   await updateData(itu);}
@@ -303,7 +308,7 @@ get(apiUrl).then(async (data)=>{
     }
     
     async function render() {
-      return await fetch(apiUrl)
+      return await fetch('/get_db')
         .then((response) => response.json())
         .then((res) => {
 

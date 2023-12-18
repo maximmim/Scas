@@ -61,7 +61,8 @@ function w() {
 }
 
 setInterval(() => {
-document.getElementById("avatar").style.backgroundColor = localStorage.color
+  
+document.getElementById("avatar").style.borderColor = localStorage.color
 }, 1);
 
 
