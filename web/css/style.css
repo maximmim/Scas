@@ -1,6 +1,6 @@
 @import url("./fonts.css");
-body {
- font-family:'Arsenal';
+* {
+    font-family:'Arsenals';
 }
 
 @keyframes move {
@@ -188,7 +188,7 @@ color: rgba(255, 255, 255, 0.5);
 
 #user {
     position: relative;
-    
+    height: auto;
     margin: 15px;
 }
 
@@ -205,7 +205,7 @@ color: rgba(255, 255, 255, 0.5);
     height: 50px;
     border-radius: 15px;
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     background-color: rgb(255, 255, 255);
     display: flex;
     justify-content: center;
@@ -335,15 +335,24 @@ bottom: 15%;
     left: 0%;
 }
  #colors {
-    width: 30%;
-    height: 65%;
-    right: 3%;
-    top: 50%;
-    transform: translate(-3%,-50%);
+    width: 90%;
+    height: 10%;
+left: 50%;
+    top: 15%;
+    transform: translate(-50%,-50%);
     position: absolute;
     border-radius: 15px;
 
     border: 2px solid rgb(0, 0, 0);
+ }
+
+ #colors_d {
+left: 50%;
+    top: 0%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    border-radius: 15px;
+
  }
 
 #id1 {
@@ -357,11 +366,11 @@ bottom: 15%;
 
 #id2 {
     position: absolute;
-    top: -15%;
+    top: -10%;
     left: 50%;
     transform: translate(-50%);
-    
     white-space: nowrap;
+    font-size: 25px;
 }
 #id3 {
     position:absolute;

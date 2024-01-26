@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>d</title>
     <link rel="stylesheet" href="/web/css/style.css">
-
+    <style>
+      * {
+      font-family:'Helvetica';
+  }
+  
+  </style>
     
 </head>
 <body>
-<div id="s1">
-    <div id="exep">-</div>
+  <h1 id="colors_d">Avatar:</h1>
     <input onchange="updateprof()" id="colors" type="color" >
-</div>
+
     <script>
 setInterval(()=>{
-document.getElementById("exep").textContent = localStorage.nick[0];
-document.getElementById("exep").style.borderColor = localStorage.color ;
 document.getElementById("colors").style.backgroundColor = localStorage.color ;
 
 },1)

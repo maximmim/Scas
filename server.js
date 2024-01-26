@@ -11,6 +11,16 @@ const bodyParser = require('body-parser');
 const { MongoClient, ObjectId } = require('mongodb');
 
 
+const { Chart, registerables } = require('chart.js');
+const { createCanvas } = require('canvas');
+
+Chart.register(...registerables);
+
+
+
+
+
+
 
 const uri = "mongodb+srv://fwa:lozamaxim123@ida.qgq6c9a.mongodb.net/?retryWrites=true&w=majority";
 
@@ -38,7 +48,7 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 
-const DataTime = 1  ;
+const DataTime = 0.5;
 app.set("port", PORT);
 
 // ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
@@ -170,6 +180,47 @@ async function push_db(data) {
     await client.connect();
     await collection.insertOne(data);
 }
+async function createBarChart(id) {
+  const canvas = createCanvas(800, 600);
+  const ctx = canvas.getContext('2d');
+  let data = [];
+  let libs = [];
+
+  try {
+      const dd = await getAllData();
+      const did = dd.find(o => o.tg === id);
+      const p = did.stats;
+
+      p.forEach((g) => {
+          data.push(g.r);
+          libs.push(g.i);
+      });
+
+      const chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: libs,
+              datasets: [{
+                  label: 'Їжа',
+                  data: data,
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  x: [{ type: 'category' }],
+                  y: [{ type: 'linear', beginAtZero: true }]
+              }
+          }
+      });
+      const buffer = canvas.toBuffer('image/png');
+      bot.sendPhoto(id, buffer);
+  } catch (error) {
+      console.error("Помилка під час створення діаграми:", error);
+  }
+}
 
 
 app.get("/state", (req, res) => {
@@ -269,22 +320,53 @@ const butthons =
   'Створити Вибір їжі🥗',
   'Дізнатись мій class id🆔',
   'Показати учнів у моєму класі👨🏼‍🏫',
-  'Ручне керування🔧'
+  'Ручне керування🔧',
+  'Статистика класу📈'
 ]
-
 
 
 const butthonss = [
   [butthons[0]],
   [butthons[1]],
   [butthons[2]],
-  [butthons[3]]
+  [butthons[3]],
+  [butthons[4]]
 
   
 ];
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
+  
+  let s = JSON.parse(data);
+  console.log(s.d)
+  if (s.d == 'back') {
+    
+    getAllData().then((clas)=>{    
+      let z = clas.find(h=>h.tg==chatId);
+      if (z.eat1 == s.h) {
+        z.za++
+        console.log(321)
+        check(z.class,z).then(async ()=>await bot.sendMessage(chatId,"Дані завантажені✅"));
+      }
+      else if (z.eat2 == s.h) {
+        z.nine++       
+        console.log(123)
+        check(z.class,z).then(async ()=>await bot.sendMessage(chatId,"Дані завантажені✅"));
+      }
+
+
+    })
+  }
+else {
+
+
+
+  if (data === '') {
+
+  }
+
+  
 
   if (data === 'Підтвердити') {
     if (gig) {
@@ -302,6 +384,7 @@ bot.on('callback_query', async (callbackQuery) => {
           "nine": 0,
           "tg": chatId,
           "classid": f,
+          "stats":[],
           "users": []
         });
       
@@ -323,6 +406,8 @@ bot.on('callback_query', async (callbackQuery) => {
     const confirmKeyboard = sc();
     await bot.sendMessage(chatId, `Ви обрали клас: ${gig}\nПідтвердіть вибір:`, confirmKeyboard);
   }
+
+}
 });
 
 
@@ -428,18 +513,40 @@ getAllData().then(async (all)=>{
 let z = all.find(h=>h.tg==nextMsg.chat.id)
 
 
+      
+function dwa() {
 
-})
+  return {
+    reply_markup: {
+      inline_keyboard: [    
+        [
+      { text: z.eat1, callback_data: JSON.stringify({d:"back",h:z.eat1})},
+      { text: z.eat2, callback_data: JSON.stringify({d:"back",h:z.eat2})}
+        ]
+      ],
+    },
+  };
+}
 
-      let wa = reply_markup = {
-        inline_keyboard: [
-          { text: '5-О', callback_data: '5-О' }
-        ]}
+const d = dwa();
 
-      await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`,wa);
+
+
+
+
+
+      await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`,d);
+
+
+    })
+
 
 
     }
+else if (butthons[4] == nextMsg.text) {
+  createBarChart(nextMsg.from.id)
+}
+
     else if (nextMsg.text == "Створити Вибір їжі🥗") {
       await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
 
@@ -570,6 +677,12 @@ async function sned(d) {
 
 
 
+
+
+
+
+
+
     setTimeout(async () => {
     ips = [];    
     const fo = private.find(o => o.class == d.class);
@@ -580,11 +693,38 @@ async function sned(d) {
     else {
      console.log(1241111111)
     }
-    private = []
+    private = [];
+
     getAllData().then(async (dd) => {
       let did = dd.find(o => o.class === d.class);
     
+      let y = did;
+      let o;
+      let p;
+      
+      
+      const t = y.za + y.nine;
+      
+      if (y.za > y.nine) {
+          o = (y.za / t) * 100;
+          p = y.eat1;
+      } else if (y.za < y.nine) {
+          o = (y.nine / t) * 100;
+          p = y.eat2;
+      } else if (y.za === y.nine) {
+          o = '===';
+          p = '===';
+      }
+      
+      let j = {
+          r: `${o.toFixed(0)}`,
+          i: p
+      };
+      
+      
+      y.stats.push(j)
     
+      check(y.class,y)
       await bot.sendMessage(did.tg, `
       За "${did.eat1}" прогулусували ${did.za}
       \nза "${did.eat2}" прогулусували ${did.nine}
@@ -596,7 +736,8 @@ async function sned(d) {
  
  }    
     
-    
+
+
 
 
 
