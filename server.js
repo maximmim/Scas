@@ -337,11 +337,8 @@ const butthonss = [
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
-  
-  let s = JSON.parse(data);
-  console.log(s.d)
-  if (s.d == 'back') {
-    
+  try {
+    let s = JSON.parse(data);
     getAllData().then((clas)=>{    
       let z = clas.find(h=>h.tg==chatId);
       if (z.eat1 == s.h) {
@@ -358,7 +355,10 @@ bot.on('callback_query', async (callbackQuery) => {
 
     })
   }
-else {
+  
+catch{
+  
+
 
 
 
