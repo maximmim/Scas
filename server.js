@@ -48,7 +48,7 @@ app.get('/service-worker.js', (req, res) => {
 });
 
 
-const DataTime = 0.5;
+const DataTime = 5;
 app.set("port", PORT);
 
 // ОСНОВНИЙ БОТ 2056524233:AAGuWmoiRAAIEGVPGdxXqQYCqeS8rR2gxiI
