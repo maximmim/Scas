@@ -180,6 +180,8 @@ async function push_db(data) {
     await client.connect();
     await collection.insertOne(data);
 }
+
+
 async function createBarChart(id) {
   const canvas = createCanvas(800, 600);
   const ctx = canvas.getContext('2d');
@@ -343,12 +345,10 @@ bot.on('callback_query', async (callbackQuery) => {
       let z = clas.find(h=>h.tg==chatId);
       if (z.eat1 == s.h) {
         z.za++
-        console.log(321)
         check(z.class,z).then(async ()=>await bot.sendMessage(chatId,"Дані завантажені✅"));
       }
       else if (z.eat2 == s.h) {
         z.nine++       
-        console.log(123)
         check(z.class,z).then(async ()=>await bot.sendMessage(chatId,"Дані завантажені✅"));
       }
 
@@ -411,20 +411,6 @@ catch{
 });
 
 
-async function get(url) {                                              
-  try {                                              
-    const response = await fetch(url);                                               
-    if (!response.ok) {                                              
-      throw new Error(response.status);                                              
-    }                                              
-    const data = await response.json();                                              
-    return data;                                               
-  } catch (error) {                                              
-    console.error(error);                                               
-    throw error;                                               
-  }                                              
- } 
-
  
 const commands = [
 
@@ -459,144 +445,151 @@ async function getUserClass(tgId) {
 let sm = [];
 bot.on('text', async (nextMsg) => {
   try {
-    var chatId = nextMsg.from.id;
-    global.msgd = nextMsg;
-    let e = true; 
+      var chatId = nextMsg.from.id;
+      global.msgd = nextMsg;
+      let e = true;
 
-    if (nextMsg.text.startsWith('/start')) {
       const data = await getAllData();
-
       var existingUser = data.find(da => da.tg === nextMsg.from.id);
 
-      if (!existingUser) {
-        const classKeyboard = c();
-        await bot.sendMessage(chatId, 'Виберіть клас, яким ви керуєте:', classKeyboard);
-      } else {
-        await bot.sendMessage(chatId, 'Ви вже зареєстровані');
-      }
-      
-      await bot.setMyCommands(commands);
-    } else if (nextMsg.text == "/menu") {        
-      await bot.setMyCommands(commands);
-      await bot.sendMessage(chatId, `Меню бота`, {
-        reply_markup: {
-          keyboard: butthonss,
-          resize_keyboard: true, 
-        }
-      });
-    } else if (nextMsg.text == "Дізнатись мій class id🆔") {
-      const userClass = await getUserClass(nextMsg.chat.id);
+      switch (nextMsg.text) {
+          case '/start':
+              if (!existingUser) {
+                  const classKeyboard = c();
+                  await bot.sendMessage(chatId, 'Оберіть клас, яким ви керуєте:', classKeyboard);
+              } else {
+                  await bot.sendMessage(chatId, 'Ви вже зареєстровані');
+              }
 
-      if (userClass) {
-        await bot.sendMessage(nextMsg.chat.id, userClass.classid);
-      } else {
-        console.log("Помилка 404");
-      }
-    } else if (nextMsg.text == "Показати учнів у моєму класі👨🏼‍🏫") {
-      const userClass = await getUserClass(nextMsg.chat.id);
+              await bot.setMyCommands(commands);
+              break;
 
-      if (userClass) {
-        userClass.users.forEach(async (d) => {
-          await bot.sendMessage(nextMsg.chat.id, d.name);
-        });
-
-        if (userClass.users.length == 0) {
-          await bot.sendMessage(nextMsg.chat.id, `В даний момент у вас немає учнів😭`);
-        }
-      } else {
-        console.log("Помилка 404");
-      }
-    }
-    else if (nextMsg.text == butthons[3]) {
-    
-getAllData().then(async (all)=>{
-let z = all.find(h=>h.tg==nextMsg.chat.id)
-
-
-      
-function dwa() {
-
-  return {
-    reply_markup: {
-      inline_keyboard: [    
-        [
-      { text: z.eat1, callback_data: JSON.stringify({d:"back",h:z.eat1})},
-      { text: z.eat2, callback_data: JSON.stringify({d:"back",h:z.eat2})}
-        ]
-      ],
-    },
-  };
-}
-
-const d = dwa();
-
-
-
-
-
-
-      await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`,d);
-
-
-    })
-
-
-
-    }
-else if (butthons[4] == nextMsg.text) {
-  createBarChart(nextMsg.from.id)
-}
-
-    else if (nextMsg.text == "Створити Вибір їжі🥗") {
-      await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
-
-      bot.on('text', async (w) => {
-        if (e) {
-          sm.push(w.text);
-
-          if (sm.length >= 2) {
-            e = false;
-            await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
-
-            let fd = {
-              "class": "",
-              "eat1": sm[0],
-              "eat2": sm[1],
-              "za": 0,
-              "nine": 0,
-              "tg": nextMsg.chat.id
-            };
-
-            let g = "";
-            const dat = await getAllData();
-            const userClass = dat.find(o => o.tg === nextMsg.chat.id);
-
-            if (userClass) {
-              g = userClass.class;
-
-              fd.class = g;
-
-       
-              check(fd.class, fd)
-              .then(() => {
-                sned(fd);
-              })
-              .catch(async error => {
-                await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
-                console.log(error);
+          case '/menu':
+              await bot.setMyCommands(commands);
+              await bot.sendMessage(chatId, `Меню бота`, {
+                  reply_markup: {
+                      keyboard: butthonss,
+                      resize_keyboard: true,
+                  }
               });
-          
-            }
+              break;
 
-            sm = [];
-          }
-        }
-      });
-    }
+          case 'Дізнатись мій class id🆔':
+              var userClass = await getUserClass(nextMsg.chat.id);
+              if (userClass) {
+                  await bot.sendMessage(nextMsg.chat.id, userClass.classid);
+              } else {
+                  console.log("Помилка 404")
+              }
+              break;
+
+          case 'Показати учнів у моєму класі👨🏼‍🏫':
+              var userClass = await getUserClass(nextMsg.chat.id);
+              if (userClass) {
+                  userClass.users.forEach(async (d) => {
+                      await bot.sendMessage(nextMsg.chat.id, d.name);
+                  });
+
+                  if (userClass.users.length == 0) {
+                      await bot.sendMessage(nextMsg.chat.id, `В даний момент у вас немає учнів😭`);
+                  }
+              } else {
+                  console.log("Помилка 404");
+              }
+              break;
+
+          case butthons[3]:
+              getAllData().then(async (all) => {
+                  let z = all.find(h => h.tg == nextMsg.chat.id)
+                  
+                  function dwa() {
+                      return {
+                          reply_markup: {
+                              inline_keyboard: [
+                                  [{ text: z.eat1, callback_data: JSON.stringify({ d: "back", h: z.eat1 }) },
+                                  { text: z.eat2, callback_data: JSON.stringify({ d: "back", h: z.eat2 }) }]
+                              ],
+                          },
+                      };
+                  }
+
+                  const d = dwa();
+                  await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`, d);
+              });
+              break;
+
+          case butthons[4]:
+            getAllData().then(async (all) => {
+              let z = all.find(h => h.tg == nextMsg.chat.id)
+             
+              if (z.stats == []) {
+                bot.sendMessage(nextMsg.chat.id,'На даний момент у вас немає статистики')
+              }
+              else  {
+                createBarChart(nextMsg.from.id);
+              }
+              
+               })
+              
+              break;
+
+
+
+ 
+
+
+          case 'Створити Вибір їжі🥗':
+              await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
+              bot.on('text', async (w) => {
+                  if (e) {
+                      sm.push(w.text);
+
+                      if (sm.length >= 2) {
+                          e = false;
+                          await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
+
+                          let fd = {
+                              "class": "",
+                              "eat1": sm[0],
+                              "eat2": sm[1],
+                              "za": 0,
+                              "nine": 0,
+                              "tg": nextMsg.chat.id
+                          };
+
+                          let g = "";
+                          const dat = await getAllData();
+                          const userClass = dat.find(o => o.tg === nextMsg.chat.id);
+
+                          if (userClass) {
+                              g = userClass.class;
+                              fd.class = g;
+
+                              check(fd.class, fd)
+                                  .then(() => {
+                                      sned(fd);
+                                  })
+                                  .catch(async error => {
+                                      await bot.sendMessage(chatId, 'Сталася помилка прошу повідомити організатору');
+                                      console.log(error);
+                                  });
+                          }
+
+                          sm = [];
+                      }
+                  }
+              });
+              break;
+
+          default:
+              // Обработка других сообщений
+              break;
+      }
   } catch (error) {
-    console.log(error);
+      console.log(error);
   }
 });
+
 
 
 
