@@ -100,8 +100,17 @@ app.use("/web", express.static(__dirname + "/web"));
 
 app.use(expressIP().getIpInfoMiddleware);
 app.get("/", (req, res) => {
-  res.redirect("/web/html/menu.html");
+  res.redirect("/home");
 });
+app.use('/home', express.static(path.join(__dirname, 'web/html/menu.html')));
+
+
+app.use('/registration', express.static(path.join(__dirname, 'web/html/registers.html')));
+
+
+app.use('/stats', express.static(path.join(__dirname, 'web/html/ulod.html')));
+
+
 
 app.get("/p", (req, res) => {
   const userIP = req.ipInfo.ip;
@@ -125,6 +134,7 @@ app.post('/New', async (req, res) => {
   console.log(123123)
   await bot.sendMessage(req.body.idtg, `Учень ${req.body.nick} зареєструвався`);
 });
+
 
 
 app.put('/put_db/:id', async (req, res) => {

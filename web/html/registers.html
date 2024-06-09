@@ -1,21 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-    * {
-    font-family:'Helvetica';
-}
-
-</style>
   <link rel="shortcut icon" href="/web/img/photo_2023-11-15_00-47-55.jpg" type="image/jpg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрація акаунта</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/web/css/style.css">
     <script>
 
     </script>
         <style>
+          .fon {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(38, 83, 151);
+    transition: transform 0.5s ease;
+}
+
+
+.Title {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -400%);
+    top: 10%;
+    font-size: 50px;
+    color: rgb(105, 150, 218);
+    transition: transform 1s ease;
+}
+
+.reg_fon {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%,100%);
+    bottom: 0%;
+    width: 100%;
+    height: 55%;
+    border-radius: 35px 35px 0px 0px;
+    background-color: rgb(255 255 255);
+    
+    transition: transform 1s ease;
+}
+
+.reg_fons {
+    
+    transition: transform 3s ease;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 0%;
+    width: 100%;
+    height: 30%;
+    border-radius: 35px 35px 0px 0px;
+    background-color: rgb(255 255 255);
+}
+
+
+
+.inp_up  {
+    position: fixed;
+    left: 50%;
+    top: 70%;
+    transform: translate(-50%);
+    height: 65px;
+    width: 80%;
+    border: 2px;
+    background-color:white;
+    border-style: solid;
+    border-color: black;
+    color:rgb(44 67 177);
+
+    font-size: 20px;
+    border-radius: 20px;
+    font-family: 'intro';
+    transition: transform 0.5s ease;
+
+}
+
+
+.inp_reg  {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%);
+    height: 65px;
+    left: 50%;
+    width: 80%;
+    background-color:rgb(44 67 177);
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    color: white;
+    font-size: 20px;
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+
+}
+
+
+
+
+
+.inp_regs  {
+
+        position: fixed;
+        bottom: 5%;
+        width: 80%;
+        height: 65px;
+        left: 50%;
+        transform: translate(-50%);
+        background-color:rgb(44 67 177);
+        border: 4px;
+        border-style: solid;
+        border-color: black;
+        color: white;
+        font-size: 35px;
+        border-radius: 20px;
+        transition: transform 0.5s ease;
+    
+}
+
+
+
+.inp_password  {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%);
+    width: 75%;
+    height: 45px;
+    border: none;
+    border-bottom: 2px solid #333; /* Цвет и толщина нижней линии */
+    background-color: transparent; /* Прозрачный фон */
+    color: #333; /* Цвет текста */
+    padding: 5px 10px; /* Отступы внутри input */
+    font-size: 16px;
+    outline: none; /* Убираем стандартный контур фокуса */
+ 
+}
+.inp_h1 {
+    position: fixed;
+    top: 5px;
+    left: 10px;
+}
+
+
+.hide {
+    position: absolute;
+    width: 50px;
+    height: 35px;
+    right: 0px;
+    top: 32%;
+}
+
+.inp_login  {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%);
+    width: 75%;
+    height: 45px;
+    font-size: 20px;        
+    
+    border: none;
+    border-bottom: 2px solid #333; /* Цвет и толщина нижней линии */
+    background-color: transparent; /* Прозрачный фон */
+    color: #333; /* Цвет текста */
+    padding: 5px 10px; /* Отступы внутри input */
+    font-size: 16px;
+    outline: none; 
+}
           #loader {
               display: none;
               justify-content: center;
@@ -35,7 +191,30 @@
               animation: spin 1.5s linear infinite;
               z-index: 5;
           }
-  
+
+          * {
+    font-family: 'Roboto';
+}
+#sg1:focus {
+    border-color: rgb(48, 79, 165); 
+    outline: none;
+
+}
+.inp_password:focus {
+    border-color: rgb(48, 79, 165); 
+    outline: none;
+
+}
+.inp_login:focus {
+    border-color: rgb(48, 79, 165); 
+    outline: none;
+
+}
+#sg2:focus {
+    border-color: rgb(48, 79, 165);  
+    outline: none;
+
+}
           @keyframes spin {
               0% {
                   transform: rotate(0deg);
@@ -53,19 +232,22 @@
   <div id="loader">
     <div class="loader-icon"></div>
 </div>
+<div class="fon"><h1 class="Title">Welcome!</h1></div>
 
-
-<div id="registration">
-
-
-
-    <input id="reg-inp" placeholder="Ведіть код класу:"> 
-  <img src="../img/fon.avif" id="fone">
-    <input id="reg-inp-name" placeholder="Ведіть ваше ім'я:"> 
-    <button id="reg-butt" onclick="endreg()">Увійти у клас</button>
-  </div>
-  <img id="fonse" src="../img/fon.jpg">
-
+<div class="reg_fon h">
+    <input 
+        placeholder="Код класа" 
+        type="text" 
+        class="inp_login h" 
+        
+    />
+    <input 
+        placeholder="Ваше ім`я"
+        type="text" 
+        class="inp_password h" 
+    />
+    <button class="inp_reg h" onclick="endreg()">Sing in</button>
+    </div>
     <script>
 
 
@@ -83,9 +265,26 @@ async function get(url) {
   }                                              
  } 
 
+ function fsw() {
+
+setTimeout(() => {
+    document.getElementsByClassName("Title")[0].style.transform = 'translate(-50%,0%)';
+    if (window.innerWidth < 768) {
+       document.getElementsByClassName("reg_fon")[0].style.transform = 'translate(-50%,0%)'; 
+    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+        document.getElementsByClassName("reg_fon")[0].style.transform = 'translate(-50%,-10%)';
+    } 
+ 
+    
+}, 500);
+
+}
+
+
+
 
  
-
+fsw()
 
  async function awd(daw,da) {
 console.log(1231243)
@@ -94,7 +293,7 @@ console.log(1231243)
   headers: {
     'Content-Type': 'application/json',
   },
-  body:  JSON.stringify({nick:localStorage.nick , idtg:da})
+  body:  JSON.stringify({nick:daw , idtg:da})
 })
  }
 
@@ -131,17 +330,22 @@ console.log(1231243)
   }
 }
 
-
+function fe(str) {
+    var doc = new DOMParser().parseFromString(str, 'text/html');
+    return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+}
 function endreg() {
   
-  const datas = document.getElementById("reg-inp").value;
+  const datas = document.getElementsByClassName("inp_login")[0].value;
 if (datas == "") {
   alert("Ви не вели class id")
 }
-else if (document.getElementById("reg-inp-name").value == '') {
+else if (document.getElementsByClassName("inp_password")[0].value == '') {
   alert("Ви не вели ваше ім'я")
 }
-
+else if (fe(document.getElementsByClassName("inp_password")[0].value)) {
+  alert("Ви не можете використовувати html")
+}
 
 else {
 get('/get_db').then(async data=>{
@@ -152,28 +356,23 @@ get('/get_db').then(async data=>{
   if (n) { 
     
     
-    document.getElementById('loader').style.display = 'flex'
-localStorage.nick = document.getElementById("reg-inp-name").value ;
+localStorage.nick = document.getElementsByClassName("inp_password")[0].value ;
   n.users.push({"name":localStorage.nick});
 
-    document.getElementById("reg-butt").style.display = "none"
     localStorage.class = n.class;
 
  awd(localStorage.nick,n.tg);
  updateData(n);
+ document.getElementsByClassName("reg_fon")[0].style.transform = 'translate(-50%,200%)'
+ document.getElementsByClassName("Title")[0].style.transform = 'translate(-50%,650%)';
+                    setTimeout(() => {
+                        document.getElementsByClassName("Title")[0].style.transform = 'translate(-50%,2000%)';   
 
-      document.location.replace("./menu.html")
-
-
-
-
-
-
-
-
-  
-  
-  
+                    }, 1000);
+                
+                    setTimeout(() => {
+                        window.location.href = "/"
+                    }, 500);  
   }
 else {
   alert("Помилка код ведений невірно")

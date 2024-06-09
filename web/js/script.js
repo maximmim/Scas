@@ -10,27 +10,12 @@ let renderExecuted = false;
 
 function chek() {
 
-  if (localStorage.style == 1) {
-document.getElementById("p1").style.backgroundColor = "rgb(0, 153, 255)";
-document.getElementById("p2").style.backgroundColor = "rgb(0, 153, 255)";
-document.getElementById("w").style.backgroundColor = "rgb(0, 153, 255)";
-document.getElementById("edi1").style.backgroundColor = "rgb(0, 153, 255)";
-document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
+document.getElementById("p1").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
+document.getElementById("p2").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
+document.getElementById("edi1").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
+document.getElementById("edi2").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
 
 
-  }
-  else if (localStorage.style == 2) {
-
-
-    document.getElementById("p1").style.backgroundColor = "rgb(25, 221, 18)";
-    document.getElementById("p2").style.backgroundColor = "rgb(25, 221, 18)";
-    document.getElementById("w").style.backgroundColor = "rgb(25, 221, 18)";
-
-
-  }
-  else if (localStorage.style == 3) {
-    document.getElementById("w").style.backgroundColor = "rgb(194, 34, 34)";
-  }
 
 
 
@@ -53,9 +38,7 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
             g = true;
             f.style.display = "none";
             f2.style.display = "none";
-            localStorage.style = 3;
             document.getElementById('w').style.display = "block";
-            document.getElementById("w").style.backgroundColor = "rgb(194, 34, 34)";
             
           
             document.getElementById("p1").style.display = "none";
@@ -82,7 +65,6 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
             state = false;
             f.style.display = "none";
             f2.style.display = "none";
-            localStorage.style = 2;
           }
         } else {
           state = false;
@@ -90,10 +72,8 @@ document.getElementById("edi2").style.backgroundColor = "rgb(0, 153, 255)";
 
         if (!renderExecuted && state == true && g !== true) {
           render().then(() => {
-            console.log(123)
             f2.style.display = "block";
             f.style.display = "block";
-            localStorage.style = 1;
           }).catch((error) => {
             console.error(error);
           });
@@ -149,20 +129,17 @@ setInterval(chek,450)
             const p1 = document.getElementById("p1");
             if (p1) {
               p1.style.display = "block";
-            localStorage.style = 2;
             }
           } else if (n.nine > n.za) {
             const p2 = document.getElementById("p2");
             if (p2) {
               p2.style.display = "block";
-            localStorage.style = 2;
             }
           } else {
 
     document.getElementById("w").style.display = "block";
     document.getElementById("w").innerHTML = "<p>Порцій однаково</p>";
 
-     localStorage.style = 2;
 
 
 
