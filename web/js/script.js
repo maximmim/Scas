@@ -7,23 +7,20 @@ let renderExecuted = false;
 
 
 
-
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 function chek() {
 
-document.getElementById("p1").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
-document.getElementById("p2").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
-document.getElementById("edi1").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
-document.getElementById("edi2").style.backgroundColor = "rgba(0, 153, 255, 0.144)";
 
-
-
-
+  
+  
 
     if (document.getElementById("edi1") && document.getElementById("edi2")) {
-      const f =  document.getElementById("edi1");
-      const f2 = document.getElementById("edi2");
 
 
+
+      
  
       getips().then((ips) => {
         getip().then((ip) => {
@@ -35,16 +32,19 @@ document.getElementById("edi2").style.backgroundColor = "rgba(0, 153, 255, 0.144
     
     
     
-            g = true;
-            f.style.display = "none";
-            f2.style.display = "none";
+            document.getElementById("edi1").style.display = "none";
+            document.getElementById("edi2").style.display = "none";
             document.getElementById('w').style.display = "block";
             
           
             document.getElementById("p1").style.display = "none";
             document.getElementById("p2").style.display = "none";
-            console.log('hide choice');
+            console.log('Відімкнення голосування');
+            g = true;
+            return 0;
           }
+     
+          
         }).catch((error) => {
           console.error('Произошла ошибка при получении IP:', error);
         });
@@ -58,35 +58,45 @@ document.getElementById("edi2").style.backgroundColor = "rgba(0, 153, 255, 0.144
         const gd = data.find(o => o.class === localStorage.class);
 
         if (gd) {
-          if (gd.state == true) {
+          
+          if (gd.state === true) {
             
             state = true;
-          } else if (gd.state == false) {
+          } else if (gd.state === false) {
             state = false;
-            f.style.display = "none";
-            f2.style.display = "none";
+            document.getElementById("edi1").style.display = "none";
+            document.getElementById("edi2").style.display = "none";
           }
         } else {
           state = false;
         }
 
-        if (!renderExecuted && state == true && g !== true) {
-          render().then(() => {
-            f2.style.display = "block";
-            f.style.display = "block";
+        if (!renderExecuted && state === true && g !== true) {  
+             
+            render().then(() => {
+         
+            if(g!==true) {
+            document.getElementById("edi1").style.display = "block";
+            document.getElementById("edi2").style.display = "block";
+            console.log("Рендер вибора меню")
+          fwa()
+          }
+            
           }).catch((error) => {
             console.error(error);
           });
-          renderExecuted = true;
+          renderExecuted = true; 
+          
+         
         }
+     
 
         if (state === false) {
-          f.style.display = "none";
-          f2.style.display = "none";
+          document.getElementById("edi1").style.display = "none";
+          document.getElementById("edi2").style.display = "none";
         }
       });
     }
-
 
 }
 
@@ -100,22 +110,30 @@ async function get(url) {
     const data = await response.json();                                              
     return data;                                               
   } catch (error) {                                              
-    console.error(error);                                               
-    throw new Error(error);                                               
+    console.error(error);                                            
+    throw new Error(error);                                                  
   }                                              
  } 
 
 
+ function fwa() {
+  setInterval(()=>{
+      
+    addza()
+    console.log(1321312)
+    
+  },700)
+}
+ window.addEventListener('DOMContentLoaded', () => {
 
 
- window.addEventListener('load', () => {
 
 
 
   render().then(()=>{
 chek()
-setInterval(chek,450)
-  
+setInterval(chek,550)
+localStorage.load = true
 
   get("/state").then((data) => {
     let o = data.find(h => h.class === localStorage.class);
@@ -125,6 +143,7 @@ setInterval(chek,450)
         const n = data.find(f => f.class === localStorage.class);
 
         if (n) {
+console.log("Немає голосування показую останій результат")
           if (n.za > n.nine) {
             const p1 = document.getElementById("p1");
             if (p1) {
@@ -142,7 +161,6 @@ setInterval(chek,450)
 
 
 
-
           }
         }
       });
@@ -155,7 +173,6 @@ setInterval(chek,450)
 
 })
 });
-
 
 
 async function addip(user) {
@@ -214,16 +231,16 @@ async function getips() {
 
  async function getip() {
   try {
-    const response = await fetch('/p');
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    const data = await response.json();
-    return data.ip; 
-  } catch (error) {
-    console.error(error);
-    throw error; 
+  let ip;
+  await fetch('https://api.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => ip = data.ip);
+  return ip
   }
+  catch (e) {
+    alert(e)
+  }
+
 }
 
 
@@ -241,9 +258,7 @@ async function updateData(upd) {
     if (!response.ok) {
       throw new Error(response.status);
     }
-
     const result = await response.json();
-    console.log(result);
   } catch (error) {
     console.error(error);
   }
@@ -257,8 +272,8 @@ async function addza() {
   document.getElementById("edi1").style.display = "none";
   document.getElementById("edi2").style.display = "none";
 
-  addip(1);
-  get('/get_db').then(async (data)=>{
+  await addip(1);
+  await get('/get_db').then(async (data)=>{
     const itu = data.find(item => item.class == localStorage.class);    
     itu.za += 1;
 
@@ -272,8 +287,8 @@ async function addza() {
 async function addnine() {
   document.getElementById("edi1").style.display = "none";
   document.getElementById("edi2").style.display = "none";
-  addip(2);
-get('/get_db').then(async (data)=>{
+  await addip(2);
+await get('/get_db').then(async (data)=>{
   const itu = data.find(item => item.class === localStorage.class);    
   itu.nine += 1;
   await updateData(itu);}
@@ -284,6 +299,7 @@ get('/get_db').then(async (data)=>{
 
     }
     
+
     async function render() {
       return await fetch('/get_db')
         .then((response) => response.json())
@@ -313,4 +329,6 @@ get('/get_db').then(async (data)=>{
           document.getElementById('content').innerHTML = htmlMarkup;
         });
     }
+    
+
     

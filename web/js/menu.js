@@ -28,16 +28,16 @@ window.gg = document.getElementById("ws");
 
 if (localStorage.nick) {
   
-document.getElementById("avatar").textContent = localStorage.nick[0]
+//document.getElementById("avatar").textContent = localStorage.nick[0]
 }
 })
 function w() {
-  localStorage.color = document.getElementById("colors").value;  
+ // localStorage.color = document.getElementById("colors").value;  
 }
 
 setInterval(() => {
   
-document.getElementById("avatar").style.borderColor = localStorage.color
+//document.getElementById("avatar").style.borderColor = localStorage.color
 }, 1);
 
 
@@ -58,10 +58,12 @@ hide()
 }
 function show() {
   document.getElementById("Head-full").style.transform = "translate(100%)"
+  document.getElementsByClassName("Head")[0].style = "background-color:var(--bavkground_action)"
   isopen = true
 }
 function hide() {
   document.getElementById("Head-full").style.transform = "translate(-100%)"
+  document.getElementsByClassName("Head")[0].style = "background-color:var(--bavkground)"
   isopen = false
 }
 

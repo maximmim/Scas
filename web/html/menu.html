@@ -20,6 +20,11 @@
 
 <body>
     <script>
+      
+      localStorage.load = false
+      if (!localStorage.load) {
+        localStorage.load = false
+      }
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
@@ -29,6 +34,68 @@
                     console.log('Service Worker registration failed:', error);
                 });
         }
+        
+        const dw = () => {
+  document.getElementsByClassName("Sub_Head")[0].style = 
+  `
+    transform: translate(15px, 15px);
+    left: 0px;
+    top: 0px;
+  `
+  document.getElementById("bady").style = "opacity: 1"
+  document.getElementsByClassName("Head")[0].style = 
+  `
+    background-color: var(--bavkground);
+    animation: none;
+    border: none;
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+  `;
+  setTimeout(() => {
+    document.getElementsByClassName("select")[0].style = "display:block";
+  }, 400);
+
+}
+  
+  const f = () => {
+    
+    document.getElementById("bady").style = "opacity: 0"
+    document.getElementsByClassName("select")[0].style = "display:none";  
+    
+    document.getElementsByClassName("Sub_Head")[0].style = 
+    `
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+    `
+    
+    document.getElementsByClassName("Head")[0].style = 
+    `
+      height: 90px;
+      width: 90px;
+      border: 18px solid var(--bavkground);
+      border-radius: 50%;
+      animation: spin 0.45s infinite ease;
+      background-color: rgba(255, 255, 255, 0);
+      border-left: 18px solid rgb(220 232 255);
+    `;
+  
+  }
+
+  window.addEventListener("DOMContentLoaded",()=>{
+   f();
+  const interval = setInterval(()=>{
+    if (JSON.parse(localStorage.load) === true) {
+      console.log("Дані про харчування завантаженні")
+      setTimeout(()=>{
+        dw();
+      },100)
+      clearInterval(interval)
+    }
+  },1)
+  })
+
     </script>
     <script type="module" src="/service-worker.js"></script> 
 
@@ -36,16 +103,18 @@
     
 
 
+<div class="Sub_Head">
+<div class="Head">
+  <img onclick="gf()" src="/web/img/select.png" class="select">
+</div>
+</div>
 
-
-
-
-<div id="Head">
+<!-- <div id="Head">
   <img onclick="gf()" src="/web/img/select.png" id="select">
   <div onclick="h4()" id="avatar">-</div>
   <h1 onclick="h1()" id="Head-zagolovok">Scas</h1>
   
-</div>
+</div> -->
 
 
 <div id="Head-full"> 

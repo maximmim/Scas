@@ -1,12 +1,27 @@
-@import url("./fonts.css");
-@import url("./fonts/roboto/roboto.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
-    font-family:'Arsenals';
+    font-family:'Roboto';
 }
 
+:root{
+    --borderdat:15px;
+    --color:rgb(27, 81, 162);
+    --color_of_text:white;
+    --bavkground:rgb(38, 83, 151);
+    --full_color:rgba(35, 70, 136, 0.99);
+    --bavkground_action:rgb(58 126 229);
+}
 
-
+@keyframes spin {
+    from {
+       
+        transform:rotate(0deg)  ;
+    }
+    to {
+        transform:rotate(360deg) ;
+    }
+}
 
 @keyframes move {
     0% {
@@ -168,7 +183,7 @@ color: rgba(255, 255, 255, 0.5);
     transform: translate(0%,-50%);
     width: 12%;
     height: 70%;
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: center;
     font-size: 30px;
 
@@ -225,7 +240,7 @@ color: rgba(255, 255, 255, 0.5);
 position: absolute;
 left: 50%;
 transform: translate(-50%);
-color: white;
+color: rgb(255, 255, 255);
 
 white-space: nowrap;
 }
@@ -274,6 +289,48 @@ white-space: nowrap;
     transition: transform 0.5s ease;
 }
 
+#bady {
+    transition: opacity 0.3s ease;
+
+}
+
+.Head {
+    position: fixed;
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+    background-color: var(--bavkground);
+    transition: 
+      background-color 0.5s ease,
+      transform 0.2s ease,
+      left 0.5s ease,
+      top 0.5s ease,
+      border-radius 0.5s ease;
+  }
+.Sub_Head {
+   
+    position: fixed; 
+    transition: 
+      transform 0.2s ease,
+      left 0.5s ease,
+      top 0.5s ease;
+    width: 120px;
+    height: 150px;
+    
+    z-index: 3;
+    
+}
+
+  
+.select {
+    position: relative;
+    left: 50%;
+    top:  50%;
+    transform: translate(-50%,-50%);
+    width:  40px;
+    height: 40px;
+    transition: transform 0.5s ease;
+}
 
 #Head {
 
@@ -283,17 +340,16 @@ white-space: nowrap;
     left: 50%;
     width: 100%;
     height: 8%;
-    background-color:rgb(38, 83, 151);
+    background-color:var(--bavkground);
     transform: translate(-50%)
 }
-
 #Head-full {
     position: fixed;
     top: 0px;
     left:-100%;
-    width: 100%;
+    width: 98.5%;
     height: 100%;
-    background-color:rgba(35, 70, 136, 0.7);
+    background-color:var(--full_color);
     transition: transform 0.5s ease;
 }
 
@@ -798,7 +854,7 @@ top: 0px;
 #edi1 
 {
 
-    background-color: rgba(0, 153, 255, 0.144);
+    background-color: var(--color);
 position: absolute;
 width: 95%;
 height: auto;
@@ -806,31 +862,33 @@ left: 50%;
 transform: translate(-50%);
 top: 20px;
 text-align: center;
-border-radius: 30px;
+border-radius: var(--borderdat);
 font-size: 37px;
 
 word-wrap: break-word; 
+display: none;
 
-
+color: var(--color_of_text);
 
 }
 
 #edi2 {
 height: auto;
 
+color: var(--color_of_text);
 
 word-wrap: break-word; 
 
-    background-color: rgba(0, 153, 255, 0.144);
+    background-color:var(--color);
 position: absolute;
 width: 95%;
 left: 50%;
 transform: translate(-50%);
 top: 40%;
 text-align: center;
-border-radius: 30px;
+border-radius: var(--borderdat);
 font-size: 37px;
-
+display: none;
 
     }
 
@@ -863,20 +921,21 @@ font-size: 37px;
 
 
 #w {
-    background-color: rgba(0, 153, 255, 0.144);
+    background-color: var(--color);
     position: absolute;
     text-align: center;
     top: 45%;
     left: 50%;
     transform: translate(-50%,-65%);
     font-size: 37px;
-    border-radius: 25px;
+    border-radius: var(--borderdat);
     font-size: 37px;
     display: none;
     width: 95%;
     height: auto;
-
+    color: var(--color_of_text);
     word-wrap: break-word; 
+    transition: display 1s ease;
 }
 #p1,#p2 {
 
@@ -884,19 +943,20 @@ display: none;
 }
 
 .j {
-    background-color: rgba(0, 153, 255, 0.144);
+    background-color: var(--color);
     position: absolute;
     text-align: center;
     top: 45%;
     left: 50%;
     transform: translate(-50%,-65%);
     font-size: 37px;
-    border-radius: 25px;
+    border-radius: var(--borderdat);
     font-size: 37px;
     display: none;
     width: 95%;
     height: auto;
     
+    color: var(--color_of_text);
     word-wrap: break-word; 
 
 }

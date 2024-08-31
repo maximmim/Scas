@@ -6,8 +6,6 @@ const expressIP = require('express-ip');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
-const bodyParser = require('body-parser');
-
 const { MongoClient, ObjectId } = require('mongodb');
 
 
@@ -30,8 +28,6 @@ const dbName = 'wd';
 const collectionName = 'ad';
 
 
-
-app.use(bodyParser.json());
 
 
 
@@ -67,14 +63,14 @@ const bot = new TelegramBot(API_KEY_BOT, {
   polling: true 
 });
 
-
+let golosuv = [];
 let ips = [];
 
 app.use(express.json());
 
 
 async function getAllData() {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, {});
 
   try {
     await client.connect();
@@ -112,14 +108,6 @@ app.use('/stats', express.static(path.join(__dirname, 'web/html/ulod.html')));
 
 
 
-app.get("/p", (req, res) => {
-  const userIP = req.ipInfo.ip;
-
-  res.json({
-    "ip": userIP
-  });
-});
-
 app.get('/get_db', async (req, res) => {
   try {
     const data = await getAllData();
@@ -140,7 +128,7 @@ app.post('/New', async (req, res) => {
 app.put('/put_db/:id', async (req, res) => {
   const id = req.params.id;
   let updatedData = req.body;
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, {});
 
   try {
     await client.connect();
@@ -167,7 +155,7 @@ app.post('/push_db', async (req, res) => {
   try {
     const database = client.db(dbName);
     const collection = database.collection(collectionName); 
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri, { });
     await client.connect();
 
     const result = await collection.insertOne(req.body);
@@ -186,7 +174,7 @@ app.post('/push_db', async (req, res) => {
 async function push_db(data) {
     const database = client.db(dbName);
     const collection = database.collection(collectionName); 
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri, { });
     await client.connect();
     await collection.insertOne(data);
 }
@@ -244,7 +232,8 @@ app.get("/getips", (req, res) => {
 app.post('/addValue', async (req, res) => {
   const usercli = req.body.user;
   ips.push(req.body.value);
-  await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
+  console.log(312123)
+  //await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
 });
 
 
@@ -380,7 +369,15 @@ catch{
 
   if (data === 'Підтвердити') {
     if (gig) {
-      const f = gen();
+      getAllData().then( async (clas)=>{
+       let j = clas.find(h=>h.class===gig)
+       if (j) {
+        
+      bot.sendMessage(chatId, `Такий клас вже існує`);
+       }
+       else {
+            
+              const f = gen();
       bot.sendMessage(chatId, `Ви обрали клас: ${gig}`);
       
 
@@ -408,6 +405,11 @@ catch{
           resize_keyboard: true,
         }
       });
+       }
+      })
+      
+
+
     } else {
       await bot.sendMessage(chatId, 'Спочатку оберіть клас');
     }
@@ -433,7 +435,7 @@ const commands = [
 ]
 
 async function getUserClass(tgId) {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, { });
 
   try {
     await client.connect();
@@ -460,11 +462,11 @@ bot.on('text', async (nextMsg) => {
       let e = true;
 
       const data = await getAllData();
-      var existingUser = data.find(da => da.tg === nextMsg.from.id);
+      var user = data.find(da => da.tg === nextMsg.from.id);
 
       switch (nextMsg.text) {
           case '/start':
-              if (!existingUser) {
+              if (!user) {
                   const classKeyboard = c();
                   await bot.sendMessage(chatId, 'Оберіть клас, яким ви керуєте:', classKeyboard);
               } else {
@@ -549,19 +551,56 @@ bot.on('text', async (nextMsg) => {
 
 
           case 'Створити Вибір їжі🥗':
+
+              const class_name = user.class
+              
+              let object = golosuv.includes(class_name)
+
+              if (object) {
+                await bot.sendMessage(nextMsg.chat.id, "Ви вже проводете голосування");
+                console.log("Голосування не можливе")
+                return 0;
+              }
+              else {
+                console.log("Розпочинаємо голосування")
+                golosuv.push(class_name)
               await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
+
               bot.on('text', async (w) => {
                   if (e) {
-                      sm.push(w.text);
+                  
+                      let j = sm.find(o=>user.class===o.class)
+                  
+                      if (class_name !== user.class) {
+                        
+                      }
+                      else {
+                      let obj = {
+                        class:user.class,
+                        data:[]
+                      }
+                      
+                      if (!j) {
+                        sm.push(obj)
+                        
+                       j = sm.find(o=>user.class===o.class)
+                        j.data.push(w.text);
+                      }
+                      else {
 
-                      if (sm.length >= 2) {
+                      
+                      
+                      j.data.push(w.text);
+                      
+                      
+                      if (j.data.length >= 2) {
                           e = false;
                           await bot.sendMessage(chatId, 'Страви збережені відправка на сервер...');
 
                           let fd = {
                               "class": "",
-                              "eat1": sm[0],
-                              "eat2": sm[1],
+                              "eat1": j.data[0],
+                              "eat2": j.data[1],
                               "za": 0,
                               "nine": 0,
                               "tg": nextMsg.chat.id
@@ -585,14 +624,17 @@ bot.on('text', async (nextMsg) => {
                                   });
                           }
 
-                          sm = [];
-                      }
+                          j.data = [];
+                          console.log(sm)
+                      }}
                   }
+                }
               });
+            }
               break;
 
           default:
-              // Обработка других сообщений
+            
               break;
       }
   } catch (error) {
@@ -631,7 +673,7 @@ bot.on('polling_error', (error) => {
 
 
 async function updateData(itemId, newData) {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, { });
 
   try {
     await client.connect();
@@ -650,7 +692,7 @@ async function updateData(itemId, newData) {
 
 
 async function createData(newData) {
-  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(uri, { });
 
   try {
     await client.connect();
@@ -678,7 +720,7 @@ async function sned(d) {
 
     private.push(g)
 
-
+   
 
 
 
@@ -696,7 +738,6 @@ async function sned(d) {
     else {
      console.log(1241111111)
     }
-    private = [];
 
     getAllData().then(async (dd) => {
       let did = dd.find(o => o.class === d.class);
@@ -714,20 +755,24 @@ async function sned(d) {
       } else if (y.za < y.nine) {
           o = (y.nine / t) * 100;
           p = y.eat2;
+          
       } else if (y.za === y.nine) {
-          o = '===';
-          p = '===';
+          o = 0;
+          p = "Немає даних";
       }
-      
       let j = {
-          r: `${o.toFixed(0)}`,
+          r: o.toFixed(0),
           i: p
       };
       
       
       y.stats.push(j)
-    
+
+      golosuv = golosuv.filter((n) => {return n != d.class});
+      console.log(golosuv);
+
       check(y.class,y)
+
       await bot.sendMessage(did.tg, `
       За "${did.eat1}" прогулусували ${did.za}
       \nза "${did.eat2}" прогулусували ${did.nine}
