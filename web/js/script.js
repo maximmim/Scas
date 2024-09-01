@@ -79,7 +79,7 @@ function chek() {
             document.getElementById("edi1").style.display = "block";
             document.getElementById("edi2").style.display = "block";
             console.log("Рендер вибора меню")
-          fwa()
+          
           }
             
           }).catch((error) => {
