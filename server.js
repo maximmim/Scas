@@ -232,8 +232,7 @@ app.get("/getips", (req, res) => {
 app.post('/addValue', async (req, res) => {
   const usercli = req.body.user;
   ips.push(req.body.value);
-  console.log(312123)
-  //await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
+  await bot.sendMessage(req.body.tgid, `Учень ${req.body.nick} проголосував за ${usercli} страву`);
 });
 
 
