@@ -1,7 +1,7 @@
 {
     "name": "Scas",
     "short_name": "Scas",
-    "start_url": "web/html/menu.html",
+    "start_url": "home",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
