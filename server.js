@@ -22,13 +22,19 @@ Chart.register(...registerables);
 
 const uri = "mongodb+srv://fwa:lozamaxim123@ida.qgq6c9a.mongodb.net/?retryWrites=true&w=majority";
 
+const Mode_test = false;
 
+let dbName; 
+let collectionName;
 
-const dbName = 'wd'; 
-const collectionName = 'ad';
-
-
-
+if (Mode_test) {
+   dbName = 'wd'; 
+   collectionName = 'ad';
+}
+else if (!Mode_test) {
+  dbName = 'stolovaya'; 
+  collectionName = 'inform';
+}
 
 
 
@@ -453,6 +459,11 @@ async function getUserClass(tgId) {
   }
 }
 
+
+let golosuv_list = [];
+
+
+
 let sm = [];
 bot.on('text', async (nextMsg) => {
   try {
@@ -523,9 +534,14 @@ bot.on('text', async (nextMsg) => {
                           },
                       };
                   }
-
+                  if (z.eat1 !== "" || z.eat1 !== "") {
                   const d = dwa();
                   await bot.sendMessage(nextMsg.chat.id, `Ручне керування:`, d);
+                  }
+                  else {
+                    await bot.sendMessage(nextMsg.chat.id, `Не можливо керувати в вас немає страв`);
+
+                  }
               });
               break;
 
@@ -550,10 +566,18 @@ bot.on('text', async (nextMsg) => {
 
 
           case 'Створити Вибір їжі🥗':
+               
+            let fdw = golosuv_list.find(o=>user.class===o.class)
+            if (fdw) {
 
-              const class_name = user.class
+            }
+            else {
+              golosuv_list.push({class:user.class})
+              fdw = golosuv_list.find(o=>user.class===o.class)
               
-              let object = golosuv.includes(class_name)
+            }
+
+              let object = golosuv.includes(fdw.class)
 
               if (object) {
                 await bot.sendMessage(nextMsg.chat.id, "Ви вже проводете голосування");
@@ -562,15 +586,15 @@ bot.on('text', async (nextMsg) => {
               }
               else {
                 console.log("Розпочинаємо голосування")
-                golosuv.push(class_name)
+                golosuv.push(fdw.class)
               await bot.sendMessage(nextMsg.chat.id, "Наступні 2 повідомлення будуть стравами");
 
               bot.on('text', async (w) => {
                   if (e) {
                   
                       let j = sm.find(o=>user.class===o.class)
-                  
-                      if (class_name !== user.class) {
+
+                      if (fdw.class !== user.class) {
                         
                       }
                       else {

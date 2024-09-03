@@ -13,15 +13,13 @@
   </style>
     
 </head>
-<body>
+<!-- <body>
   <h1 id="colors_d">Avatar:</h1>
-    <input onchange="updateprof()" id="colors" type="color" >
-
+    <input onchange="updateprof()" id="colors" type="color" > -->
+<h1 class="Head-red" style="color: grey;top: 25% ;" id="H-3">*У розробці🔨*</h1>
     <script>
-setInterval(()=>{
-document.getElementById("colors").style.backgroundColor = localStorage.color ;
 
-},1)
+
 
     async function get(url) {                                              
   try {                                              
@@ -85,15 +83,9 @@ if (!localStorage.color) {
   document.getElementById("colors").value = '#C2C2C2'
 }
 else {
-    document.getElementById("colors").value = localStorage.color
+  //  document.getElementById("colors").value = localStorage.color
 }    
-      setInterval(() => {
-        w()
-      }, 1);
-        function w() {
-          localStorage.color = document.getElementById("colors").value;  
-        }
-
+     
         </script>
 </body>
 </html>

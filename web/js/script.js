@@ -124,22 +124,24 @@ async function get(url) {
     
   },700)
 }
- window.addEventListener('DOMContentLoaded', () => {
+ window.addEventListener('DOMContentLoaded', async () => {
 
+ 
 
-
-
-
-  render().then(()=>{
+ await render().then(async ()=>{
 chek()
 setInterval(chek,550)
 localStorage.load = true
 
-  get("/state").then((data) => {
-    let o = data.find(h => h.class === localStorage.class);
 
+
+
+
+ await get("/state").then(async (data) => {
+    let o = data.find(h => h.class === localStorage.class);
+    
     if (!o) {
-      get('/get_db').then((data) => {
+     await get('/get_db').then((data) => {
         const n = data.find(f => f.class === localStorage.class);
 
         if (n) {
@@ -299,6 +301,7 @@ await get('/get_db').then(async (data)=>{
 
     }
     
+    const relead = ()=>document.location.href ="/"
 
     async function render() {
       return await fetch('/get_db')
@@ -307,7 +310,13 @@ await get('/get_db').then(async (data)=>{
 
        
           const filteredData = res.filter((item) => item.class === localStorage.class);
-
+          if (filteredData.length===0) {
+            alert(`Ваш клас не існує.\nЗверніться до адміністратора:(`)
+            localStorage.class = ''
+            localStorage.nick = ''
+            document.location.href = '/'
+          }
+   
           const htmlMarkup = filteredData.map((item) => {
             return `
             
