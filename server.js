@@ -22,7 +22,7 @@ Chart.register(...registerables);
 
 const uri = "mongodb+srv://fwa:lozamaxim123@ida.qgq6c9a.mongodb.net/?retryWrites=true&w=majority";
 
-const Mode_test = false;
+const Mode_test = true;
 
 let dbName; 
 let collectionName;
@@ -303,9 +303,10 @@ function c() {
         [{ text: '7-Д', callback_data: '7-Д' }, { text: '7-Н', callback_data: '7-Н' }],
         [{ text: '8-А', callback_data: '8-А' }, { text: '8-М', callback_data: '8-М' }],
         [{ text: '8-Л', callback_data: '8-Л' }, { text: '9-С', callback_data: '9-С' }],
-        [{ text: '9-В', callback_data: '9-В' }, { text: '9-А', callback_data: '9-А' }],
+
         [{ text: '10-А', callback_data: '10-А' }, { text: '10-К', callback_data: '10-К' }],
         [{ text: '11-А', callback_data: '11-А' }, { text: '11-М', callback_data: '11-М' }],
+        [ { text: '9-М', callback_data: '9-М' }, { text: '9-А', callback_data: '9-А' }]
       ],
     },
   };
