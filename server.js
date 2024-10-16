@@ -22,7 +22,7 @@ Chart.register(...registerables);
 
 const uri = "mongodb+srv://fwa:lozamaxim123@ida.qgq6c9a.mongodb.net/?retryWrites=true&w=majority";
 
-const Mode_test = true;
+const Mode_test = false;
 
 let dbName; 
 let collectionName;
