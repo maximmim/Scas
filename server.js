@@ -804,7 +804,7 @@ async function sned(d) {
       );
      
     })
-   }, DataTime * 60 * 1000)
+   }, 60 * 60 * 1000)
  
  }    
     

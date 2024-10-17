@@ -321,12 +321,12 @@ await get('/get_db').then(async (data)=>{
             return `
             
             <div id="d">
-            <div id='edi1' onclick="addza()"><p>${item.eat1}</p></div>
-            <div id='edi2' onclick="addnine()"><p>${item.eat2}</p></div>
+            <div id='edi1' onclick="addza()"><p class="gs">${item.eat1}</p></div>
+            <div id='edi2' onclick="addnine()"><p class="gs">${item.eat2}</p></div>
 
 
 
-                <div id="w"><p>Ви вже проголусували</p></div>
+                <div id="w"><p>Ви вже проголосували</p></div>
                 <div class="j" id='p1'><p>${item.eat1}</p></div>
                 <div class="j" id='p2'><p>${item.eat2}</p></div>
 

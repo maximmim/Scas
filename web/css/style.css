@@ -883,16 +883,17 @@ top: 0px;
 #edi1 
 {
 
+    text-align: center;
     background-color: var(--color);
 position: absolute;
 width: 95%;
 height: auto;
 left: 50%;
 transform: translate(-50%);
-top: 20px;
+top: 50px;
 text-align: center;
 border-radius: var(--borderdat);
-font-size: 37px;
+font-size: 30px;
 
 word-wrap: break-word; 
 display: none;
@@ -903,7 +904,7 @@ color: var(--color_of_text);
 
 #edi2 {
 height: auto;
-
+text-align: center;
 color: var(--color_of_text);
 
 word-wrap: break-word; 
@@ -914,12 +915,13 @@ width: 95%;
 left: 50%;
 transform: translate(-50%);
 top: 40%;
-text-align: center;
 border-radius: var(--borderdat);
-font-size: 37px;
+font-size: 30px;
 display: none;
 
     }
+
+
 
 #dw {
     position: fixed;
